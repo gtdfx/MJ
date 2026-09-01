@@ -1,14 +1,19 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search, Warehouse } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search, Warehouse, BarChart3, Tag, Star, BellRing, ClipboardList } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const navItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
+  { to: '/admin/analytics', icon: BarChart3, label: 'Analytics' },
   { to: '/admin/products', icon: Package, label: 'Products' },
   { to: '/admin/orders', icon: ShoppingCart, label: 'Orders' },
   { to: '/admin/inventory', icon: Warehouse, label: 'Inventory' },
   { to: '/admin/customers', icon: Users, label: 'Customers' },
+  { to: '/admin/discounts', icon: Tag, label: 'Discounts' },
+  { to: '/admin/reviews', icon: Star, label: 'Reviews' },
+  { to: '/admin/notifications', icon: BellRing, label: 'Notifications' },
+  { to: '/admin/audit-log', icon: ClipboardList, label: 'Audit Log' },
   { to: '/admin/settings', icon: Settings, label: 'Settings' },
 ];
 

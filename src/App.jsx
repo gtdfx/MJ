@@ -17,6 +17,11 @@ import OrdersPage from './admin/pages/OrdersPage';
 import InventoryPage from './admin/pages/InventoryPage';
 import CustomersPage from './admin/pages/CustomersPage';
 import SettingsPage from './admin/pages/SettingsPage';
+import AnalyticsPage from './admin/pages/AnalyticsPage';
+import DiscountsPage from './admin/pages/DiscountsPage';
+import ReviewsPage from './admin/pages/ReviewsPage';
+import NotificationsPage from './admin/pages/NotificationsPage';
+import AuditLogPage from './admin/pages/AuditLogPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
 
 function App() {
@@ -33,6 +38,11 @@ function App() {
               <Route path="orders" element={<OrdersPage />} />
               <Route path="inventory" element={<InventoryPage />} />
               <Route path="customers" element={<CustomersPage />} />
+              <Route path="analytics" element={<AnalyticsPage />} />
+              <Route path="discounts" element={<DiscountsPage />} />
+              <Route path="reviews" element={<ReviewsPage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
+              <Route path="audit-log" element={<AuditLogPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
 
