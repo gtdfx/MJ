@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@theme {
+  --spacing: 0.25rem;
+  --font-playfair: 'Playfair Display', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-inter: 'Inter', sans-serif;
+  
+  --color-gold: #C9A96E;
+  --color-gold-light: #D4B87C;
+  --color-gold-dark: #B8944F;
+  --color-cream: #FAF7F2;
+  --color-ivory: #F5F0E8;
+  --color-charcoal: #1A1A1A;
+  --color-dark-gray: #2D2D2D;
+  --color-medium-gray: #6B6B6B;
+  --color-light-gray: #E8E4DE;
+  --color-rose-gold: #B76E79;
+  --color-champagne: #F7E7CE;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #FAF7F2;
+  color: #1A1A1A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background-color: #C9A96E;
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF7F2;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C9A96E;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #B8944F;
+}
+
+/* Luxury Button Styles */
+.btn-luxury {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #C9A96E 0%, #D4B87C 100%);
+  color: white;
+  padding: 16px 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.btn-luxury::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-luxury:hover::before {
+  left: 100%;
+}
+
+.btn-luxury:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(201, 169, 110, 0.4);
+}
+
+.btn-outline-luxury {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  color: #C9A96E;
+  padding: 16px 40px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  border: 1px solid #C9A96E;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  white-space: nowrap;
+}
+
+.btn-outline-luxury:hover {
+  background: #C9A96E;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(201, 169, 110, 0.3);
+}
+
+/* Product Card Hover Effects */
+.product-card {
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.08);
+}
+
+.product-card:hover .product-overlay {
+  opacity: 1;
+}
+
+.product-image {
+  transition: transform 0.6s ease;
+}
+
+.product-overlay {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* Elegant Divider */
+.elegant-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.elegant-divider::before,
+.elegant-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A96E, transparent);
+}
+
+/* Luxury Input */
+.luxury-input {
+  background: white;
+  border: 1px solid #E8E4DE;
+  padding: 16px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.luxury-input:focus {
+  outline: none;
+  border-color: #C9A96E;
+  box-shadow: 0 0 0 3px rgba(201, 169, 110, 0.1);
+}
+
+/* Badge */
+.badge-gold {
+  background: linear-gradient(135deg, #C9A96E 0%, #D4B87C 100%);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+}
