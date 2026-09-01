@@ -28,6 +28,7 @@ const Navbar = () => {
   ];
   const rightLinks = [
     { name: 'About', href: '/about' },
+    { name: 'Track Order', href: '/track-order' },
     { name: 'Contact', href: '/contact' },
   ];
 

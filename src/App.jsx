@@ -14,8 +14,10 @@ import AdminLayout from './admin/components/AdminLayout';
 import DashboardPage from './admin/pages/DashboardPage';
 import ProductsPage from './admin/pages/ProductsPage';
 import OrdersPage from './admin/pages/OrdersPage';
+import InventoryPage from './admin/pages/InventoryPage';
 import CustomersPage from './admin/pages/CustomersPage';
 import SettingsPage from './admin/pages/SettingsPage';
+import OrderTrackingPage from './pages/OrderTrackingPage';
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
               <Route index element={<DashboardPage />} />
               <Route path="products" element={<ProductsPage />} />
               <Route path="orders" element={<OrdersPage />} />
+              <Route path="inventory" element={<InventoryPage />} />
               <Route path="customers" element={<CustomersPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
@@ -42,6 +45,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/shop" element={<ShopPage />} />
                     <Route path="/product/:id" element={<ProductDetailPage />} />
+                    <Route path="/track-order" element={<OrderTrackingPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
                   </Routes>

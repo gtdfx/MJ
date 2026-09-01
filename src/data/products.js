@@ -9,7 +9,10 @@ export const products = [
     badge: "Bestseller",
     description: "Exquisite 18K white gold ring featuring a stunning celestial-inspired diamond arrangement.",
     material: "18K White Gold",
-    stone: "Diamond"
+    stone: "Diamond",
+    sku: "MJ-RNG-001",
+    stock: 12,
+    lowStockThreshold: 3,
   },
   {
     id: 2,
@@ -21,7 +24,10 @@ export const products = [
     badge: "New",
     description: "Delicate rose gold necklace adorned with pavé diamonds in an eternal circle design.",
     material: "18K Rose Gold",
-    stone: "Diamond"
+    stone: "Diamond",
+    sku: "MJ-NCK-002",
+    stock: 8,
+    lowStockThreshold: 3,
   },
   {
     id: 3,
@@ -33,7 +39,10 @@ export const products = [
     badge: "Limited",
     description: "Statement earrings featuring rare Ceylon sapphires surrounded by brilliant-cut diamonds.",
     material: "Platinum",
-    stone: "Sapphire"
+    stone: "Sapphire",
+    sku: "MJ-EAR-003",
+    stock: 2,
+    lowStockThreshold: 3,
   },
   {
     id: 4,
@@ -44,7 +53,10 @@ export const products = [
     image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=750&fit=crop",
     description: "Hand-crafted Italian gold bracelet with our signature maison link design.",
     material: "22K Gold",
-    stone: "None"
+    stone: "None",
+    sku: "MJ-BRC-004",
+    stock: 15,
+    lowStockThreshold: 3,
   },
   {
     id: 5,
@@ -56,7 +68,10 @@ export const products = [
     badge: "Exclusive",
     description: "A modern interpretation of classic elegance with black and white diamonds in a noir setting.",
     material: "18K White Gold",
-    stone: "Black Diamond"
+    stone: "Black Diamond",
+    sku: "MJ-NCK-005",
+    stock: 5,
+    lowStockThreshold: 3,
   },
   {
     id: 6,
@@ -67,7 +82,10 @@ export const products = [
     image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600&h=750&fit=crop",
     description: "Lustrous South Sea pearls set in ornate gold frames inspired by Versailles grandeur.",
     material: "18K Gold",
-    stone: "Pearl"
+    stone: "Pearl",
+    sku: "MJ-EAR-006",
+    stock: 10,
+    lowStockThreshold: 3,
   },
   {
     id: 7,
@@ -79,7 +97,10 @@ export const products = [
     badge: "New",
     description: "A breathtaking Colombian emerald embraced by a halo of brilliant diamonds.",
     material: "Platinum",
-    stone: "Emerald"
+    stone: "Emerald",
+    sku: "MJ-RNG-007",
+    stock: 1,
+    lowStockThreshold: 3,
   },
   {
     id: 8,
@@ -91,7 +112,10 @@ export const products = [
     badge: "Bestseller",
     description: "Timeless tennis bracelet with 5 carats of perfectly matched F/VVS diamonds.",
     material: "Platinum",
-    stone: "Diamond"
+    stone: "Diamond",
+    sku: "MJ-BRC-008",
+    stock: 6,
+    lowStockThreshold: 3,
   },
   {
     id: 9,
@@ -102,7 +126,10 @@ export const products = [
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=750&fit=crop&q=80",
     description: "Celestial-inspired crescent moon pendant with diamond-studded star accents.",
     material: "18K White Gold",
-    stone: "Diamond"
+    stone: "Diamond",
+    sku: "MJ-NCK-009",
+    stock: 0,
+    lowStockThreshold: 3,
   }
 ];
 

@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search, Warehouse } from 'lucide-react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ const navItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
   { to: '/admin/products', icon: Package, label: 'Products' },
   { to: '/admin/orders', icon: ShoppingCart, label: 'Orders' },
+  { to: '/admin/inventory', icon: Warehouse, label: 'Inventory' },
   { to: '/admin/customers', icon: Users, label: 'Customers' },
   { to: '/admin/settings', icon: Settings, label: 'Settings' },
 ];
