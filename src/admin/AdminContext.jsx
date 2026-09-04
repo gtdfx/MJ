@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useCallback } from 'react';
 import { products as seedProducts } from '../data/products';
+import { seedReviews } from '../data/reviews';
 
 const AdminContext = createContext();
 
@@ -62,6 +63,7 @@ export function AdminProvider({ children }) {
   const [orders, setOrders] = useState(seedOrders);
   const [customers] = useState(seedCustomers);
   const [inventoryLog, setInventoryLog] = useState([]);
+  const [reviews, setReviews] = useState(seedReviews);
 
   // Product CRUD
   const addProduct = useCallback((product) => {
@@ -116,6 +118,32 @@ export function AdminProvider({ children }) {
     setOrders(prev => prev.map(o => o.id === orderId ? { ...o, notes } : o));
   }, []);
 
+  // Review management
+  const addReview = useCallback((review) => {
+    setReviews(prev => [{ ...review, id: Date.now(), date: new Date().toISOString().split('T')[0], helpful: 0 }, ...prev]);
+  }, []);
+
+  const deleteReview = useCallback((reviewId) => {
+    setReviews(prev => prev.filter(r => r.id !== reviewId));
+  }, []);
+
+  const toggleHelpful = useCallback((reviewId) => {
+    setReviews(prev => prev.map(r => r.id === reviewId ? { ...r, helpful: r.helpful + 1 } : r));
+  }, []);
+
+  const getProductReviews = useCallback((productId) => {
+    return reviews.filter(r => r.productId === productId);
+  }, [reviews]);
+
+  const getReviewStats = useCallback((productId) => {
+    const productReviews = reviews.filter(r => r.productId === productId);
+    const count = productReviews.length;
+    const avg = count > 0 ? productReviews.reduce((sum, r) => sum + r.rating, 0) / count : 0;
+    const distribution = [0, 0, 0, 0, 0];
+    productReviews.forEach(r => { distribution[r.rating - 1]++; });
+    return { count, avg: Math.round(avg * 10) / 10, distribution };
+  }, [reviews]);
+
   // Inventory stats
   const totalStock = products.reduce((sum, p) => sum + (p.stock || 0), 0);
   const lowStockItems = products.filter(p => p.stock <= (p.lowStockThreshold || 3) && p.stock > 0);
@@ -136,6 +164,7 @@ export function AdminProvider({ children }) {
       products, addProduct, updateProduct, deleteProduct,
       orders, updateOrderStatus, updateOrderTracking, updateOrderNotes,
       customers,
+      reviews, addReview, deleteReview, toggleHelpful, getProductReviews, getReviewStats,
       inventoryLog, updateStock,
       stats: { totalRevenue, totalOrders, pendingOrders, processingOrders, shippedOrders, deliveredOrders, avgOrderValue, totalCustomers: customers.length, totalStock, lowStockItems: lowStockItems.length, outOfStockItems: outOfStockItems.length, totalInventoryValue }
     }}>

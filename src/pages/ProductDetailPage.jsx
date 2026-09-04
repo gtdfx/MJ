@@ -4,11 +4,14 @@ import { ArrowLeft, Heart, Truck, Shield, Gift, Star } from 'lucide-react';
 import { useState } from 'react';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
+import { useAdmin } from '../admin/AdminContext';
+import ReviewSection from '../components/ReviewSection';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
+  const { getReviewStats } = useAdmin();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState(null);
 
@@ -92,12 +95,23 @@ export default function ProductDetailPage() {
             </h1>
 
             {/* Rating */}
-            <div className="flex items-center gap-1 mb-4">
-              {[1, 2, 3, 4, 5].map(i => (
-                <Star key={i} size={16} className="text-gold fill-gold" />
-              ))}
-              <span className="text-medium-gray text-sm ml-2">(128 reviews)</span>
-            </div>
+            {(() => {
+              const reviewStats = getReviewStats(product.id);
+              return (
+                <div className="flex items-center gap-1 mb-4">
+                  {[1, 2, 3, 4, 5].map(i => (
+                    <Star
+                      key={i}
+                      size={16}
+                      className={i <= Math.round(reviewStats.avg) ? 'text-gold fill-gold' : 'text-light-gray'}
+                    />
+                  ))}
+                  <span className="text-medium-gray text-sm ml-2">
+                    ({reviewStats.avg > 0 ? reviewStats.avg : '0.0'} · {reviewStats.count} {reviewStats.count === 1 ? 'review' : 'reviews'})
+                  </span>
+                </div>
+              );
+            })()}
 
             <p className="font-cormorant text-3xl md:text-4xl text-charcoal mb-6">
               ${product.price.toLocaleString()}
@@ -186,6 +200,9 @@ export default function ProductDetailPage() {
             </div>
           </motion.div>
         </div>
+
+        {/* Reviews */}
+        <ReviewSection productId={product.id} />
 
         {/* Related Products */}
         {relatedProducts.length > 0 && (
