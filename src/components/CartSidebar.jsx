@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
 const CartSidebar = () => {
@@ -149,9 +150,9 @@ const CartSidebar = () => {
                 <p className="text-xs text-medium-gray mb-4 font-light">
                   Shipping calculated at checkout
                 </p>
-                <button className="btn-luxury w-full mb-3">
+                <Link to="/checkout" onClick={() => setIsOpen(false)} className="btn-luxury w-full mb-3 block text-center">
                   Proceed to Checkout
-                </button>
+                </Link>
                 <button
                   onClick={clearCart}
                   className="w-full text-center text-sm text-medium-gray hover:text-charcoal transition-colors"

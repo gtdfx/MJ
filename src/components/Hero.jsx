@@ -35,7 +35,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative h-screen min-h-[600px] overflow-hidden">
+    <section className="relative h-screen min-h-[700px] overflow-hidden">
       {/* Background Images */}
       {slides.map((slide, index) => (
         <div
@@ -49,7 +49,7 @@ const Hero = () => {
             alt=""
             className="absolute inset-0 w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/45 to-black/70" />
         </div>
       ))}
 
@@ -60,7 +60,7 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative h-full flex items-center">
+      <div className="relative h-full flex items-center pt-28 md:pt-36">
         <div className="max-w-7xl mx-auto px-8 md:px-12 lg:px-16 w-full">
           <div className="max-w-3xl">
             {/* Tagline */}
@@ -81,7 +81,7 @@ const Hero = () => {
                 initial={{ y: 80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-white font-light leading-[0.9]"
+    className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-white font-light leading-[0.85]"
               >
                 {slides[currentSlide].title}
               </motion.h1>
@@ -93,7 +93,7 @@ const Hero = () => {
                 initial={{ y: 80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-                className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-9xl text-gold font-light italic leading-[0.9]"
+className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-gold font-light italic leading-[0.85]"
               >
                 {slides[currentSlide].subtitle}
               </motion.h1>
@@ -151,7 +151,7 @@ const Hero = () => {
           transition={{ duration: 2, repeat: Infinity }}
           className="absolute bottom-8 md:bottom-12 right-6 md:right-12 hidden md:flex flex-col items-center gap-3"
         >
-          <span className="text-white/50 text-xs tracking-[3px] uppercase rotate-90 origin-center translate-y-10">
+          <span className="text-white/50 text-[10px] tracking-[3px] uppercase rotate-90 origin-center translate-y-8 whitespace-nowrap">
             Scroll
           </span>
           <ArrowDown size={20} className="text-gold" />

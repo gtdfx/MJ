@@ -40,7 +40,7 @@ const Navbar = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           navScrolled
             ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-black/5'
-            : 'bg-transparent'
+            : 'bg-black/30 backdrop-blur-sm'
         }`}
       >
         {/* Top Bar - hidden on mobile */}

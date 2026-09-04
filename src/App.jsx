@@ -23,6 +23,7 @@ import ReviewsPage from './admin/pages/ReviewsPage';
 import NotificationsPage from './admin/pages/NotificationsPage';
 import AuditLogPage from './admin/pages/AuditLogPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/shop" element={<ShopPage />} />
                     <Route path="/product/:id" element={<ProductDetailPage />} />
+                    <Route path="/checkout" element={<CheckoutPage />} />
                     <Route path="/track-order" element={<OrderTrackingPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
