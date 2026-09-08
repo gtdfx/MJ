@@ -11,7 +11,7 @@ export const products = [
     soldBy: "gram",
     pricePerUnit: 25,
     availableWeights: [1, 2, 5, 10, 20],
-    image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=600&h=750&fit=crop",
+    image: "/images/opal-rough.jpg?v=2",
     badge: "Bestseller",
     description: "Natural Ethiopian Welo opal in its raw form — untouched by polishing, revealing the stone's true fire. Perfect for collectors, lapidaries, and custom jewelry commissions.",
     origin: "Welo, Ethiopia",
@@ -28,7 +28,7 @@ export const products = [
     soldBy: "carat",
     pricePerUnit: 45,
     availableWeights: [1, 2, 3, 5],
-    image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=600&h=750&fit=crop",
+    image: "/images/opal-crystal.jpg?v=2",
     badge: "Premium",
     description: "Transparent crystal opal with exceptional clarity and a brilliant play of color. The rarest and most prized of Ethiopian opals — each stone is hand-selected and certified.",
     origin: "Welo, Ethiopia",
@@ -45,7 +45,7 @@ export const products = [
     soldBy: "carat",
     pricePerUnit: 35,
     availableWeights: [1, 2, 3, 5],
-    image: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=600&h=750&fit=crop",
+    image: "/images/opal-polished.jpg?v=2",
     badge: "New",
     description: "Cabochon-cut and hand-polished to a mirror finish, revealing every flash of fire. Ready to set into rings, pendants, earrings, or display as a collector's piece.",
     origin: "Welo, Ethiopia",
@@ -62,19 +62,19 @@ export const collections = [
     id: 1,
     name: "Rough Opal",
     description: "Raw Welo opal, sold by the gram",
-    image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800&h=600&fit=crop"
+    image: "/images/opal-rough.jpg?v=2"
   },
   {
     id: 2,
     name: "Crystal Opal",
     description: "Rare transparent fire, sold by the carat",
-    image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=800&h=600&fit=crop"
+    image: "/images/opal-crystal.jpg?v=2"
   },
   {
     id: 3,
     name: "Polished Opal",
     description: "Cabochon finish, ready to set",
-    image: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=800&h=600&fit=crop"
+    image: "/images/opal-polished.jpg?v=2"
   },
 ];
 

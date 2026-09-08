@@ -42,7 +42,7 @@ export default function AboutPage() {
       {/* Hero Banner */}
       <section className="relative h-[60vh] min-h-[400px] overflow-hidden flex items-center">
         <img
-          src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1920&q=80&fit=crop"
+          src="/images/opal-hands.jpg"
           alt="Master Jeweler"
           className="absolute inset-0 w-full h-full object-cover"
         />
@@ -75,7 +75,7 @@ export default function AboutPage() {
             >
               <div className="relative">
                 <img
-                  src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80&fit=crop"
+                  src="/images/gemstones.jpg"
                   alt="Jewelry Craftsmanship"
                   className="w-full aspect-[4/5] object-cover"
                 />

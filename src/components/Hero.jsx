@@ -8,19 +8,19 @@ const Hero = () => {
 
   const slides = [
     {
-      image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1920&q=80&fit=crop",
+      image: "/images/opal-rough.jpg?v=2",
       title: "Ethiopian",
       subtitle: "Opals",
       tagline: "Born of fire & water"
     },
     {
-      image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=1920&q=80&fit=crop",
+      image: "/images/opal-crystal.jpg?v=2",
       title: "Rough &",
       subtitle: "Crystal",
       tagline: "Untouched brilliance"
     },
     {
-      image: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=1920&q=80&fit=crop",
+      image: "/images/opal-polished.jpg?v=2",
       title: "Polished",
       subtitle: "Fire",
       tagline: "Sold by gram & carat"

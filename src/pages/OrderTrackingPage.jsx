@@ -33,7 +33,7 @@ export default function OrderTrackingPage() {
     <div className="bg-cream">
       {/* Hero */}
       <section className="relative h-[35vh] min-h-[280px] overflow-hidden flex items-center">
-        <img src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=1920&q=80&fit=crop" alt="Track Order" className="absolute inset-0 w-full h-full object-cover" />
+        <img src="/images/opal-rough.jpg" alt="Ethiopian opals" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center w-full">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>

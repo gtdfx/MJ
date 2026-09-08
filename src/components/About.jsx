@@ -23,7 +23,7 @@ const About = () => {
           >
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=800&h=1000&fit=crop"
+                src="/images/opal-show.jpg"
                 alt="Master Jeweler"
                 className="w-full aspect-[4/5] object-cover"
                 loading="lazy"

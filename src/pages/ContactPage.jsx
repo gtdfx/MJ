@@ -36,7 +36,7 @@ export default function ContactPage() {
       {/* Hero */}
       <section className="relative h-[40vh] min-h-[300px] overflow-hidden flex items-center">
         <img
-          src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1920&q=80&fit=crop"
+          src="/images/opal-show.jpg"
           alt="Contact Us"
           className="absolute inset-0 w-full h-full object-cover"
         />
