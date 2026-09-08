@@ -24,6 +24,10 @@ import NotificationsPage from './admin/pages/NotificationsPage';
 import AuditLogPage from './admin/pages/AuditLogPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
 import CheckoutPage from './pages/CheckoutPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import CookieConsent from './components/CookieConsent';
 
 function App() {
   return (
@@ -60,10 +64,14 @@ function App() {
                     <Route path="/track-order" element={<OrderTrackingPage />} />
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/privacy" element={<PrivacyPage />} />
+                    <Route path="/terms" element={<TermsPage />} />
+                    <Route path="*" element={<NotFoundPage />} />
                   </Routes>
                 </main>
                 <Footer />
                 <CartSidebar />
+                <CookieConsent />
               </div>
             } />
           </Routes>

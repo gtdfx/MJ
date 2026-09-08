@@ -6,6 +6,7 @@ import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
 import { useAdmin } from '../admin/AdminContext';
 import ReviewSection from '../components/ReviewSection';
+import usePageMeta from '../hooks/usePageMeta';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -16,6 +17,8 @@ export default function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState(null);
 
   const product = products.find(p => p.id === parseInt(id));
+
+  usePageMeta(product ? product.name : 'Product Not Found', product ? `${product.name} — ${product.material}, ${product.stone}. $${product.price.toLocaleString()}.` : null);
 
   if (!product) {
     return (

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
 import { useState } from 'react';
 import Newsletter from '../components/Newsletter';
+import usePageMeta from '../hooks/usePageMeta';
 
 const storeLocations = [
   {
@@ -13,14 +14,30 @@ const storeLocations = [
 ];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  usePageMeta('Contact Us', 'Get in touch with MJ — our concierge team responds within 24 hours. Visit our flagship at 1504-25 Richview Rd, Etobicoke.');
+
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', website: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Honeypot: bots fill this hidden field — silently ignore them
+    if (formData.website) return;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+    if (formData.message.trim().length < 10) {
+      setError('Your message should be at least 10 characters.');
+      return;
+    }
+
+    setError('');
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
-    setFormData({ name: '', email: '', subject: '', message: '' });
+    setFormData({ name: '', email: '', subject: '', message: '', website: '' });
   };
 
   return (
@@ -63,6 +80,21 @@ export default function ContactPage() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot — hidden from humans, filled by bots */}
+                <input
+                  type="text"
+                  value={formData.website}
+                  onChange={e => setFormData({ ...formData, website: e.target.value })}
+                  className="hidden"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                />
+                {error && (
+                  <div className="bg-red-50 border border-red-200 p-4 text-red-700 text-sm">
+                    {error}
+                  </div>
+                )}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <input
                     type="text"

@@ -1,7 +1,29 @@
 import { motion } from 'framer-motion';
-import { Send } from 'lucide-react';
+import { Send, CheckCircle } from 'lucide-react';
+import { useState } from 'react';
 
 const Newsletter = () => {
+  const [email, setEmail] = useState('');
+  const [honeypot, setHoneypot] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Honeypot: bots fill this hidden field — silently ignore them
+    if (honeypot) return;
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    setError('');
+    setSubscribed(true);
+    setEmail('');
+    setTimeout(() => setSubscribed(false), 4000);
+  };
+
   return (
     <section className="py-16 md:py-24 lg:py-32 bg-ivory relative overflow-hidden">
       {/* Decorative Elements */}
@@ -26,18 +48,40 @@ const Newsletter = () => {
             insider access to the world of MJ.
           </p>
 
-          {/* Email Form */}
-          <div className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-lg mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="luxury-input flex-1 min-w-0"
-            />
-            <button className="btn-luxury flex items-center justify-center gap-2 shrink-0">
-              <span>Subscribe</span>
-              <Send size={16} />
-            </button>
-          </div>
+          {subscribed ? (
+            <div className="max-w-lg mx-auto bg-white border border-gold/30 p-6 flex items-center justify-center gap-3">
+              <CheckCircle size={24} className="text-gold shrink-0" />
+              <p className="text-charcoal font-light">Welcome to the MJ inner circle — check your inbox!</p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-lg mx-auto">
+              {/* Honeypot — hidden from humans, filled by bots */}
+              <input
+                type="text"
+                value={honeypot}
+                onChange={e => setHoneypot(e.target.value)}
+                className="hidden"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                className="luxury-input flex-1 min-w-0"
+                aria-label="Email address"
+                required
+              />
+              <button type="submit" className="btn-luxury flex items-center justify-center gap-2 shrink-0">
+                <span>Subscribe</span>
+                <Send size={16} />
+              </button>
+            </form>
+          )}
+
+          {error && <p className="text-red-500 text-xs mt-3">{error}</p>}
 
           <p className="text-medium-gray/60 text-xs mt-4">
             By subscribing, you agree to receive our newsletter. Unsubscribe anytime.

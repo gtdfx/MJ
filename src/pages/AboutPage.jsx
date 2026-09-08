@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Award, Sparkles, Gem, Clock, Heart, Eye } from 'lucide-react';
 import Newsletter from '../components/Newsletter';
+import usePageMeta from '../hooks/usePageMeta';
 
 const values = [
   {
@@ -34,6 +35,8 @@ const timeline = [
 ];
 
 export default function AboutPage() {
+  usePageMeta('About Us', 'The story of MJ — a legacy of extraordinary craftsmanship, ethical sourcing, and timeless design since 1874.');
+
   return (
     <div className="bg-cream">
       {/* Hero Banner */}

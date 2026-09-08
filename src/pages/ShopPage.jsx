@@ -3,8 +3,11 @@ import { motion } from 'framer-motion';
 import { Diamond } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { products, categories } from '../data/products';
+import usePageMeta from '../hooks/usePageMeta';
 
 export default function ShopPage() {
+  usePageMeta('Shop', 'Browse the MJ collection — rings, necklaces, earrings, and bracelets crafted in precious metals and stones.');
+
   const [activeCategory, setActiveCategory] = useState('All');
 
   const filteredProducts = activeCategory === 'All'
