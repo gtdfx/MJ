@@ -1,7 +1,7 @@
-import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search, Warehouse, BarChart3, Tag, Star, BellRing, ClipboardList } from 'lucide-react';
+import { NavLink, Outlet, useLocation, Navigate, Link } from 'react-router-dom';
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search, Warehouse, BarChart3, Tag, Star, BellRing, ClipboardList, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useAdmin } from '../AdminContext';
 
 const navItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
@@ -20,6 +20,12 @@ const navItems = [
 export default function AdminLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
+  const { isAuthenticated, logout } = useAdmin();
+
+  // Guard: redirect to login if not authenticated
+  if (!isAuthenticated) {
+    return <Navigate to="/admin/login" replace />;
+  }
 
   return (
     <div className="flex h-screen bg-gray-50 overflow-hidden">
@@ -57,15 +63,22 @@ export default function AdminLayout() {
           ))}
         </nav>
 
-        {/* Back to Store */}
-        <div className="p-3 border-t border-white/10">
+        {/* Bottom Actions */}
+        <div className="p-3 border-t border-white/10 space-y-1">
           <Link
             to="/"
             className="flex items-center gap-3 px-3 py-3 rounded-lg text-white/50 hover:bg-white/5 hover:text-white transition-all"
           >
-            <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
+            <ExternalLink size={18} strokeWidth={1.5} className="shrink-0" />
             {sidebarOpen && <span className="text-sm">Back to Store</span>}
           </Link>
+          <button
+            onClick={logout}
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-white/50 hover:bg-red-500/10 hover:text-red-400 transition-all"
+          >
+            <LogOut size={18} strokeWidth={1.5} className="shrink-0" />
+            {sidebarOpen && <span className="text-sm">Logout</span>}
+          </button>
         </div>
       </aside>
 

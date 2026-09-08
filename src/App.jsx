@@ -22,6 +22,7 @@ import DiscountsPage from './admin/pages/DiscountsPage';
 import ReviewsPage from './admin/pages/ReviewsPage';
 import NotificationsPage from './admin/pages/NotificationsPage';
 import AuditLogPage from './admin/pages/AuditLogPage';
+import AdminLoginPage from './admin/pages/AdminLoginPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
 import CheckoutPage from './pages/CheckoutPage';
 import PrivacyPage from './pages/PrivacyPage';
@@ -37,6 +38,7 @@ function App() {
           <ScrollToTop />
           <Routes>
             {/* Admin Routes — no store navbar/footer */}
+            <Route path="/admin/login" element={<AdminLoginPage />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<DashboardPage />} />
               <Route path="products" element={<ProductsPage />} />

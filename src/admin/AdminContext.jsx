@@ -64,6 +64,24 @@ export function AdminProvider({ children }) {
   const [customers] = useState(seedCustomers);
   const [inventoryLog, setInventoryLog] = useState([]);
   const [reviews, setReviews] = useState(seedReviews);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return sessionStorage.getItem('mj-admin-auth') === 'true';
+  });
+
+  // Authentication
+  const login = useCallback((email, password) => {
+    if (email.trim().toLowerCase() === 'mesfin@mj.com' && password === 'Mesfin@1080') {
+      sessionStorage.setItem('mj-admin-auth', 'true');
+      setIsAuthenticated(true);
+      return { success: true };
+    }
+    return { success: false, error: 'Invalid email or password. Please try again.' };
+  }, []);
+
+  const logout = useCallback(() => {
+    sessionStorage.removeItem('mj-admin-auth');
+    setIsAuthenticated(false);
+  }, []);
 
   // Product CRUD
   const addProduct = useCallback((product) => {
@@ -161,6 +179,7 @@ export function AdminProvider({ children }) {
 
   return (
     <AdminContext.Provider value={{
+      isAuthenticated, login, logout,
       products, addProduct, updateProduct, deleteProduct,
       orders, updateOrderStatus, updateOrderTracking, updateOrderNotes,
       customers,
