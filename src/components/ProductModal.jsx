@@ -74,13 +74,13 @@ const ProductModal = ({ product, isOpen, onClose }) => {
               {/* Details */}
               <div className="p-8 md:p-12 flex flex-col justify-center">
                 <p className="text-gold text-xs tracking-[3px] uppercase mb-3">
-                  {product.collection} Collection
+                  {product.type || product.collection}
                 </p>
                 <h2 className="font-playfair text-3xl md:text-4xl text-charcoal mb-4">
                   {product.name}
                 </h2>
                 <p className="font-cormorant text-3xl text-charcoal mb-6">
-                  ${product.price.toLocaleString()}
+                  ${product.pricePerUnit || product.price} / {product.soldBy}
                 </p>
 
                 <div className="w-12 h-[1px] bg-gold mb-6" />
@@ -93,11 +93,11 @@ const ProductModal = ({ product, isOpen, onClose }) => {
                 <div className="grid grid-cols-2 gap-4 mb-8">
                   <div className="p-4 bg-cream">
                     <p className="text-xs text-medium-gray uppercase tracking-wider mb-1">Material</p>
-                    <p className="font-cormorant text-lg text-charcoal">{product.material}</p>
+                    <p className="font-cormorant text-lg text-charcoal">{product.origin || 'Welo, Ethiopia'}</p>
                   </div>
                   <div className="p-4 bg-cream">
                     <p className="text-xs text-medium-gray uppercase tracking-wider mb-1">Stone</p>
-                    <p className="font-cormorant text-lg text-charcoal">{product.stone}</p>
+                    <p className="font-cormorant text-lg text-charcoal">{product.grade || 'Certified'}</p>
                   </div>
                 </div>
 

@@ -17,8 +17,8 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-white/50 font-light text-sm leading-relaxed mb-5 md:mb-6">
-              Crafting timeless elegance since 1874. Every piece tells a story
-              of unparalleled artistry and dedication to perfection.
+              Curating the world's finest Ethiopian Welo opals — rough, crystal,
+              and polished. Every stone hand-selected and sold by gram & carat.
             </p>
             <div className="flex gap-3">
               <a href="#" aria-label="Instagram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
@@ -39,7 +39,7 @@ const Footer = () => {
               Shop
             </h4>
             <ul className="space-y-2 md:space-y-3">
-              {['Rings', 'Necklaces', 'Earrings', 'Bracelets'].map((item) => (
+              {['Rough Opal', 'Crystal Opal', 'Polished Opal'].map((item) => (
                 <li key={item}>
                   <Link to="/shop" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
                     {item}
@@ -48,7 +48,7 @@ const Footer = () => {
               ))}
               <li>
                 <Link to="/shop" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
-                  Collections
+                  Sold by Gram & Carat
                 </Link>
               </li>
             </ul>

@@ -73,7 +73,7 @@ export default function AnalyticsPage() {
   orders.forEach(o => {
     o.items.forEach(item => {
       const product = products.find(p => p.id === item.productId);
-      const cat = product?.category || 'Other';
+      const cat = product?.type || product?.category || 'Other';
       categoryRevenue[cat] = (categoryRevenue[cat] || 0) + item.price * item.qty;
     });
   });

@@ -6,25 +6,25 @@ const testimonials = [
   {
     id: 1,
     name: "Victoria Sterling",
-    title: "Collector",
+    title: "Gem Collector",
     image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
-    quote: "The craftsmanship of MJ pieces is unparalleled. Each jewel tells a story of dedication and artistry that transcends generations.",
+    quote: "The fire in these Welo opals is unreal. I bought rough stones by the gram and cut three of the most stunning gems I've ever worked with.",
     rating: 5
   },
   {
     id: 2,
     name: "Alexander Chen",
-    title: "Art Director",
+    title: "Jewelry Designer",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
-    quote: "My wife's anniversary ring from MJ took our breath away. The attention to detail is simply extraordinary.",
+    quote: "Their crystal opals are consistently top-grade. Transparent, fiery, and perfectly cut — my clients ask where I source them every single time.",
     rating: 5
   },
   {
     id: 3,
     name: "Isabella Romano",
-    title: "Fashion Editor",
+    title: "Opal Enthusiast",
     image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
-    quote: "Working with MJ's private concierge service was a truly luxurious experience. They understood my vision perfectly.",
+    quote: "The polished cabochons I ordered were even more beautiful in person — the play of color is hypnotic. Shipped insured and arrived within days.",
     rating: 5
   }
 ];

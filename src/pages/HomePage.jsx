@@ -6,7 +6,7 @@ import Newsletter from '../components/Newsletter';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function HomePage() {
-  usePageMeta(null, 'Discover exquisite handcrafted fine jewelry by MJ. Timeless elegance, exceptional craftsmanship.');
+  usePageMeta(null, 'Hand-selected Ethiopian Welo opals — rough, crystal, and polished. Sold by gram and carat with certified origin.');
 
   return (
     <>

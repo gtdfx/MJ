@@ -16,10 +16,10 @@ const FeaturedCollections = () => {
           className="text-center mb-12 md:mb-20"
         >
           <p className="text-gold text-xs md:text-sm tracking-[3px] md:tracking-[4px] uppercase mb-3 md:mb-4">
-            Curated For You
+            From Our Mines
           </p>
           <h2 className="font-playfair text-3xl md:text-5xl lg:text-6xl text-charcoal mb-4 md:mb-6">
-            Our Collections
+            Choose Your Opal
           </h2>
           <div className="elegant-divider max-w-xs mx-auto">
             <Diamond className="text-gold w-4 h-4" />
@@ -27,7 +27,7 @@ const FeaturedCollections = () => {
         </motion.div>
 
         {/* Collections Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
           {collections.map((collection, index) => (
             <motion.div
               key={collection.id}

@@ -8,22 +8,22 @@ const Hero = () => {
 
   const slides = [
     {
-      image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=1920&q=80&fit=crop",
-      title: "Timeless",
-      subtitle: "Elegance",
-      tagline: "Where artistry meets eternity"
+      image: "https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=1920&q=80&fit=crop",
+      title: "Ethiopian",
+      subtitle: "Opals",
+      tagline: "Born of fire & water"
     },
     {
-      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1920&q=80&fit=crop",
-      title: "Radiant",
-      subtitle: "Brilliance",
-      tagline: "Crafted for the extraordinary"
+      image: "https://images.unsplash.com/photo-1615485290382-441e4d049cb5?w=1920&q=80&fit=crop",
+      title: "Rough &",
+      subtitle: "Crystal",
+      tagline: "Untouched brilliance"
     },
     {
-      image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=1920&q=80&fit=crop",
-      title: "Eternal",
-      subtitle: "Luxury",
-      tagline: "Your story, our creation"
+      image: "https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?w=1920&q=80&fit=crop",
+      title: "Polished",
+      subtitle: "Fire",
+      tagline: "Sold by gram & carat"
     }
   ];
 
@@ -107,8 +107,8 @@ className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-go
               transition={{ duration: 0.8, delay: 0.7 }}
               className="text-white/70 text-base md:text-xl font-light max-w-lg mb-8 md:mb-12 leading-relaxed"
             >
-              Discover our exquisite collection of handcrafted fine jewelry,
-              where each piece tells a story of unparalleled craftsmanship.
+              Discover hand-selected Ethiopian Welo opals — rough, crystal,
+              and polished — each stone a universe of fire, sold by gram and carat.
             </motion.p>
 
             {/* CTA Buttons */}

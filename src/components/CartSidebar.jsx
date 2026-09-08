@@ -71,7 +71,7 @@ const CartSidebar = () => {
                 <div className="space-y-6">
                   {items.map((item) => (
                     <motion.div
-                      key={item.id}
+                      key={item.lineKey}
                       layout
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -92,14 +92,19 @@ const CartSidebar = () => {
                         <div className="flex justify-between items-start mb-2">
                           <div>
                             <p className="text-xs text-gold tracking-wider uppercase">
-                              {item.collection}
+                              {item.type || item.collection}
                             </p>
                             <h3 className="font-playfair text-sm text-charcoal">
                               {item.name}
                             </h3>
+                            {item.weight && (
+                              <p className="text-xs text-medium-gray mt-0.5">
+                                {item.weight} {item.unit === 'gram' ? 'g' : 'ct'}
+                              </p>
+                            )}
                           </div>
                           <button
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item.lineKey)}
                             className="p-1 text-medium-gray hover:text-red-500 transition-colors"
                           >
                             <Trash2 size={14} />
@@ -110,14 +115,14 @@ const CartSidebar = () => {
                           {/* Quantity */}
                           <div className="flex items-center border border-light-gray">
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                              onClick={() => updateQuantity(item.lineKey, item.quantity - 1)}
                               className="p-2 hover:bg-cream transition-colors"
                             >
                               <Minus size={12} />
                             </button>
                             <span className="px-3 text-sm">{item.quantity}</span>
                             <button
-                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                              onClick={() => updateQuantity(item.lineKey, item.quantity + 1)}
                               className="p-2 hover:bg-cream transition-colors"
                             >
                               <Plus size={12} />

@@ -32,7 +32,7 @@ export default function InventoryPage() {
     .sort((a, b) => {
       if (sortBy === 'stock-asc') return a.stock - b.stock;
       if (sortBy === 'stock-desc') return b.stock - a.stock;
-      if (sortBy === 'value') return (b.stock * b.price) - (a.stock * a.price);
+      if (sortBy === 'value') return (b.stock * (b.pricePerUnit || 0)) - (a.stock * (a.pricePerUnit || 0));
       return a.name.localeCompare(b.name);
     });
 
@@ -155,7 +155,7 @@ export default function InventoryPage() {
                         <img src={product.image} alt={product.name} className="w-10 h-10 rounded-lg object-cover" />
                         <div>
                           <p className="text-sm font-medium text-gray-900">{product.name}</p>
-                          <p className="text-xs text-gray-500">{product.collection}</p>
+                          <p className="text-xs text-gray-500">{product.type} · {product.origin || 'Welo, Ethiopia'}</p>
                         </div>
                       </div>
                     </td>
@@ -166,7 +166,7 @@ export default function InventoryPage() {
                       </span>
                     </td>
                     <td className="px-5 py-3 hidden sm:table-cell">{stockBar(product)}</td>
-                    <td className="px-5 py-3 text-sm text-gray-900">${(product.stock * product.price).toLocaleString()}</td>
+                    <td className="px-5 py-3 text-sm text-gray-900">${(product.stock * (product.pricePerUnit || 0)).toLocaleString()}</td>
                     <td className="px-5 py-3">
                       <div className="flex items-center justify-end gap-1">
                         <button onClick={() => { updateStock(product.id, -1, 'Manual adjustment'); }} className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600 transition-colors" title="Decrease stock">

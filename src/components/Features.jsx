@@ -4,33 +4,33 @@ import { Shield, Truck, Gem, RefreshCcw, Award, HeartHandshake } from 'lucide-re
 const features = [
   {
     icon: Gem,
-    title: "Ethically Sourced",
-    description: "Every gemstone is responsibly sourced and certified."
+    title: "Authentic Welo Opal",
+    description: "Sourced directly from Ethiopian mines, certified origin."
+  },
+  {
+    icon: Award,
+    title: "Sold by Gram & Carat",
+    description: "Transparent pricing — you pay exactly for the weight."
   },
   {
     icon: Shield,
-    title: "Lifetime Warranty",
-    description: "Comprehensive lifetime guarantee on all pieces."
+    title: "Certified Quality",
+    description: "Hand-graded AA to museum-grade fire in every stone."
   },
   {
     icon: Truck,
-    title: "Free Shipping",
-    description: "Complimentary insured shipping worldwide."
+    title: "Insured Shipping",
+    description: "Free worldwide shipping with full insurance."
   },
   {
     icon: RefreshCcw,
     title: "Easy Returns",
-    description: "30-day hassle-free returns and exchanges."
-  },
-  {
-    icon: Award,
-    title: "Certified Quality",
-    description: "GIA certified diamonds and hallmarked metals."
+    description: "30-day returns on all unset stones."
   },
   {
     icon: HeartHandshake,
     title: "Personal Concierge",
-    description: "Dedicated jewelry consultants for you."
+    description: "Lapidary advice for collectors and jewelers."
   }
 ];
 

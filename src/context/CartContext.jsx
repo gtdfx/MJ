@@ -14,33 +14,43 @@ export const CartProvider = ({ children }) => {
   const [items, setItems] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
 
-  const addToCart = useCallback((product) => {
+  // Options: { weight, unit, price } for weight-sold products (gram/carat).
+  // Falls back to product.price for fixed-price items (e.g. future jewelry).
+  const addToCart = useCallback((product, options = {}) => {
     setItems(currentItems => {
-      const existingItem = currentItems.find(item => item.id === product.id);
+      const lineKey = options.weight ? `${product.id}-${options.weight}${options.unit}` : `${product.id}`;
+      const existingItem = currentItems.find(item => item.lineKey === lineKey);
       if (existingItem) {
         return currentItems.map(item =>
-          item.id === product.id
+          item.lineKey === lineKey
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
       }
-      return [...currentItems, { ...product, quantity: 1 }];
+      return [...currentItems, {
+        ...product,
+        lineKey,
+        weight: options.weight || null,
+        unit: options.unit || null,
+        price: options.price || product.price || 0,
+        quantity: 1,
+      }];
     });
     setIsOpen(true);
   }, []);
 
-  const removeFromCart = useCallback((productId) => {
-    setItems(currentItems => currentItems.filter(item => item.id !== productId));
+  const removeFromCart = useCallback((lineKey) => {
+    setItems(currentItems => currentItems.filter(item => item.lineKey !== lineKey));
   }, []);
 
-  const updateQuantity = useCallback((productId, quantity) => {
+  const updateQuantity = useCallback((lineKey, quantity) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      removeFromCart(lineKey);
       return;
     }
     setItems(currentItems =>
       currentItems.map(item =>
-        item.id === productId ? { ...item, quantity } : item
+        item.lineKey === lineKey ? { ...item, quantity } : item
       )
     );
   }, [removeFromCart]);

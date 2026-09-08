@@ -134,9 +134,10 @@ export default function DashboardPage() {
               <img src={product.image} alt={product.name} className="w-12 h-12 rounded-lg object-cover" />
               <div className="min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">{product.name}</p>
-                <p className="text-xs text-gray-500">{product.collection}</p>
+                <p className="text-xs text-gray-500">{product.type} · {product.grade || 'Certified'}</p>
               </div>
-              <p className="text-sm font-medium text-gray-900 ml-auto whitespace-nowrap">${product.price.toLocaleString()}</p>
+              <p className="text-sm font-medium text-gray-900 ml-auto whitespace-nowrap">${product.pricePerUnit} / {product.soldBy}</p>
+
             </div>
           ))}
         </div>

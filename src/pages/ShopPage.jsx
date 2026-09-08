@@ -6,7 +6,7 @@ import { products, categories } from '../data/products';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function ShopPage() {
-  usePageMeta('Shop', 'Browse the MJ collection — rings, necklaces, earrings, and bracelets crafted in precious metals and stones.');
+  usePageMeta('Shop', 'Shop Ethiopian Welo opals — rough opal by the gram, crystal and polished opal by the carat. Certified origin.');
 
   const [activeCategory, setActiveCategory] = useState('All');
 
@@ -25,10 +25,10 @@ export default function ShopPage() {
           className="text-center mb-10 md:mb-16"
         >
           <p className="text-gold text-xs md:text-sm tracking-[3px] md:tracking-[4px] uppercase mb-3 md:mb-4">
-            Exquisite Craftsmanship
+            Hand-Selected from Welo, Ethiopia
           </p>
           <h1 className="font-playfair text-4xl md:text-5xl lg:text-6xl text-charcoal mb-4 md:mb-6">
-            The Collection
+            Ethiopian Opals
           </h1>
           <div className="elegant-divider max-w-xs mx-auto">
             <Diamond className="text-gold w-4 h-4" />
@@ -94,16 +94,16 @@ export default function ShopPage() {
                 {/* Info */}
                 <div className="p-5 text-center">
                   <p className="text-gold text-[10px] md:text-xs tracking-[2px] uppercase mb-2">
-                    {product.collection}
+                    {product.type}
                   </p>
                   <h3 className="font-playfair text-base md:text-lg text-charcoal mb-1 group-hover:text-gold transition-colors duration-300 leading-tight">
                     {product.name}
                   </h3>
                   <p className="text-medium-gray text-xs font-light mb-3">
-                    {product.material}
+                    {product.grade || product.origin}
                   </p>
                   <p className="font-cormorant text-xl text-charcoal">
-                    ${product.price.toLocaleString()}
+                    ${product.pricePerUnit} <span className="text-sm text-medium-gray">/ {product.soldBy}</span>
                   </p>
                 </div>
               </Link>

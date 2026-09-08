@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Heart, Truck, Shield, Gift, Star } from 'lucide-react';
+import { ArrowLeft, Heart, Truck, Shield, Gift, Star, Gem } from 'lucide-react';
 import { useState } from 'react';
 import { products } from '../data/products';
 import { useCart } from '../context/CartContext';
@@ -13,12 +13,13 @@ export default function ProductDetailPage() {
   const navigate = useNavigate();
   const { addToCart } = useCart();
   const { getReviewStats } = useAdmin();
-  const [quantity, setQuantity] = useState(1);
-  const [selectedSize, setSelectedSize] = useState(null);
 
   const product = products.find(p => p.id === parseInt(id));
 
-  usePageMeta(product ? product.name : 'Product Not Found', product ? `${product.name} — ${product.material}, ${product.stone}. $${product.price.toLocaleString()}.` : null);
+  usePageMeta(product ? product.name : 'Product Not Found', product ? `${product.name} — Ethiopian opal, sold by ${product.soldBy}.` : null);
+
+  const [quantity, setQuantity] = useState(1);
+  const [selectedWeight, setSelectedWeight] = useState(product?.availableWeights?.[0] ?? null);
 
   if (!product) {
     return (
@@ -32,14 +33,21 @@ export default function ProductDetailPage() {
   }
 
   const relatedProducts = products
-    .filter(p => p.id !== product.id && (p.collection === product.collection || p.category === product.category))
+    .filter(p => p.id !== product.id)
     .slice(0, 3);
 
-  const sizes = ['XS', 'S', 'M', 'L', 'One Size'];
+  // Weight-sold product (gram/carat) vs fixed-price product (future jewelry)
+  const isSoldByWeight = !!product.soldBy;
+  const unitPrice = isSoldByWeight ? product.pricePerUnit : product.price;
+  const totalPrice = isSoldByWeight ? unitPrice * (selectedWeight || 0) : unitPrice;
+  const unitLabel = product.soldBy === 'carat' ? 'ct' : 'g';
 
   const handleAddToCart = () => {
+    const options = isSoldByWeight
+      ? { weight: selectedWeight, unit: product.soldBy, price: totalPrice }
+      : {};
     for (let i = 0; i < quantity; i++) {
-      addToCart(product);
+      addToCart(product, options);
     }
   };
 
@@ -91,7 +99,7 @@ export default function ProductDetailPage() {
             className="flex flex-col justify-center"
           >
             <p className="text-gold text-xs tracking-[3px] uppercase mb-3">
-              {product.collection} Collection
+              Ethiopian Opal · {product.origin || 'Welo, Ethiopia'}
             </p>
             <h1 className="font-playfair text-3xl md:text-4xl lg:text-5xl text-charcoal mb-4 leading-tight">
               {product.name}
@@ -116,9 +124,15 @@ export default function ProductDetailPage() {
               );
             })()}
 
-            <p className="font-cormorant text-3xl md:text-4xl text-charcoal mb-6">
-              ${product.price.toLocaleString()}
+            {/* Price */}
+            <p className="font-cormorant text-3xl md:text-4xl text-charcoal mb-2">
+              ${totalPrice.toLocaleString()}
             </p>
+            {isSoldByWeight && (
+              <p className="text-medium-gray text-sm font-light mb-6">
+                ${unitPrice} per {product.soldBy}
+              </p>
+            )}
 
             <div className="w-16 h-[1px] bg-gold mb-6" />
 
@@ -129,34 +143,43 @@ export default function ProductDetailPage() {
             {/* Details Grid */}
             <div className="grid grid-cols-2 gap-4 mb-8">
               <div className="p-4 bg-white border border-light-gray">
-                <p className="text-[10px] text-medium-gray uppercase tracking-wider mb-1">Material</p>
-                <p className="font-cormorant text-lg text-charcoal">{product.material}</p>
+                <p className="text-[10px] text-medium-gray uppercase tracking-wider mb-1">Origin</p>
+                <p className="font-cormorant text-lg text-charcoal">{product.origin || 'Welo, Ethiopia'}</p>
               </div>
               <div className="p-4 bg-white border border-light-gray">
-                <p className="text-[10px] text-medium-gray uppercase tracking-wider mb-1">Stone</p>
-                <p className="font-cormorant text-lg text-charcoal">{product.stone}</p>
+                <p className="text-[10px] text-medium-gray uppercase tracking-wider mb-1">Grade</p>
+                <p className="font-cormorant text-lg text-charcoal">{product.grade || 'Certified'}</p>
               </div>
             </div>
 
-            {/* Size Selection */}
-            <div className="mb-8">
-              <p className="text-xs uppercase tracking-[2px] text-charcoal mb-3">Size</p>
-              <div className="flex gap-2">
-                {sizes.map(size => (
-                  <button
-                    key={size}
-                    onClick={() => setSelectedSize(size)}
-                    className={`px-4 py-2 text-xs tracking-wider border transition-all duration-300 ${
-                      selectedSize === size
-                        ? 'bg-gold text-white border-gold'
-                        : 'bg-white text-charcoal border-light-gray hover:border-gold'
-                    }`}
-                  >
-                    {size}
-                  </button>
-                ))}
+            {/* Weight Selection (gram/carat) */}
+            {isSoldByWeight ? (
+              <div className="mb-8">
+                <p className="text-xs uppercase tracking-[2px] text-charcoal mb-3">
+                  Select Weight ({product.soldBy === 'carat' ? 'carats' : 'grams'})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {product.availableWeights.map(weight => (
+                    <button
+                      key={weight}
+                      onClick={() => setSelectedWeight(weight)}
+                      className={`px-5 py-2.5 text-sm tracking-wider border transition-all duration-300 ${
+                        selectedWeight === weight
+                          ? 'bg-gold text-white border-gold'
+                          : 'bg-white text-charcoal border-light-gray hover:border-gold'
+                      }`}
+                    >
+                      {weight} {unitLabel}
+                    </button>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="mb-8 p-4 bg-white border border-light-gray">
+                <p className="text-[10px] text-medium-gray uppercase tracking-wider mb-1">Details</p>
+                <p className="font-cormorant text-lg text-charcoal">{product.material || product.description}</p>
+              </div>
+            )}
 
             {/* Quantity */}
             <div className="flex items-center gap-6 mb-8">
@@ -191,9 +214,9 @@ export default function ProductDetailPage() {
             {/* Features */}
             <div className="grid grid-cols-3 gap-4 pt-6 border-t border-light-gray">
               {[
-                { icon: Truck, text: 'Free Shipping' },
+                { icon: Gem, text: 'Certified Origin' },
                 { icon: Shield, text: 'Lifetime Warranty' },
-                { icon: Gift, text: 'Gift Packaging' },
+                { icon: Truck, text: 'Insured Shipping' },
               ].map(({ icon: Icon, text }) => (
                 <div key={text} className="flex flex-col items-center text-center gap-2">
                   <Icon size={18} className="text-gold" strokeWidth={1.5} />
@@ -211,7 +234,7 @@ export default function ProductDetailPage() {
         {relatedProducts.length > 0 && (
           <div className="mt-16 md:mt-24 pt-12 border-t border-light-gray">
             <h2 className="font-playfair text-2xl md:text-3xl text-charcoal text-center mb-10">
-              You May Also Love
+              More From Our Mines
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {relatedProducts.map(rp => (
@@ -229,9 +252,11 @@ export default function ProductDetailPage() {
                     />
                   </div>
                   <div className="p-4 text-center">
-                    <p className="text-gold text-[10px] tracking-[2px] uppercase mb-1">{rp.collection}</p>
+                    <p className="text-gold text-[10px] tracking-[2px] uppercase mb-1">{rp.type}</p>
                     <h3 className="font-playfair text-sm text-charcoal group-hover:text-gold transition-colors">{rp.name}</h3>
-                    <p className="font-cormorant text-lg text-charcoal mt-1">${rp.price.toLocaleString()}</p>
+                    <p className="font-cormorant text-lg text-charcoal mt-1">
+                      ${rp.pricePerUnit} / {rp.soldBy}
+                    </p>
                   </div>
                 </Link>
               ))}

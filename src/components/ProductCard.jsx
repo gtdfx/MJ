@@ -54,7 +54,7 @@ const ProductCard = ({ product, onViewDetails }) => {
       {/* Product Info */}
       <div className="flex-1 p-6 md:p-8 lg:p-10 flex flex-col justify-center">
         <p className="text-gold text-[10px] md:text-xs tracking-[2px] uppercase mb-2 md:mb-3">
-          {product.collection}
+          {product.type || product.collection}
         </p>
         <h3 className="font-playfair text-xl md:text-2xl lg:text-3xl text-charcoal mb-2 md:mb-3 group-hover:text-gold transition-colors duration-300 leading-tight">
           {product.name}
@@ -64,10 +64,10 @@ const ProductCard = ({ product, onViewDetails }) => {
         </p>
         <div className="flex items-center gap-4 md:gap-6">
           <p className="font-cormorant text-2xl md:text-3xl text-charcoal">
-            ${product.price.toLocaleString()}
+            ${product.pricePerUnit} <span className="text-sm text-medium-gray">/ {product.soldBy}</span>
           </p>
           <span className="text-medium-gray text-xs tracking-wider uppercase">
-            {product.material}
+            {product.grade || product.origin}
           </span>
         </div>
         <div className="mt-4 md:mt-6">

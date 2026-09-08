@@ -44,8 +44,8 @@ const Newsletter = () => {
             Join Our Inner Circle
           </h2>
           <p className="text-medium-gray font-light max-w-xl mx-auto mb-8 md:mb-10 text-sm md:text-base">
-            Be the first to discover new collections, exclusive offers, and
-            insider access to the world of MJ.
+            Be the first to know when new Welo opal parcels arrive — plus
+            collector offers and stone-grading guides from our lapidary team.
           </p>
 
           {subscribed ? (

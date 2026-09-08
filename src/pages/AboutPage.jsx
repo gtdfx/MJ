@@ -6,32 +6,32 @@ import usePageMeta from '../hooks/usePageMeta';
 const values = [
   {
     icon: Gem,
-    title: 'Ethical Sourcing',
-    description: 'Every gemstone is responsibly sourced from certified mines, ensuring full traceability from earth to setting.'
+    title: 'Authentic Ethiopian Opal',
+    description: 'Every stone is sourced directly from the Welo region of Ethiopia, with certified origin and full traceability.'
   },
   {
     icon: Heart,
-    title: 'Master Craftsmanship',
-    description: 'Our artisans combine centuries-old techniques with modern precision, creating pieces that last generations.'
+    title: 'Hand-Selected Fire',
+    description: 'Each stone is individually inspected and graded for its play of color, clarity, and brilliance.'
   },
   {
     icon: Eye,
-    title: 'Uncompromising Quality',
-    description: 'Each piece undergoes 47 individual quality checks before earning the MJ hallmark.'
+    title: 'Transparent Pricing',
+    description: 'Sold honestly by gram and carat — you pay exactly for the weight and grade you receive.'
   },
   {
     icon: Sparkles,
-    title: 'Timeless Design',
-    description: 'We create jewelry that transcends trends — pieces that feel as relevant in fifty years as they do today.'
+    title: 'From Stone to Jewelry',
+    description: 'Rough, crystal, and polished — ready for collectors, lapidaries, and bespoke commissions.'
   },
 ];
 
 const timeline = [
-  { year: '1874', title: 'Founded', description: 'Master jeweler Henri MJ opens his first atelier on Place Vendôme, Paris.' },
-  { year: '1923', title: 'Royal Warrant', description: 'Granted the Royal Warrant as official jeweler to three European courts.' },
-  { year: '1961', title: 'New York Atelier', description: 'Opens the iconic Madison Avenue salon, bringing European artistry to America.' },
-  { year: '1998', title: 'Sustainability Pledge', description: 'First major jeweler to commit to 100% ethically sourced materials.' },
-  { year: '2024', title: 'Digital Atelier', description: 'Launches virtual try-on and personalized design consultation experience.' },
+  { year: '2008', title: 'The Discovery', description: 'Major opal deposits found in the Welo district of Ethiopia, revealing fire rivaling Australian opals.' },
+  { year: '2012', title: 'Direct Mining', description: 'We begin working directly with Welo miners, cutting out middlemen for fair, transparent sourcing.' },
+  { year: '2018', title: 'The Crystal Opal', description: 'Rare transparent crystal opal parcels arrive — the most prized of Ethiopian stones.' },
+  { year: '2022', title: 'Global Reach', description: 'Our hand-selected opals ship to collectors and jewelers in 40+ countries.' },
+  { year: '2026', title: 'Online Boutique', description: 'Launching our digital storefront — every stone sold by gram and carat.' },
 ];
 
 export default function AboutPage() {
@@ -53,11 +53,11 @@ export default function AboutPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <p className="text-gold-light text-xs tracking-[4px] uppercase mb-4">Our Heritage</p>
+            <p className="text-gold-light text-xs tracking-[4px] uppercase mb-4">Our Story</p>
             <h1 className="font-playfair text-4xl md:text-6xl lg:text-7xl text-white font-light leading-tight mb-4">
-              A Legacy of<br />
-              <span className="text-gold italic">Extraordinary</span><br />
-              Craftsmanship
+              Born of<br />
+              <span className="text-gold italic">Fire</span> &
+              Water
             </h1>
           </motion.div>
         </div>
@@ -94,23 +94,23 @@ export default function AboutPage() {
             >
               <p className="text-gold text-xs tracking-[3px] uppercase mb-4">The Beginning</p>
               <h2 className="font-playfair text-3xl md:text-4xl text-charcoal mb-6 leading-tight">
-                Where Passion Meets Precision
+                The Fire of Ethiopia
               </h2>
               <div className="w-16 h-[1px] bg-gold mb-6" />
               <p className="text-medium-gray font-light leading-relaxed mb-6">
-                For over a century, MJ has been synonymous with exceptional artistry
-                and uncompromising quality. What began as a small atelier on Place Vendôme
-                has grown into one of the world's most revered jewelry houses.
+                Ethiopian Welo opal is one of the world's most remarkable gemstones.
+                Formed over millions of years in volcanic deposits, it displays a play of
+                color that rivals — and often surpasses — any opal on earth.
               </p>
               <p className="text-medium-gray font-light leading-relaxed mb-6">
-                Each piece in our collection is a testament to the dedication of our master
-                jewelers, who combine time-honored techniques with contemporary design to
-                create works of lasting beauty.
+                We work directly with miners in the Welo region to bring you rough stones,
+                rare transparent crystal opal, and beautifully polished cabochons — each
+                hand-selected for its fire.
               </p>
               <p className="text-medium-gray font-light leading-relaxed">
-                From selecting the finest gemstones to the final polish, every step of our
-                creation process is guided by a passion for perfection and a deep respect
-                for the materials we work with.
+                Whether you're a collector, a lapidary, or dreaming of bespoke jewelry,
+                every stone is sold by gram and carat, with honest grading and
+                certified Ethiopian origin.
               </p>
             </motion.div>
           </div>
@@ -149,8 +149,8 @@ export default function AboutPage() {
       <section className="py-16 md:py-24 bg-charcoal text-white">
         <div className="max-w-4xl mx-auto px-4 md:px-6">
           <div className="text-center mb-12 md:mb-16">
-            <p className="text-gold text-xs tracking-[3px] uppercase mb-3">Through the Decades</p>
-            <h2 className="font-playfair text-3xl md:text-4xl">Our Journey</h2>
+            <p className="text-gold text-xs tracking-[3px] uppercase mb-3">Through the Years</p>
+            <h2 className="font-playfair text-3xl md:text-4xl">From Mine to You</h2>
           </div>
           <div className="relative">
             {/* Line */}
@@ -190,10 +190,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { icon: Clock, value: '150+', label: 'Years of Excellence' },
-              { icon: Gem, value: '10K+', label: 'Unique Pieces' },
-              { icon: Award, value: '50+', label: 'Awards Won' },
-              { icon: Sparkles, value: '100%', label: 'Ethically Sourced' },
+              { icon: Gem, value: '10K+', label: 'Stones Sold' },
+              { icon: Clock, value: '40+', label: 'Countries Shipped' },
+              { icon: Award, value: '100%', label: 'Certified Origin' },
+              { icon: Sparkles, value: '3', label: 'Grades — Rough, Crystal, Polished' },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}

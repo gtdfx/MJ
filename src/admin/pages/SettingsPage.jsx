@@ -4,7 +4,7 @@ import { Save, Store, Bell, CreditCard, Truck } from 'lucide-react';
 export default function SettingsPage() {
   const [storeSettings, setStoreSettings] = useState({
     storeName: 'MJ',
-    tagline: 'Luxury Fine Jewelry Since 1874',
+    tagline: 'Ethiopian Welo Opals — Sold by Gram & Carat',
     email: 'mesfinkibret@yahoo.com',
     phone: '+1 647-719-3169',
     address: 'Online store — worldwide shipping',
