@@ -5,9 +5,9 @@ export default function SettingsPage() {
   const [storeSettings, setStoreSettings] = useState({
     storeName: 'MJ',
     tagline: 'Luxury Fine Jewelry Since 1874',
-    email: 'concierge@mj.com',
-    phone: '+1 (800) 555-LUXE',
-    address: '123 Luxury Avenue, New York, NY 10001',
+    email: 'mesfinkibret@yahoo.com',
+    phone: '+1 647-719-3169',
+    address: '1504-25 Richview Rd, Etobicoke, ON M9A 4Y3, Canada',
     currency: 'USD',
     freeShippingThreshold: '1000',
   });

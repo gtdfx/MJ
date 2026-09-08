@@ -5,22 +5,10 @@ import Newsletter from '../components/Newsletter';
 
 const storeLocations = [
   {
-    name: 'New York Flagship',
-    address: '712 Madison Avenue, New York, NY 10065',
-    phone: '+1 (212) 555-0180',
+    name: 'MJ Flagship Store',
+    address: '1504-25 Richview Rd, Etobicoke, ON M9A 4Y3, Canada',
+    phone: '+1 647-719-3169',
     hours: 'Mon–Sat 10am–7pm, Sun 12pm–6pm',
-  },
-  {
-    name: 'Paris Atelier',
-    address: '24 Place Vendôme, 75001 Paris, France',
-    phone: '+33 1 42 86 00 00',
-    hours: 'Mon–Sat 10am–7pm',
-  },
-  {
-    name: 'London Salon',
-    address: '141 New Bond Street, London W1S 2BS',
-    phone: '+44 20 7946 0000',
-    hours: 'Mon–Sat 10am–6pm',
   },
 ];
 
@@ -162,10 +150,10 @@ export default function ContactPage() {
                 <p className="text-white/60 text-sm font-light mb-2">
                   For urgent inquiries or private viewings:
                 </p>
-                <a href="mailto:concierge@mj.com" className="text-gold text-sm hover:text-gold-light transition-colors">
-                  concierge@mj.com
+                <a href="mailto:mesfinkibret@yahoo.com" className="text-gold text-sm hover:text-gold-light transition-colors">
+                  mesfinkibret@yahoo.com
                 </a>
-                <p className="text-white/60 text-sm font-light mt-1">+1 (800) 555-LUXE</p>
+                <p className="text-white/60 text-sm font-light mt-1">+1 647-719-3169</p>
               </div>
             </motion.div>
           </div>

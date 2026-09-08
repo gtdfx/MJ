@@ -84,19 +84,19 @@ const Footer = () => {
               <li className="flex items-start gap-2.5">
                 <MapPin size={16} className="text-gold mt-0.5 flex-shrink-0" />
                 <span className="text-white/50 text-xs md:text-sm font-light">
-                  123 Luxury Avenue<br />New York, NY 10001
+                  1504-25 Richview Rd<br />Etobicoke, ON M9A 4Y3
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone size={16} className="text-gold flex-shrink-0" />
                 <span className="text-white/50 text-xs md:text-sm font-light">
-                  +1 (800) 555-LUXE
+                  +1 647-719-3169
                 </span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail size={16} className="text-gold flex-shrink-0" />
                 <span className="text-white/50 text-xs md:text-sm font-light">
-                  concierge@mj.com
+                  mesfinkibret@yahoo.com
                 </span>
               </li>
             </ul>
