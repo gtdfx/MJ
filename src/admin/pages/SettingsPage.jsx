@@ -9,7 +9,7 @@ export default function SettingsPage() {
     phone: '+1 647-719-3169',
     address: '1504-25 Richview Rd, Etobicoke, ON M9A 4Y3, Canada',
     currency: 'USD',
-    freeShippingThreshold: '1000',
+    freeShippingThreshold: '100',
   });
 
   const [notifications, setNotifications] = useState({

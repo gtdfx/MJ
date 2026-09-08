@@ -14,7 +14,7 @@ export default function CheckoutPage() {
   const [shippingMethod, setShippingMethod] = useState('standard');
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  const shippingCost = shippingMethod === 'express' ? 25 : shippingMethod === 'overnight' ? 50 : totalPrice >= 1000 ? 0 : 15;
+  const shippingCost = shippingMethod === 'express' ? 25 : shippingMethod === 'overnight' ? 50 : totalPrice >= 100 ? 0 : 15;
   const tax = Math.round(totalPrice * 0.0888 * 100) / 100;
   const grandTotal = totalPrice + shippingCost + tax;
 
@@ -173,7 +173,7 @@ export default function CheckoutPage() {
                   <h3 className="text-sm font-medium text-gray-700 mb-3">Shipping Method</h3>
                   <div className="space-y-2">
                     {[
-                      { k: 'standard', l: 'Standard Shipping', d: '5–7 business days', price: totalPrice >= 1000 ? 'Free' : '$15' },
+                      { k: 'standard', l: 'Standard Shipping', d: '5–7 business days', price: totalPrice >= 100 ? 'Free' : '$15' },
                       { k: 'express', l: 'Express Shipping', d: '2–3 business days', price: '$25' },
                       { k: 'overnight', l: 'Overnight Shipping', d: 'Next business day', price: '$50' },
                     ].map(m => (
@@ -310,7 +310,7 @@ export default function CheckoutPage() {
               <div className="mt-6 pt-4 border-t border-gray-100 space-y-3">
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <Truck size={14} className="text-gold shrink-0" />
-                  <span>Free shipping on orders over $1,000</span>
+                  <span>Free shipping on orders over $100</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <Shield size={14} className="text-gold shrink-0" />

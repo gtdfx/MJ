@@ -53,7 +53,7 @@ const Navbar = () => {
             <p className={`text-xs tracking-[3px] uppercase transition-colors duration-500 ${
               navScrolled ? 'text-charcoal' : 'text-white/80'
             }`}>
-              Free shipping on orders over $1,000 · Complimentary gift wrapping
+              Free shipping on orders over $100 · Complimentary gift wrapping
             </p>
           </div>
         </div>

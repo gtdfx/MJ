@@ -2,7 +2,7 @@ export const products = [
   {
     id: 1,
     name: "Celestial Diamond Ring",
-    price: 4850,
+    price: 49,
     category: "Rings",
     collection: "Celestial",
     image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600&h=750&fit=crop",
@@ -17,7 +17,7 @@ export const products = [
   {
     id: 2,
     name: "Rose Eternity Necklace",
-    price: 6200,
+    price: 59,
     category: "Necklaces",
     collection: "Rose",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=750&fit=crop",
@@ -32,7 +32,7 @@ export const products = [
   {
     id: 3,
     name: "Imperial Sapphire Earrings",
-    price: 8900,
+    price: 89,
     category: "Earrings",
     collection: "Imperial",
     image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600&h=750&fit=crop",
@@ -47,7 +47,7 @@ export const products = [
   {
     id: 4,
     name: "Maison Gold Bracelet",
-    price: 3400,
+    price: 39,
     category: "Bracelets",
     collection: "Maison",
     image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600&h=750&fit=crop",
@@ -61,7 +61,7 @@ export const products = [
   {
     id: 5,
     name: "Noir Diamond Pendant",
-    price: 5600,
+    price: 54,
     category: "Necklaces",
     collection: "Noir",
     image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=600&h=750&fit=crop",
@@ -76,7 +76,7 @@ export const products = [
   {
     id: 6,
     name: "Versailles Pearl Earrings",
-    price: 2800,
+    price: 44,
     category: "Earrings",
     collection: "Versailles",
     image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?w=600&h=750&fit=crop",
@@ -90,7 +90,7 @@ export const products = [
   {
     id: 7,
     name: "Aura Emerald Ring",
-    price: 7200,
+    price: 78,
     category: "Rings",
     collection: "Aura",
     image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600&h=750&fit=crop",
@@ -105,7 +105,7 @@ export const products = [
   {
     id: 8,
     name: "Seraphina Tennis Bracelet",
-    price: 9500,
+    price: 95,
     category: "Bracelets",
     collection: "Seraphina",
     image: "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=600&h=750&fit=crop",
@@ -120,7 +120,7 @@ export const products = [
   {
     id: 9,
     name: "Luna Crescent Necklace",
-    price: 4100,
+    price: 52,
     category: "Necklaces",
     collection: "Luna",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&h=750&fit=crop&q=80",

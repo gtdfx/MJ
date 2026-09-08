@@ -60,11 +60,11 @@ export default function AnalyticsPage() {
 
   // Revenue by month (simulated data based on orders)
   const monthlyRevenue = [
-    { label: 'Mar', value: 18200, color: '#C9A96E' },
-    { label: 'Apr', value: 24500, color: '#C9A96E' },
-    { label: 'May', value: 21800, color: '#C9A96E' },
-    { label: 'Jun', value: 32100, color: '#C9A96E' },
-    { label: 'Jul', value: 28900, color: '#C9A96E' },
+    { label: 'Mar', value: 420, color: '#C9A96E' },
+    { label: 'Apr', value: 510, color: '#C9A96E' },
+    { label: 'May', value: 480, color: '#C9A96E' },
+    { label: 'Jun', value: 560, color: '#C9A96E' },
+    { label: 'Jul', value: 520, color: '#C9A96E' },
     { label: 'Aug', value: stats.totalRevenue, color: '#B8944F' },
   ];
 

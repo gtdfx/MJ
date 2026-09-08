@@ -6,7 +6,7 @@ import { useAdmin } from '../AdminContext';
 const seedCoupons = [
   { id: 1, code: 'WELCOME10', type: 'percentage', value: 10, minOrder: 500, maxUses: 100, usedCount: 23, active: true, expiresAt: '2026-12-31', description: 'Welcome discount for new customers' },
   { id: 2, code: 'LUXURY500', type: 'fixed', value: 500, minOrder: 3000, maxUses: 50, usedCount: 12, active: true, expiresAt: '2026-09-30', description: '$500 off orders over $3,000' },
-  { id: 3, code: 'SUMMER20', type: 'percentage', value: 20, minOrder: 1000, maxUses: 200, usedCount: 89, active: false, expiresAt: '2026-08-31', description: 'Summer sale — 20% off' },
+  { id: 3, code: 'SUMMER20', type: 'percentage', value: 20, minOrder: 100, maxUses: 200, usedCount: 89, active: false, expiresAt: '2026-08-31', description: 'Summer sale — 20% off' },
   { id: 4, code: 'FREESHIP', type: 'shipping', value: 0, minOrder: 0, maxUses: 999, usedCount: 156, active: true, expiresAt: '2026-12-31', description: 'Free shipping on all orders' },
 ];
 

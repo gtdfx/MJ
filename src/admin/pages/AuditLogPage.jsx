@@ -20,7 +20,7 @@ const seedLog = [
   { id: 4, action: 'create', entity: 'order', entityId: 'ORD-006', description: 'New order created — $9,500', user: 'System', timestamp: '2026-08-27T12:00:00' },
   { id: 5, action: 'update', entity: 'order', entityId: 'ORD-005', description: 'Order status updated to delivered', user: 'Admin', timestamp: '2026-08-28T11:30:00' },
   { id: 6, action: 'create', entity: 'discount', entityId: 'WELCOME10', description: 'New coupon created: 10% off', user: 'Admin', timestamp: '2026-08-25T10:00:00' },
-  { id: 7, action: 'update', entity: 'product', entityId: 'MJ-RNG-001', description: 'Product price updated to $4,850', user: 'Admin', timestamp: '2026-08-24T14:00:00' },
+  { id: 7, action: 'update', entity: 'product', entityId: 'MJ-RNG-001', description: 'Product price updated to $49', user: 'Admin', timestamp: '2026-08-24T14:00:00' },
   { id: 8, action: 'delete', entity: 'product', entityId: 'MJ-NCK-010', description: 'Product deleted: Old Pendant', user: 'Admin', timestamp: '2026-08-23T09:00:00' },
   { id: 9, action: 'update', entity: 'settings', entityId: 'store', description: 'Store email updated', user: 'Admin', timestamp: '2026-08-22T15:00:00' },
   { id: 10, action: 'create', entity: 'customer', entityId: '6', description: 'New customer registered: Marcus Lee', user: 'System', timestamp: '2026-08-20T11:00:00' },
