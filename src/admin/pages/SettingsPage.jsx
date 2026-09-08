@@ -7,7 +7,7 @@ export default function SettingsPage() {
     tagline: 'Luxury Fine Jewelry Since 1874',
     email: 'mesfinkibret@yahoo.com',
     phone: '+1 647-719-3169',
-    address: '1504-25 Richview Rd, Etobicoke, ON M9A 4Y3, Canada',
+    address: 'Online store — worldwide shipping',
     currency: 'USD',
     freeShippingThreshold: '100',
   });

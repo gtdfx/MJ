@@ -1,20 +1,11 @@
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Clock, Send } from 'lucide-react';
+import { Phone, Mail, Send, Clock, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
 import Newsletter from '../components/Newsletter';
 import usePageMeta from '../hooks/usePageMeta';
 
-const storeLocations = [
-  {
-    name: 'MJ Flagship Store',
-    address: '1504-25 Richview Rd, Etobicoke, ON M9A 4Y3, Canada',
-    phone: '+1 647-719-3169',
-    hours: 'Mon–Sat 10am–7pm, Sun 12pm–6pm',
-  },
-];
-
 export default function ContactPage() {
-  usePageMeta('Contact Us', 'Get in touch with MJ — our concierge team responds within 24 hours. Visit our flagship at 1504-25 Richview Rd, Etobicoke.');
+  usePageMeta('Contact Us', 'Get in touch with MJ — our concierge team responds within 24 hours.');
 
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', website: '' });
   const [submitted, setSubmitted] = useState(false);
@@ -141,51 +132,66 @@ export default function ContactPage() {
               </form>
             </motion.div>
 
-            {/* Store Info */}
+            {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.15 }}
             >
-              <h2 className="font-playfair text-2xl md:text-3xl text-charcoal mb-2">Visit Our Ateliers</h2>
+              <h2 className="font-playfair text-2xl md:text-3xl text-charcoal mb-2">Get in Touch</h2>
               <p className="text-medium-gray text-sm font-light mb-8">
-                Experience our collections in person with a private consultation.
+                We're an online boutique — reach us any way that suits you.
               </p>
 
-              <div className="space-y-8">
-                {storeLocations.map((store, i) => (
-                  <div key={store.name} className="p-6 bg-white border border-light-gray">
-                    <h3 className="font-playfair text-lg text-charcoal mb-4">{store.name}</h3>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-start gap-3">
-                        <MapPin size={16} className="text-gold mt-0.5 shrink-0" />
-                        <span className="text-medium-gray font-light">{store.address}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Phone size={16} className="text-gold shrink-0" />
-                        <span className="text-medium-gray font-light">{store.phone}</span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Clock size={16} className="text-gold shrink-0" />
-                        <span className="text-medium-gray font-light">{store.hours}</span>
-                      </div>
-                    </div>
+              <div className="space-y-5">
+                <div className="p-6 bg-white border border-light-gray flex items-start gap-4">
+                  <div className="w-11 h-11 bg-gold/10 flex items-center justify-center shrink-0">
+                    <Mail size={20} className="text-gold" />
                   </div>
-                ))}
-              </div>
-
-              <div className="mt-8 p-6 bg-charcoal text-white">
-                <div className="flex items-center gap-3 mb-3">
-                  <Mail size={18} className="text-gold" />
-                  <h3 className="font-playfair text-lg">Private Concierge</h3>
+                  <div>
+                    <h3 className="font-playfair text-lg text-charcoal mb-1">Email Us</h3>
+                    <p className="text-medium-gray font-light text-sm mb-1">For orders, questions, or custom requests</p>
+                    <a href="mailto:mesfinkibret@yahoo.com" className="text-gold text-sm hover:text-gold-light transition-colors">
+                      mesfinkibret@yahoo.com
+                    </a>
+                  </div>
                 </div>
-                <p className="text-white/60 text-sm font-light mb-2">
-                  For urgent inquiries or private viewings:
-                </p>
-                <a href="mailto:mesfinkibret@yahoo.com" className="text-gold text-sm hover:text-gold-light transition-colors">
-                  mesfinkibret@yahoo.com
-                </a>
-                <p className="text-white/60 text-sm font-light mt-1">+1 647-719-3169</p>
+
+                <div className="p-6 bg-white border border-light-gray flex items-start gap-4">
+                  <div className="w-11 h-11 bg-gold/10 flex items-center justify-center shrink-0">
+                    <Phone size={20} className="text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-lg text-charcoal mb-1">Call Us</h3>
+                    <p className="text-medium-gray font-light text-sm mb-1">Mon–Sat, 10am–7pm</p>
+                    <a href="tel:+16477193169" className="text-gold text-sm hover:text-gold-light transition-colors">
+                      +1 647-719-3169
+                    </a>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-white border border-light-gray flex items-start gap-4">
+                  <div className="w-11 h-11 bg-gold/10 flex items-center justify-center shrink-0">
+                    <Clock size={20} className="text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-lg text-charcoal mb-1">Response Time</h3>
+                    <p className="text-medium-gray font-light text-sm mb-1">We reply to every message</p>
+                    <p className="text-charcoal text-sm">Within 24 hours</p>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-white border border-light-gray flex items-start gap-4">
+                  <div className="w-11 h-11 bg-gold/10 flex items-center justify-center shrink-0">
+                    <MessageCircle size={20} className="text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-lg text-charcoal mb-1">Everywhere Online</h3>
+                    <p className="text-medium-gray font-light text-sm">
+                      Shop from anywhere — we ship worldwide with tracked, insured delivery.
+                    </p>
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
