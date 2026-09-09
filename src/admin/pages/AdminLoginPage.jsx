@@ -51,8 +51,13 @@ export default function AdminLoginPage() {
         {/* Logo */}
         <div className="text-center mb-8">
           <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-16 h-16 object-contain mx-auto mb-4" />
-          <h1 className="font-playfair text-2xl text-white tracking-[3px] uppercase mb-2">Etho-Can Gemstones</h1>
-          <p className="text-white/50 text-xs tracking-[3px] uppercase">Admin Dashboard</p>
+          <div className="inline-flex flex-col mx-auto">
+            <h1 className="font-playfair text-3xl text-white tracking-[3px] uppercase">Etho-Can</h1>
+            <span aria-hidden="true" className="flex justify-between uppercase text-[10px] text-gold-light mt-1.5">
+              {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+            </span>
+          </div>
+          <p className="text-white/50 text-xs tracking-[3px] uppercase mt-3">Admin Dashboard</p>
         </div>
 
         {/* Login Card */}

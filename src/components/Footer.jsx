@@ -10,10 +10,13 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-2 lg:col-span-1">
-            <Link to="/" className="inline-flex items-center gap-3 mb-4 md:mb-6">
+            <Link to="/" aria-label="Etho-Can Gemstones — Home" className="inline-flex items-center gap-3 mb-4 md:mb-6">
               <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-11 h-11 object-contain" />
-              <span className="font-playfair text-lg md:text-xl tracking-[2px] uppercase">
-                Etho-Can Gemstones
+              <span className="flex flex-col leading-none">
+                <span className="font-playfair text-xl md:text-2xl tracking-[2px] uppercase">Etho-Can</span>
+                <span aria-hidden="true" className="flex justify-between uppercase text-[9px] md:text-[10px] text-gold mt-1">
+                  {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+                </span>
               </span>
             </Link>
             <p className="text-white/50 font-light text-sm leading-relaxed mb-5 md:mb-6">
