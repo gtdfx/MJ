@@ -11,6 +11,44 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Ethio-Can" />
+    <!-- iOS launch (splash) screens — exact device sizes required by Safari -->
+    <link rel="apple-touch-startup-image" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" href="/splash/iphone5.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="/splash/iphone8.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphonex.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone12.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone14.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" href="/splash/iphonexr.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphonexsmax.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone12pro.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="/splash/iphone14pro.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 768px) and (device-height: 1024px)" href="/splash/ipad.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 834px) and (device-height: 1194px)" href="/splash/ipadpro10.png" />
+    <link rel="apple-touch-startup-image" media="(device-width: 1024px) and (device-height: 1366px)" href="/splash/ipadpro12.png" />
+    <!-- Branded first-paint splash (shown until React mounts) -->
+    <style id="boot-splash-style">
+      #boot-splash {
+        position: fixed; inset: 0; z-index: 9999;
+        background: #1A1A1A;
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        transition: opacity 0.5s ease;
+      }
+      #boot-splash img { width: 88px; height: 88px; }
+      #boot-splash .bs-name {
+        margin-top: 22px; color: #fff; font-family: Georgia, 'Times New Roman', serif;
+        font-size: 26px; font-weight: 700; letter-spacing: 4px;
+      }
+      #boot-splash .bs-sub {
+        margin-top: 10px; color: #C9A96E; font-family: Georgia, serif;
+        font-size: 11px; letter-spacing: 7px;
+      }
+      #boot-splash .bs-bar {
+        margin-top: 34px; width: 120px; height: 1px;
+        background: linear-gradient(90deg, transparent, #C9A96E, transparent);
+        animation: bs-pulse 1.6s ease-in-out infinite;
+      }
+      @keyframes bs-pulse { 0%, 100% { opacity: 0.25; } 50% { opacity: 1; } }
+      #boot-splash.bs-hide { opacity: 0; pointer-events: none; }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ethio-Can Gemstones — Ethiopian Opals</title>
     <meta name="description" content="Hand-selected Ethiopian Welo opals — rough, crystal, and polished. Sold by gram and carat with certified origin." />
@@ -43,7 +81,27 @@
     -->
   </head>
   <body>
+    <div id="boot-splash" aria-hidden="true">
+      <img src="/images/logo-white.png" alt="" />
+      <div class="bs-name">ETHIO-CAN</div>
+      <div class="bs-sub">GEMSTONES</div>
+      <div class="bs-bar"></div>
+    </div>
     <div id="root"></div>
+    <script>
+      // Fade the static splash as soon as React takes over (or after 4s failsafe).
+      window.addEventListener('load', function () {
+        var s = document.getElementById('boot-splash');
+        if (!s) return;
+        var hide = function () {
+          s.classList.add('bs-hide');
+          setTimeout(function () { s.remove(); }, 600);
+        };
+        var root = document.getElementById('root');
+        if (root && root.childElementCount > 0) { hide(); }
+        else { setTimeout(hide, 2500); }
+      });
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
