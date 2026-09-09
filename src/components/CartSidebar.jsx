@@ -67,7 +67,7 @@ const CartSidebar = () => {
                     Your cart is empty
                   </p>
                   <p className="text-medium-gray text-sm font-light mb-6">
-                    Discover our exquisite collection
+                    Browse the collection
                   </p>
                   <button
                     onClick={() => setIsOpen(false)}

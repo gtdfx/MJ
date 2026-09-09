@@ -29,8 +29,8 @@ const features = [
   },
   {
     icon: HeartHandshake,
-    title: "Personal Concierge",
-    description: "Lapidary advice for collectors and jewelers."
+    title: "Straight from the Source",
+    description: "Buying questions answered by the people who grade the stones."
   }
 ];
 

@@ -1,16 +1,55 @@
-# React + Vite
+# Etho-Can Gemstones — Online Store
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+E-commerce storefront and admin dashboard for Etho-Can Gemstones, an Ethiopian
+Welo opal wholesaler based in Toronto (est. 2012). Products are sold by gram
+and carat: rough opal, crystal opal, and polished opal.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React 19 + Vite** — frontend SPA
+- **React Router** — multi-page routing (shop, product pages, checkout, admin)
+- **Tailwind CSS v4** — styling
+- **Framer Motion** — animation
+- **lucide-react** — icons
 
-## React Compiler
+Store data (products, orders, coupons, reviews, analytics) persists in the
+browser via `localStorage` — no backend required for demo use. The order and
+payment model is Stripe-ready (`paymentStatus` per order, mark-as-paid flow).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting started
 
-## Expanding the Oxlint configuration
+```bash
+npm install
+npm run dev      # dev server on http://localhost:5173
+npm run build    # production build to dist/
+npm run preview  # preview the production build
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Structure
+
+```
+src/
+  pages/          # storefront pages (home, shop, product, checkout, ...)
+  components/     # shared storefront components
+  admin/          # admin dashboard (products, orders, inventory, analytics)
+  context/        # cart state
+  analytics/      # event tracking for the admin analytics page
+  hooks/          # shared hooks (page meta, ...)
+  data/           # default product catalog
+```
+
+## Admin
+
+The dashboard lives at `/admin`. Sign-in credentials are stored as SHA-256
+hashes in `src/admin/AdminContext.jsx` — to rotate the password, generate a
+new hash with:
+
+```bash
+node -e "console.log(require('crypto').createHash('sha256').update('YOUR_NEW_PASSWORD').digest('hex'))"
+```
+
+and replace `ADMIN_PASSWORD_HASH`.
+
+## Deployment
+
+Configured for Vercel (SPA rewrites + security headers in `vercel.json`).

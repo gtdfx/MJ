@@ -49,10 +49,10 @@ const Testimonials = () => {
           className="text-center mb-10 md:mb-16"
         >
           <p className="text-gold text-xs md:text-sm tracking-[3px] md:tracking-[4px] uppercase mb-3 md:mb-4">
-            Client Stories
+            Buyer Stories
           </p>
           <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl text-charcoal">
-            Cherished by Connoisseurs
+            What Our Buyers Say
           </h2>
         </motion.div>
 

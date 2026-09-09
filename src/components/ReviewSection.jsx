@@ -279,7 +279,7 @@ export default function ReviewSection({ productId }) {
                     <textarea
                       value={form.body}
                       onChange={e => setForm({ ...form, body: e.target.value })}
-                      placeholder="Tell us about the quality, craftsmanship, and your overall experience..."
+                      placeholder="How is the color, the cut, the weight? Would you buy again?"
                       rows={4}
                       className="w-full px-4 py-3 border border-light-gray bg-white text-charcoal placeholder:text-medium-gray/50 focus:border-gold focus:outline-none transition-colors text-sm resize-none"
                       required

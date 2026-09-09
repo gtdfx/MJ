@@ -11,7 +11,7 @@ const Hero = () => {
       image: "/images/opal-rough.jpg?v=2",
       title: "Ethiopian",
       subtitle: "Opals",
-      tagline: "Born of fire & water"
+      tagline: "From the Welo lowlands"
     },
     {
       image: "/images/opal-crystal.jpg?v=2",
@@ -107,8 +107,8 @@ className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-go
               transition={{ duration: 0.8, delay: 0.7 }}
               className="text-white/70 text-base md:text-xl font-light max-w-lg mb-8 md:mb-12 leading-relaxed"
             >
-              Discover hand-selected Ethiopian Welo opals — rough, crystal,
-              and polished — each stone a universe of fire, sold by gram and carat.
+              Hand-sorted Ethiopian Welo opals — rough, crystal, and polished —
+              priced by gram and carat, shipped insured from Toronto.
             </motion.p>
 
             {/* CTA Buttons */}

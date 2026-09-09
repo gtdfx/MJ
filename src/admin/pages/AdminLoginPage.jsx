@@ -13,7 +13,7 @@ export default function AdminLoginPage() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -21,18 +21,14 @@ export default function AdminLoginPage() {
       setError('Please enter both email and password.');
       return;
     }
-
     setLoading(true);
-    // Small delay to simulate authentication request
-    setTimeout(() => {
-      const result = login(email, password);
-      setLoading(false);
-      if (result.success) {
-        navigate('/admin', { replace: true });
-      } else {
-        setError(result.error);
-      }
-    }, 600);
+    const result = await login(email, password);
+    setLoading(false);
+    if (result.success) {
+      navigate('/admin', { replace: true });
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
@@ -82,7 +78,7 @@ export default function AdminLoginPage() {
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  placeholder="mesfin@mj.com"
+                  placeholder="you@yourcompany.com"
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold transition-all"
                   autoComplete="username"
                   required

@@ -42,8 +42,8 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-white/50 font-light text-sm leading-relaxed mb-5 md:mb-6">
-              Curating the world's finest Ethiopian Welo opals — rough, crystal,
-              and polished. Every stone hand-selected and sold by gram & carat.
+              Ethiopian Welo opals straight from the source — rough, crystal,
+              and polished. Sorted by hand, sold by gram & carat since 2012.
             </p>
             <div className="flex gap-3">
               <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">

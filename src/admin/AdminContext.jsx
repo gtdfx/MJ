@@ -40,6 +40,41 @@ const DEFAULT_SETTINGS = {
 // Order statuses that make a buyer eligible to review the product
 const REVIEW_ELIGIBLE_STATUSES = ['delivered', 'shipped', 'processing'];
 
+// ------------------------------------------------------------------
+// Admin authentication
+// ------------------------------------------------------------------
+// Credentials are stored ONLY as SHA-256 hashes — the plaintext email and
+// password never appear in this bundle or the repository. To rotate the
+// password, generate a new hash and paste it below:
+//   node -e "console.log(require('crypto').createHash('sha256').update('YOUR_NEW_PASSWORD').digest('hex'))"
+const ADMIN_EMAIL_HASH = '6a76316e4b6fa28f671e6e41c1c9fb6fe4e8355aa2c4ca66d8eb43f7586938f7';
+const ADMIN_PASSWORD_HASH = '66641c667a941e2845885be81e1254b46a08703845d09137df96b5835e76adef';
+
+const sha256 = (text) =>
+  crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+    .then((buf) => [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join(''));
+
+// Brute-force protection: lock the sign-in form after repeated failures
+const MAX_LOGIN_ATTEMPTS = 5;
+const LOCKOUT_MINUTES = 15;
+const LOCK_KEY = 'ecg-admin-lock';
+
+const getLockState = () => {
+  try {
+    const raw = JSON.parse(localStorage.getItem(LOCK_KEY) || 'null');
+    if (!raw) return { locked: false, attempts: 0 };
+    if (raw.lockedUntil) {
+      if (Date.now() < raw.lockedUntil) {
+        return { locked: true, minutesLeft: Math.ceil((raw.lockedUntil - Date.now()) / 60000) };
+      }
+      return { locked: false, attempts: 0 }; // lockout expired
+    }
+    return { locked: false, attempts: raw.attempts || 0 };
+  } catch {
+    return { locked: false, attempts: 0 };
+  }
+};
+
 export function AdminProvider({ children }) {
   const [products, setProducts] = useState(() => load('ecg-products', null) || defaultProducts);
   const [collections] = useState(defaultCollections);
@@ -93,15 +128,59 @@ export function AdminProvider({ children }) {
     }, ...prev].slice(0, 100));
   }, [setNotificationsP]);
 
-  // Authentication
-  const login = useCallback((email, password) => {
-    if (email.trim().toLowerCase() === 'mesfin@mj.com' && password === 'Mesfin@1080') {
-      sessionStorage.setItem('ecg-admin-auth', 'true');
-      setIsAuthenticated(true);
-      pushAudit('auth', 'auth', 'admin', 'Admin signed in');
-      return { success: true };
+  // Authentication — async because hashing uses the Web Crypto API
+  const login = useCallback(async (email, password) => {
+    if (!window.crypto?.subtle) {
+      return { success: false, error: 'Secure connection required. Open this site over HTTPS.' };
     }
-    return { success: false, error: 'Invalid email or password. Please try again.' };
+    const lock = getLockState();
+    if (lock.locked) {
+      return {
+        success: false,
+        error: `Too many failed attempts. Try again in ${lock.minutesLeft} minute${lock.minutesLeft === 1 ? '' : 's'}.`,
+      };
+    }
+
+    const [emailHash, passwordHash] = await Promise.all([
+      sha256((email || '').trim().toLowerCase()),
+      sha256(password || ''),
+    ]);
+    const ok = emailHash === ADMIN_EMAIL_HASH && passwordHash === ADMIN_PASSWORD_HASH;
+
+    const recordResult = (success) => {
+      try {
+        if (success) {
+          localStorage.removeItem(LOCK_KEY);
+          return;
+        }
+        const attempts = (getLockState().attempts || 0) + 1;
+        localStorage.setItem(LOCK_KEY, JSON.stringify({
+          attempts,
+          lockedUntil: attempts >= MAX_LOGIN_ATTEMPTS ? Date.now() + LOCKOUT_MINUTES * 60000 : null,
+        }));
+      } catch {
+        // storage unavailable — skip lock tracking
+      }
+    };
+
+    if (!ok) {
+      recordResult(false);
+      const after = getLockState();
+      if (after.locked) {
+        return { success: false, error: `Too many failed attempts. Locked for ${LOCKOUT_MINUTES} minutes.` };
+      }
+      const remaining = MAX_LOGIN_ATTEMPTS - (after.attempts || 0);
+      return {
+        success: false,
+        error: `Invalid email or password. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.`,
+      };
+    }
+
+    recordResult(true);
+    sessionStorage.setItem('ecg-admin-auth', 'true');
+    setIsAuthenticated(true);
+    pushAudit('auth', 'auth', 'admin', 'Admin signed in');
+    return { success: true };
   }, [pushAudit]);
 
   const logout = useCallback(() => {
