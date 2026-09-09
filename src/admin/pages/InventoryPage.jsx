@@ -131,8 +131,41 @@ export default function InventoryPage() {
         </button>
       </div>
 
-      {/* Inventory Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      {/* Inventory — cards on mobile, table on desktop */}
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {filtered.map(product => {
+          const status = getStockStatus(product);
+          return (
+            <div key={product.id} className="bg-white rounded-xl border border-gray-100 p-4">
+              <div className="flex gap-3">
+                <img src={product.image} alt={product.name} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-gray-900 truncate">{product.name}</p>
+                  <p className="text-xs text-gray-500 truncate">{product.sku}</p>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className={`text-sm font-semibold ${status === 'out' ? 'text-red-600' : status === 'low' ? 'text-amber-600' : 'text-gray-900'}`}>{product.stock}</span>
+                    <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase ${status === 'out' ? 'bg-red-100 text-red-700' : status === 'low' ? 'bg-amber-100 text-amber-700' : 'bg-emerald-100 text-emerald-700'}`}>{status === 'ok' ? 'In Stock' : status === 'low' ? 'Low' : 'Out'}</span>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="text-sm font-semibold text-gray-900">${(product.stock * (product.pricePerUnit || 0)).toLocaleString()}</p>
+                  <p className="text-[10px] text-gray-400">value</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-50">
+                <button onClick={() => { updateStock(product.id, -1, 'Manual adjustment'); }} className="p-2 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600 transition-colors" title="Decrease stock"><Minus size={15} /></button>
+                <button onClick={() => { updateStock(product.id, 1, 'Manual adjustment'); }} className="p-2 hover:bg-emerald-50 rounded-lg text-gray-400 hover:text-emerald-600 transition-colors" title="Increase stock"><Plus size={15} /></button>
+                <button onClick={() => openAdjust(product)} className="ml-auto px-4 py-2 bg-gold/10 text-gold rounded-lg text-xs font-medium hover:bg-gold/20 transition-colors">Adjust Stock</button>
+              </div>
+            </div>
+          );
+        })}
+        {filtered.length === 0 && <div className="bg-white rounded-xl border border-gray-100 text-center py-12 text-gray-400">No products found</div>}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -225,9 +258,9 @@ export default function InventoryPage() {
       {/* Adjust Stock Modal */}
       <AnimatePresence>
         {showAdjustModal && selectedProduct && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/40" onClick={() => setShowAdjustModal(false)} />
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative bg-white rounded-xl w-full max-w-md p-5">
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} className="relative bg-white w-full sm:max-w-md sm:rounded-xl rounded-t-2xl p-5">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-medium text-gray-900">Adjust Stock</h3>
                 <button onClick={() => setShowAdjustModal(false)} className="p-1 hover:bg-gray-100 rounded-lg"><X size={18} /></button>

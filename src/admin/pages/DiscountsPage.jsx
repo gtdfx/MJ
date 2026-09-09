@@ -83,8 +83,58 @@ export default function DiscountsPage() {
         </div>
       </div>
 
-      {/* Coupons Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      {/* Coupons — cards on mobile, table on desktop */}
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {coupons.length === 0 ? (
+          <div className="bg-white rounded-xl border border-gray-100 text-center py-16">
+            <Tag size={36} className="text-gray-200 mx-auto mb-3" />
+            <p className="text-gray-400 font-medium">No coupons yet</p>
+            <p className="text-gray-400 text-sm mt-1">Tap “Create Coupon” to offer discounts to your customers.</p>
+          </div>
+        ) : coupons.map(coupon => (
+          <div key={coupon.id} className="bg-white rounded-xl border border-gray-100 p-4">
+            <div className="flex items-start justify-between gap-2">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-sm font-semibold text-gray-900">{coupon.code}</span>
+                  <button onClick={() => copyCode(coupon.code)} className="p-1 hover:bg-gray-100 rounded text-gray-400 hover:text-gray-600">
+                    {copied === coupon.code ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+                  </button>
+                </div>
+                {coupon.description && <p className="text-xs text-gray-400 mt-0.5 truncate">{coupon.description}</p>}
+              </div>
+              <button onClick={() => toggleActive(coupon.id)} className={`relative w-10 h-5 rounded-full transition-colors shrink-0 mt-0.5 ${coupon.active ? 'bg-emerald-500' : 'bg-gray-200'}`}>
+                <span className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${coupon.active ? 'translate-x-5' : ''}`} />
+              </button>
+            </div>
+            <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-gray-50 text-center">
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{coupon.type === 'percentage' ? `${coupon.value}%` : coupon.type === 'fixed' ? `$${coupon.value}` : 'Free ship'}</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide">Value</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{coupon.usedCount} / {coupon.maxUses}</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide">Used</p>
+              </div>
+              <div>
+                <p className={`text-sm font-semibold ${coupon.active ? 'text-emerald-600' : 'text-gray-400'}`}>{coupon.active ? 'Active' : 'Off'}</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide">{coupon.expiresAt || 'No expiry'}</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 mt-3 pt-3 border-t border-gray-50">
+              {coupon.minOrder > 0 && <span className="text-xs text-gray-500">Min. ${coupon.minOrder}</span>}
+              <div className="flex items-center gap-1 ml-auto">
+                <button onClick={() => openEdit(coupon)} className="px-3 py-1.5 hover:bg-blue-50 rounded-lg text-gray-400 hover:text-blue-600 flex items-center gap-1 text-xs font-medium"><Edit2 size={13} /> Edit</button>
+                <button onClick={() => handleDelete(coupon.id)} className="px-3 py-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600 flex items-center gap-1 text-xs font-medium"><Trash2 size={13} /> Delete</button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -156,9 +206,9 @@ export default function DiscountsPage() {
       {/* Modal */}
       <AnimatePresence>
         {showModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4">
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute inset-0 bg-black/40" onClick={() => setShowModal(false)} />
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} className="relative bg-white rounded-xl w-full max-w-md p-5">
+            <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 40 }} className="relative bg-white w-full sm:max-w-md sm:rounded-xl rounded-t-2xl p-5 max-h-[92vh] overflow-y-auto">
               <div className="flex items-center justify-between mb-5">
                 <h3 className="font-medium text-gray-900">{editing ? 'Edit Coupon' : 'Create Coupon'}</h3>
                 <button onClick={() => setShowModal(false)} className="p-1 hover:bg-gray-100 rounded-lg"><X size={18} /></button>

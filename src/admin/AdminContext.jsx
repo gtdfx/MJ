@@ -37,6 +37,9 @@ const DEFAULT_SETTINGS = {
   freeShippingThreshold: 100,
 };
 
+// Order statuses that make a buyer eligible to review the product
+const REVIEW_ELIGIBLE_STATUSES = ['delivered', 'shipped', 'processing'];
+
 export function AdminProvider({ children }) {
   const [products, setProducts] = useState(() => load('ecg-products', null) || defaultProducts);
   const [collections] = useState(defaultCollections);
@@ -324,7 +327,6 @@ export function AdminProvider({ children }) {
   // Review management
   // Reviews are restricted to real buyers: the reviewer must give the email
   // used on a delivered/shipped/processing order that contains the product.
-  const REVIEW_ELIGIBLE_STATUSES = ['delivered', 'shipped', 'processing'];
   const findVerifyingOrder = useCallback((productId, email) => {
     const normalized = (email || '').trim().toLowerCase();
     if (!normalized) return null;

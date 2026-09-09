@@ -48,8 +48,35 @@ export default function AuditLogPage() {
         </div>
       </div>
 
-      {/* Log Entries */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      {/* Log Entries — cards on mobile, table on desktop */}
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-2.5">
+        {filtered.length === 0 && <div className="bg-white rounded-xl border border-gray-100 text-center py-12 text-gray-400">No log entries found</div>}
+        {filtered.map(entry => {
+          const Icon = actionIcons[entry.entity] || Package;
+          const colorClass = actionColors[entry.action] || 'text-gray-600 bg-gray-50';
+          return (
+            <div key={entry.id} className="bg-white rounded-xl border border-gray-100 p-4">
+              <div className="flex items-start gap-3">
+                <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${colorClass}`}>
+                  <Icon size={16} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-xs font-medium bg-gray-100 text-gray-600 px-2 py-0.5 rounded capitalize">{entry.entity}</span>
+                    <span className="text-xs text-gray-400">{entry.user}</span>
+                  </div>
+                  <p className="text-sm text-gray-900 mt-1">{entry.description}</p>
+                  <p className="text-[11px] text-gray-400 mt-1">{new Date(entry.timestamp).toLocaleString()}</p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>

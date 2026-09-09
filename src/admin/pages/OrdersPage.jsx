@@ -85,37 +85,38 @@ export default function OrdersPage() {
           return (
             <motion.div key={order.id} layout className="bg-white rounded-xl border border-gray-100 overflow-hidden">
               {/* Order Header */}
-              <div className="flex items-center gap-4 p-4 cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => setExpandedOrder(isExpanded ? null : order.id)}>
+              <div className="flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50 transition-colors" onClick={() => setExpandedOrder(isExpanded ? null : order.id)}>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-3 flex-wrap">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <p className="text-sm font-semibold text-gray-900">{order.id}</p>
-                    <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cfg.color}`}>{cfg.label}</span>
+                    <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${cfg.color}`}>{cfg.label}</span>
                     {/* Payment badge (Stripe-ready) */}
                     {order.paymentStatus === 'paid' ? (
-                      <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center gap-1">
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center gap-1">
                         <CheckCircle size={10} /> Paid
                       </span>
                     ) : order.paymentStatus === 'refunded' ? (
-                      <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500">Refunded</span>
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">Refunded</span>
                     ) : (
-                      <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 flex items-center gap-1">
-                        <Clock size={10} /> Payment Pending
+                      <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 flex items-center gap-1">
+                        <Clock size={10} /> Unpaid
                       </span>
                     )}
-                    {order.trackingNumber && <span className="text-xs text-gray-400 font-mono hidden sm:inline">📦 {order.trackingNumber}</span>}
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">{order.customer} · {order.date} · {order.items.length} item(s)</p>
+                  <p className="text-xs sm:text-sm text-gray-500 mt-1 truncate">{order.customer} · {order.date} · {order.items.length} item(s)</p>
+                  {order.trackingNumber && <p className="text-xs text-gray-400 font-mono mt-0.5 sm:hidden truncate">📦 {order.trackingNumber}</p>}
                 </div>
-                <p className="text-sm font-semibold text-gray-900">${order.total.toLocaleString()}</p>
-                <ChevronDown size={18} className={`text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                <div className="flex items-center gap-2 shrink-0">
+                  <p className="text-sm font-semibold text-gray-900">${order.total.toLocaleString()}</p>
+                  <ChevronDown size={18} className={`text-gray-400 transition-transform ${isExpanded ? 'rotate-180' : ''}`} />
+                </div>
               </div>
 
               {/* Expanded */}
               <AnimatePresence>
                 {isExpanded && (
                   <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="border-t border-gray-100">
-                    <div className="p-5 space-y-5">
-                      {/* Info Grid */}
+                    <div className="p-5 space-y-5">                      {/* Info Grid */}
                       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div className="p-3 bg-gray-50 rounded-lg">
                           <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">Customer</p>

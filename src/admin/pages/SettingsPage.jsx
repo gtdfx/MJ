@@ -167,8 +167,9 @@ export default function SettingsPage() {
       </div>
 
       {/* Save */}
-      <div className="flex justify-end">
-        <button onClick={handleSave} className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
+      {/* Save — sticky thumb bar on mobile, right-aligned on desktop */}
+      <div className="sticky bottom-0 -mx-4 sm:mx-0 bg-gray-50/95 backdrop-blur border-t border-gray-100 p-4 sm:p-0 sm:border-0 sm:bg-transparent sm:static flex sm:justify-end gap-3">
+        <button onClick={handleSave} className="w-full sm:w-auto bg-gold hover:bg-gold-dark text-white px-6 py-3 sm:py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-colors">
           <Save size={16} /> Save Settings
         </button>
       </div>

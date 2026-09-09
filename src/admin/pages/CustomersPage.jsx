@@ -45,8 +45,49 @@ export default function CustomersPage() {
         />
       </div>
 
-      {/* Customers Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      {/* Customers — cards on mobile, table on desktop */}
+      {/* Mobile cards */}
+      <div className="md:hidden space-y-3">
+        {filtered.length === 0 ? (
+          <div className="bg-white rounded-xl border border-gray-100 text-center py-16">
+            <Users size={36} className="text-gray-200 mx-auto mb-3" />
+            <p className="text-gray-400 font-medium">{customers.length === 0 ? 'No customers yet' : 'No customers match your search'}</p>
+            <p className="text-gray-400 text-sm mt-1">{customers.length === 0 ? 'Customer records are created automatically when orders are placed.' : 'Try a different name or email.'}</p>
+          </div>
+        ) : filtered.map(customer => (
+          <div key={customer.id} className="bg-white rounded-xl border border-gray-100 p-4">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center text-gold font-medium text-sm shrink-0">
+                {customer.name.charAt(0)}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-gray-900 truncate">{customer.name}</p>
+                <p className="text-xs text-gray-500 truncate">{customer.email}</p>
+              </div>
+              <a href={`mailto:${customer.email}`} className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-400 hover:text-blue-600 shrink-0">
+                <Mail size={16} />
+              </a>
+            </div>
+            <div className="grid grid-cols-3 gap-2 mt-3 pt-3 border-t border-gray-50 text-center">
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{customer.orders}</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide">Orders</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">${customer.totalSpent.toLocaleString()}</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide">Spent</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-gray-900">{customer.joined}</p>
+                <p className="text-[10px] text-gray-400 uppercase tracking-wide">Joined</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden md:block bg-white rounded-xl border border-gray-100 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
