@@ -28,10 +28,10 @@ const values = [
 
 const timeline = [
   { year: '2008', title: 'The Discovery', description: 'Major opal deposits found in the Welo district of Ethiopia, revealing fire rivaling Australian opals.' },
-  { year: '2012', title: 'Direct Mining', description: 'We begin working directly with Welo miners, cutting out middlemen for fair, transparent sourcing.' },
-  { year: '2018', title: 'The Crystal Opal', description: 'Rare transparent crystal opal parcels arrive — the most prized of Ethiopian stones.' },
-  { year: '2022', title: 'Global Reach', description: 'Our hand-selected opals ship to collectors and jewelers in 40+ countries.' },
-  { year: '2026', title: 'Online Boutique', description: 'Launching our digital storefront — every stone sold by gram and carat.' },
+  { year: '2012', title: 'Etho-Can Is Born', description: 'We begin sourcing directly from Welo miners — authentic rough, crystal, and polished opal, with no middlemen.' },
+  { year: '2016', title: 'Trusted Wholesale', description: 'Our hand-selected opals become a trusted supply for jewelers, lapidaries, and gem collectors.' },
+  { year: '2020', title: 'Crystal Opal Focus', description: 'Rare transparent crystal opal parcels become our signature — the most prized of Ethiopian stones.' },
+  { year: '2026', title: 'Online Boutique', description: 'Launching our digital storefront from Toronto — every stone now available worldwide, sold by gram and carat.' },
 ];
 
 export default function AboutPage() {
@@ -80,8 +80,8 @@ export default function AboutPage() {
                   className="w-full aspect-[4/5] object-cover"
                 />
                 <div className="absolute -bottom-6 -right-6 bg-gold p-6 text-center hidden md:block">
-                  <p className="font-playfair text-3xl text-white">Est.</p>
-                  <p className="font-playfair text-3xl text-white">1874</p>
+                  <p className="font-playfair text-3xl text-white">Since</p>
+                  <p className="font-playfair text-3xl text-white">2012</p>
                 </div>
               </div>
             </motion.div>
@@ -98,9 +98,10 @@ export default function AboutPage() {
               </h2>
               <div className="w-16 h-[1px] bg-gold mb-6" />
               <p className="text-medium-gray font-light leading-relaxed mb-6">
-                Ethiopian Welo opal is one of the world's most remarkable gemstones.
-                Formed over millions of years in volcanic deposits, it displays a play of
-                color that rivals — and often surpasses — any opal on earth.
+                Etho-Can Gemstones began in 2012 with a simple mission: bring authentic
+                Ethiopian opal — in its raw, crystal, and polished forms — straight from
+                the source to the people who love it. No inflated retail markups, no
+                mystery about where your stone came from.
               </p>
               <p className="text-medium-gray font-light leading-relaxed mb-6">
                 We work directly with miners in the Welo region to bring you rough stones,
@@ -190,10 +191,10 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 md:px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             {[
-              { icon: Gem, value: '10K+', label: 'Stones Sold' },
-              { icon: Clock, value: '40+', label: 'Countries Shipped' },
-              { icon: Award, value: '100%', label: 'Certified Origin' },
-              { icon: Sparkles, value: '3', label: 'Grades — Rough, Crystal, Polished' },
+              { icon: Clock, value: '2012', label: 'Sourcing Since' },
+              { icon: Gem, value: '3', label: 'Forms — Rough, Crystal, Polished' },
+              { icon: Award, value: '100%', label: 'Certified Ethiopian Origin' },
+              { icon: Sparkles, value: '100%', label: 'Hand-Selected Fire' },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}

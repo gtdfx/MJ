@@ -3,10 +3,10 @@ import { Award, Sparkles, Gem, Clock } from 'lucide-react';
 
 const About = () => {
   const stats = [
-    { icon: Clock, value: "150+", label: "Years of Excellence" },
-    { icon: Gem, value: "10K+", label: "Unique Pieces" },
-    { icon: Award, value: "50+", label: "Awards Won" },
-    { icon: Sparkles, value: "100%", label: "Ethically Sourced" }
+    { icon: Clock, value: "2012", label: "Sourcing Since" },
+    { icon: Gem, value: "3", label: "Opal Forms" },
+    { icon: Award, value: "100%", label: "Certified Origin" },
+    { icon: Sparkles, value: "100%", label: "Hand-Selected" }
   ];
 
   return (
@@ -41,8 +41,8 @@ const About = () => {
               transition={{ duration: 0.6, delay: 0.4 }}
               className="absolute -bottom-6 right-4 md:-bottom-8 md:right-8 bg-gold p-4 md:p-6 text-center"
             >
-              <p className="font-playfair text-2xl md:text-4xl text-white mb-1">Est.</p>
-              <p className="font-playfair text-2xl md:text-4xl text-white">1874</p>
+              <p className="font-playfair text-2xl md:text-4xl text-white mb-1">Since</p>
+              <p className="font-playfair text-2xl md:text-4xl text-white">2012</p>
             </motion.div>
           </motion.div>
 
@@ -57,24 +57,23 @@ const About = () => {
               Our Heritage
             </p>
             <h2 className="font-playfair text-3xl md:text-4xl lg:text-5xl mb-4 md:mb-6 leading-tight">
-              A Legacy of<br />
-              <span className="text-gold italic">Extraordinary</span><br />
-              Craftsmanship
+              Authentic Opal,<br />
+              <span className="text-gold italic">Straight from</span><br />
+              the Source
             </h2>
 
             <div className="w-16 h-[1px] bg-gold mb-6 md:mb-8" />
 
             <p className="text-white/70 font-light leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
-              Etho-Can Gemstones is synonymous with exceptional opals
-              and uncompromising quality. Each piece in our collection is a testament
-              to the dedication of our master jewelers, who combine time-honored
-              techniques with contemporary design.
+              Since 2012, Etho-Can Gemstones has sourced authentic Ethiopian Welo
+              opals directly from the mines — rough, crystal, and polished —
+              bringing uncompromising quality to jewelers, lapidaries, and
+              collectors.
             </p>
 
             <p className="text-white/70 font-light leading-relaxed mb-8 md:mb-10 text-sm md:text-base">
-              From selecting the finest gemstones to the final polish, every step
-              of our creation process is guided by a passion for perfection and
-              a deep respect for the materials we work with.
+              Every stone is hand-selected for its play of color and sold honestly
+              by gram and carat, with certified Ethiopian origin.
             </p>
 
             <a href="#contact" className="btn-luxury inline-block">
