@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Phone, Mail, Send, Clock, MessageCircle } from 'lucide-react';
+import { Phone, Mail, Send, Clock, MessageCircle, MapPin } from 'lucide-react';
 import { useState } from 'react';
 import Newsletter from '../components/Newsletter';
 import usePageMeta from '../hooks/usePageMeta';
@@ -61,7 +61,7 @@ export default function ContactPage() {
             >
               <h2 className="font-playfair text-2xl md:text-3xl text-charcoal mb-2">Send Us a Message</h2>
               <p className="text-medium-gray text-sm font-light mb-8">
-                Our concierge team typically responds within 24 hours.
+                Our team typically responds within 24 hours.
               </p>
 
               {submitted && (
@@ -151,8 +151,8 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-playfair text-lg text-charcoal mb-1">Email Us</h3>
                     <p className="text-medium-gray font-light text-sm mb-1">For orders, questions, or custom requests</p>
-                    <a href="mailto:mesfinkibret@yahoo.com" className="text-gold text-sm hover:text-gold-light transition-colors">
-                      mesfinkibret@yahoo.com
+                    <a href="mailto:ethiocan_gemstone@yahoo.com" className="text-gold text-sm hover:text-gold-light transition-colors">
+                      ethiocan_gemstone@yahoo.com
                     </a>
                   </div>
                 </div>
@@ -167,6 +167,17 @@ export default function ContactPage() {
                     <a href="tel:+16477193169" className="text-gold text-sm hover:text-gold-light transition-colors">
                       +1 647-719-3169
                     </a>
+                  </div>
+                </div>
+
+                <div className="p-6 bg-white border border-light-gray flex items-start gap-4">
+                  <div className="w-11 h-11 bg-gold/10 flex items-center justify-center shrink-0">
+                    <MapPin size={20} className="text-gold" />
+                  </div>
+                  <div>
+                    <h3 className="font-playfair text-lg text-charcoal mb-1">Based In</h3>
+                    <p className="text-medium-gray font-light text-sm mb-1">Ethiopian opal wholesaler</p>
+                    <p className="text-charcoal text-sm">Toronto, Ontario, Canada</p>
                   </div>
                 </div>
 

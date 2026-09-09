@@ -25,7 +25,7 @@ const sections = [
   },
   {
     title: '6. Your Rights',
-    body: 'You have the right to access, correct, or delete the personal information we hold about you. You may also opt out of marketing communications at any time. To exercise these rights, contact us at mesfinkibret@yahoo.com and we will respond within 30 days.',
+    body: 'You have the right to access, correct, or delete the personal information we hold about you. You may also opt out of marketing communications at any time. To exercise these rights, contact us at ethiocan_gemstone@yahoo.com and we will respond within 30 days.',
   },
   {
     title: '7. Data Retention',
@@ -33,7 +33,7 @@ const sections = [
   },
   {
     title: '8. Contact Us',
-    body: 'If you have any questions about this Privacy Policy or how we handle your data, please contact us at mesfinkibret@yahoo.com or call +1 647-719-3169.',
+    body: 'If you have any questions about this Privacy Policy or how we handle your data, please contact us at ethiocan_gemstone@yahoo.com or call +1 647-719-3169.',
   },
 ];
 

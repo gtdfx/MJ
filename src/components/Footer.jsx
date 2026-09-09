@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Globe, Heart, Share2, Phone, Mail } from 'lucide-react';
+import { Globe, Heart, Share2, Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -93,7 +93,13 @@ const Footer = () => {
               <li className="flex items-center gap-2.5">
                 <Mail size={16} className="text-gold flex-shrink-0" />
                 <span className="text-white/50 text-xs md:text-sm font-light">
-                  mesfinkibret@yahoo.com
+                  ethiocan_gemstone@yahoo.com
+                </span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <MapPin size={16} className="text-gold flex-shrink-0" />
+                <span className="text-white/50 text-xs md:text-sm font-light">
+                  Toronto, Ontario, Canada
                 </span>
               </li>
             </ul>

@@ -37,7 +37,7 @@ const sections = [
   },
   {
     title: '9. Contact',
-    body: 'Questions about these Terms & Conditions? Contact us at mesfinkibret@yahoo.com or call +1 647-719-3169.',
+    body: 'Questions about these Terms & Conditions? Contact us at ethiocan_gemstone@yahoo.com or call +1 647-719-3169.',
   },
 ];
 
