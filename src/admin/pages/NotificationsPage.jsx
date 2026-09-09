@@ -1,17 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bell, Package, ShoppingCart, AlertTriangle, Star, User, Trash2, Check, CheckCheck } from 'lucide-react';
+import { Bell, Trash2, Check, CheckCheck } from 'lucide-react';
 
-const seedNotifications = [
-  { id: 1, type: 'order', icon: ShoppingCart, title: 'New order received', message: 'ORD-008 from David Nakamura — $4,100', time: '2 hours ago', read: false, color: 'text-blue-500 bg-blue-50' },
-  { id: 2, type: 'order', icon: ShoppingCart, title: 'New order received', message: 'ORD-007 from Elena Volkov — $6,800', time: '5 hours ago', read: false, color: 'text-blue-500 bg-blue-50' },
-  { id: 3, type: 'inventory', icon: AlertTriangle, title: 'Low stock alert', message: 'Imperial Sapphire Earrings — only 2 units left', time: '1 day ago', read: false, color: 'text-amber-500 bg-amber-50' },
-  { id: 4, type: 'inventory', icon: AlertTriangle, title: 'Out of stock', message: 'Luna Crescent Necklace is now out of stock', time: '1 day ago', read: true, color: 'text-red-500 bg-red-50' },
-  { id: 5, type: 'review', icon: Star, title: 'New review', message: 'James Wright rated Aura Emerald Ring 3/5 stars', time: '2 days ago', read: true, color: 'text-gold bg-gold/10' },
-  { id: 6, type: 'order', icon: Package, title: 'Order delivered', message: 'ORD-001 delivered to Victoria Sterling', time: '3 days ago', read: true, color: 'text-emerald-500 bg-emerald-50' },
-  { id: 7, type: 'customer', icon: User, title: 'New customer', message: 'James Wright created an account', time: '4 days ago', read: true, color: 'text-purple-500 bg-purple-50' },
-  { id: 8, type: 'order', icon: Package, title: 'Order shipped', message: 'ORD-006 shipped to Marcus Lee via FedEx', time: '5 days ago', read: true, color: 'text-emerald-500 bg-emerald-50' },
-];
+// Notifications start empty — real alerts (new orders, low stock, new reviews) will appear as they happen.
+const seedNotifications = [];
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState(seedNotifications);

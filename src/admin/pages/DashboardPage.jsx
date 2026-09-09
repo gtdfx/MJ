@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { DollarSign, ShoppingCart, Package, Users, TrendingUp, Clock, Truck, CheckCircle } from 'lucide-react';
+import { DollarSign, ShoppingCart, Package, Users, Clock, Truck, CheckCircle } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 import { Link } from 'react-router-dom';
 
@@ -7,10 +7,10 @@ export default function DashboardPage() {
   const { stats, orders, products } = useAdmin();
 
   const statCards = [
-    { label: 'Total Revenue', value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: 'bg-emerald-500', change: '+12.5%' },
-    { label: 'Total Orders', value: stats.totalOrders, icon: ShoppingCart, color: 'bg-blue-500', change: '+8.2%' },
-    { label: 'Products', value: products.length, icon: Package, color: 'bg-purple-500', change: '+2 new' },
-    { label: 'Customers', value: stats.totalCustomers, icon: Users, color: 'bg-gold', change: '+5.1%' },
+    { label: 'Total Revenue', value: `$${stats.totalRevenue.toLocaleString()}`, icon: DollarSign, color: 'bg-emerald-500' },
+    { label: 'Total Orders', value: stats.totalOrders, icon: ShoppingCart, color: 'bg-blue-500' },
+    { label: 'Products', value: products.length, icon: Package, color: 'bg-purple-500' },
+    { label: 'Customers', value: stats.totalCustomers, icon: Users, color: 'bg-gold' },
   ];
 
   const orderStats = [
@@ -45,7 +45,6 @@ export default function DashboardPage() {
               <div className={`${card.color} w-10 h-10 rounded-lg flex items-center justify-center`}>
                 <card.icon size={20} className="text-white" />
               </div>
-              <span className="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-1 rounded-full">{card.change}</span>
             </div>
             <p className="text-2xl font-semibold text-gray-900">{card.value}</p>
             <p className="text-sm text-gray-500 mt-1">{card.label}</p>
@@ -75,12 +74,8 @@ export default function DashboardPage() {
               <p className="text-xl font-semibold text-gray-900">${Math.round(stats.avgOrderValue).toLocaleString()}</p>
             </div>
             <div className="p-3 rounded-lg bg-gray-50">
-              <p className="text-xs text-gray-500 mb-1">Revenue This Month</p>
+              <p className="text-xs text-gray-500 mb-1">Revenue All Time</p>
               <p className="text-xl font-semibold text-gray-900">${stats.totalRevenue.toLocaleString()}</p>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-emerald-600">
-              <TrendingUp size={16} />
-              <span>12.5% vs last month</span>
             </div>
           </div>
         </div>
@@ -104,7 +99,11 @@ export default function DashboardPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {recentOrders.map(order => (
+              {recentOrders.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-5 py-10 text-center text-sm text-gray-400">No orders yet — orders placed at checkout will appear here</td>
+                </tr>
+              ) : recentOrders.map(order => (
                 <tr key={order.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-5 py-3 text-sm font-medium text-gray-900">{order.id}</td>
                   <td className="px-5 py-3 text-sm text-gray-600">{order.customer}</td>

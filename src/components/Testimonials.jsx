@@ -7,7 +7,6 @@ const testimonials = [
     id: 1,
     name: "Victoria Sterling",
     title: "Gem Collector",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop",
     quote: "The fire in these Welo opals is unreal. I bought rough stones by the gram and cut three of the most stunning gems I've ever worked with.",
     rating: 5
   },
@@ -15,7 +14,6 @@ const testimonials = [
     id: 2,
     name: "Alexander Chen",
     title: "Jewelry Designer",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
     quote: "Their crystal opals are consistently top-grade. Transparent, fiery, and perfectly cut — my clients ask where I source them every single time.",
     rating: 5
   },
@@ -23,7 +21,6 @@ const testimonials = [
     id: 3,
     name: "Isabella Romano",
     title: "Opal Enthusiast",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
     quote: "The polished cabochons I ordered were even more beautiful in person — the play of color is hypnotic. Shipped insured and arrived within days.",
     rating: 5
   }
@@ -86,20 +83,13 @@ const Testimonials = () => {
               </div>
 
               {/* Author */}
-              <div className="flex items-center justify-center gap-3 md:gap-4">
-                <img
-                  src={testimonials[current].image}
-                  alt={testimonials[current].name}
-                  className="w-12 h-12 md:w-14 md:h-14 rounded-full object-cover border-2 border-gold"
-                />
-                <div className="text-left">
-                  <p className="font-playfair text-base md:text-lg text-charcoal">
-                    {testimonials[current].name}
-                  </p>
-                  <p className="text-gold text-xs md:text-sm tracking-wider">
-                    {testimonials[current].title}
-                  </p>
-                </div>
+              <div className="text-center">
+                <p className="font-playfair text-base md:text-lg text-charcoal">
+                  {testimonials[current].name}
+                </p>
+                <p className="text-gold text-xs md:text-sm tracking-wider mt-1">
+                  {testimonials[current].title}
+                </p>
               </div>
             </motion.div>
           </AnimatePresence>

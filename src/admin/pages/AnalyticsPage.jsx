@@ -1,11 +1,19 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { TrendingUp, TrendingDown, Calendar, ArrowUpRight, BarChart3, PieChart } from 'lucide-react';
+import { TrendingUp, BarChart3, PieChart } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 
 // Simple bar chart component
 function BarChart({ data, height = 200 }) {
-  const max = Math.max(...data.map(d => d.value));
+  const max = Math.max(...data.map(d => d.value), 1);
+  const allZero = data.every(d => d.value === 0);
+  if (allZero) {
+    return (
+      <div className="flex items-center justify-center text-sm text-gray-400" style={{ height }}>
+        No data for this period yet
+      </div>
+    );
+  }
   return (
     <div className="flex items-end gap-2" style={{ height }}>
       {data.map((d, i) => (
@@ -58,15 +66,21 @@ export default function AnalyticsPage() {
   const { orders, products, stats } = useAdmin();
   const [period, setPeriod] = useState('30d');
 
-  // Revenue by month (simulated data based on orders)
-  const monthlyRevenue = [
-    { label: 'Mar', value: 420, color: '#C9A96E' },
-    { label: 'Apr', value: 510, color: '#C9A96E' },
-    { label: 'May', value: 480, color: '#C9A96E' },
-    { label: 'Jun', value: 560, color: '#C9A96E' },
-    { label: 'Jul', value: 520, color: '#C9A96E' },
-    { label: 'Aug', value: stats.totalRevenue, color: '#B8944F' },
-  ];
+  // Revenue by month — computed from real orders (last 6 months)
+  const monthlyRevenue = (() => {
+    const months = [];
+    const now = new Date();
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+      const key = `${d.getFullYear()}-${d.getMonth()}`;
+      const label = d.toLocaleString('en-US', { month: 'short' });
+      const value = orders
+        .filter(o => { const od = new Date(o.date); return od.getFullYear() === d.getFullYear() && od.getMonth() === d.getMonth(); })
+        .reduce((s, o) => s + o.total, 0);
+      months.push({ label, value, color: i === 5 ? '#B8944F' : '#C9A96E' });
+    }
+    return months;
+  })();
 
   // Revenue by category
   const categoryRevenue = {};
@@ -100,16 +114,20 @@ export default function AnalyticsPage() {
     .sort((a, b) => b.revenue - a.revenue)
     .slice(0, 5);
 
-  // Daily orders (last 7 days simulated)
-  const dailyOrders = [
-    { label: 'Mon', value: 3 }, { label: 'Tue', value: 5 }, { label: 'Wed', value: 2 },
-    { label: 'Thu', value: 7 }, { label: 'Fri', value: 4 }, { label: 'Sat', value: 6 }, { label: 'Sun', value: 1 },
-  ];
+  // Orders per day — computed from real orders (last 7 days)
+  const dailyOrders = (() => {
+    const days = [];
+    const now = new Date();
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+      const value = orders.filter(o => o.date === d.toISOString().split('T')[0]).length;
+      days.push({ label: d.toLocaleString('en-US', { weekday: 'short' }), value, color: '#C9A96E' });
+    }
+    return days;
+  })();
 
-  // Conversion metrics
-  const conversionRate = 3.2;
-  const bounceRate = 42;
-  const avgSession = '4:32';
+  // Empty-store check
+  const noData = orders.length === 0;
 
   return (
     <div className="space-y-6">
@@ -130,18 +148,14 @@ export default function AnalyticsPage() {
       {/* Key Metrics */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: 'Revenue', value: `$${stats.totalRevenue.toLocaleString()}`, change: '+12.5%', up: true },
-          { label: 'Orders', value: stats.totalOrders, change: '+8.2%', up: true },
-          { label: 'Avg. Order', value: `$${Math.round(stats.avgOrderValue).toLocaleString()}`, change: '+3.1%', up: true },
-          { label: 'Conversion', value: `${conversionRate}%`, change: '-0.3%', up: false },
+          { label: 'Revenue', value: `$${stats.totalRevenue.toLocaleString()}` },
+          { label: 'Orders', value: stats.totalOrders },
+          { label: 'Avg. Order', value: `$${Math.round(stats.avgOrderValue).toLocaleString()}` },
+          { label: 'Products', value: products.length },
         ].map((m, i) => (
           <motion.div key={m.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }} className="bg-white rounded-xl p-5 border border-gray-100">
             <p className="text-sm text-gray-500 mb-1">{m.label}</p>
             <p className="text-2xl font-semibold text-gray-900">{m.value}</p>
-            <div className={`flex items-center gap-1 mt-2 text-xs font-medium ${m.up ? 'text-emerald-600' : 'text-red-500'}`}>
-              {m.up ? <TrendingUp size={14} /> : <TrendingDown size={14} />}
-              {m.change} vs last period
-            </div>
           </motion.div>
         ))}
       </div>
@@ -164,8 +178,15 @@ export default function AnalyticsPage() {
             <PieChart size={18} className="text-gray-400" />
           </div>
           <div className="flex justify-center mb-5">
-            <DonutChart segments={categorySegments} />
+            {categorySegments.length > 0 ? <DonutChart segments={categorySegments} /> : (
+              <div className="w-[160px] h-[160px] rounded-full bg-gray-100 flex items-center justify-center">
+                <p className="text-xs text-gray-400 text-center px-6">No sales data yet</p>
+              </div>
+            )}
           </div>
+          {categorySegments.length === 0 && (
+            <p className="text-center text-xs text-gray-400">Category revenue appears once orders come in.</p>
+          )}
           <div className="space-y-2">
             {categorySegments.map(seg => (
               <div key={seg.name} className="flex items-center justify-between text-sm">
@@ -185,42 +206,44 @@ export default function AnalyticsPage() {
         {/* Top Products */}
         <div className="bg-white rounded-xl p-5 border border-gray-100">
           <h3 className="font-medium text-gray-900 mb-4">Top Products</h3>
-          <div className="space-y-3">
-            {topProducts.map((p, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <span className="text-xs font-medium text-gray-400 w-5">#{i + 1}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{p.name}</p>
-                  <p className="text-xs text-gray-500">{p.units} units sold</p>
+          {topProducts.length === 0 ? (
+            <div className="text-center py-10">
+              <BarChart3 size={32} className="text-gray-200 mx-auto mb-2" />
+              <p className="text-sm text-gray-400">Top sellers appear once orders come in.</p>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {topProducts.map((p, i) => (
+                <div key={i} className="flex items-center gap-3">
+                  <span className="text-xs font-medium text-gray-400 w-5">#{i + 1}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-gray-900 truncate">{p.name}</p>
+                    <p className="text-xs text-gray-500">{p.units} units sold</p>
+                  </div>
+                  <p className="text-sm font-semibold text-gray-900">${p.revenue.toLocaleString()}</p>
+                  <div className="w-20 h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-gold rounded-full" style={{ width: `${(p.revenue / topProducts[0].revenue) * 100}%` }} />
+                  </div>
                 </div>
-                <p className="text-sm font-semibold text-gray-900">${p.revenue.toLocaleString()}</p>
-                <div className="w-20 h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                  <div className="h-full bg-gold rounded-full" style={{ width: `${(p.revenue / topProducts[0].revenue) * 100}%` }} />
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Traffic & Sessions */}
         <div className="bg-white rounded-xl p-5 border border-gray-100">
           <h3 className="font-medium text-gray-900 mb-4">Website Traffic</h3>
-          <div className="grid grid-cols-3 gap-4 mb-5">
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <p className="text-xl font-semibold text-gray-900">12.4K</p>
-              <p className="text-xs text-gray-500">Visitors</p>
+          {noData ? (
+            <div className="text-center py-10">
+              <TrendingUp size={32} className="text-gray-200 mx-auto mb-2" />
+              <p className="text-sm text-gray-400">Visitor data appears once Google Analytics is connected and orders come in.</p>
             </div>
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <p className="text-xl font-semibold text-gray-900">{avgSession}</p>
-              <p className="text-xs text-gray-500">Avg. Session</p>
-            </div>
-            <div className="text-center p-3 bg-gray-50 rounded-lg">
-              <p className="text-xl font-semibold text-gray-900">{bounceRate}%</p>
-              <p className="text-xs text-gray-500">Bounce Rate</p>
-            </div>
-          </div>
-          <h4 className="text-sm font-medium text-gray-700 mb-3">Orders This Week</h4>
-          <BarChart data={dailyOrders.map(d => ({ ...d, color: '#C9A96E' }))} height={120} />
+          ) : (
+            <>
+              <h4 className="text-sm font-medium text-gray-700 mb-3">Orders This Week</h4>
+              <BarChart data={dailyOrders} height={120} />
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, Mail, ShoppingBag } from 'lucide-react';
+import { Search, Mail, ShoppingBag, Users } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 
 export default function CustomersPage() {
@@ -25,11 +25,11 @@ export default function CustomersPage() {
         </div>
         <div className="bg-white rounded-xl p-5 border border-gray-100">
           <p className="text-sm text-gray-500 mb-1">Avg. Lifetime Value</p>
-          <p className="text-2xl font-semibold text-gray-900">${Math.round(customers.reduce((s, c) => s + c.totalSpent, 0) / customers.length).toLocaleString()}</p>
+          <p className="text-2xl font-semibold text-gray-900">${customers.length > 0 ? Math.round(customers.reduce((s, c) => s + c.totalSpent, 0) / customers.length).toLocaleString() : 0}</p>
         </div>
         <div className="bg-white rounded-xl p-5 border border-gray-100">
           <p className="text-sm text-gray-500 mb-1">Avg. Orders per Customer</p>
-          <p className="text-2xl font-semibold text-gray-900">{(customers.reduce((s, c) => s + c.orders, 0) / customers.length).toFixed(1)}</p>
+          <p className="text-2xl font-semibold text-gray-900">{customers.length > 0 ? (customers.reduce((s, c) => s + c.orders, 0) / customers.length).toFixed(1) : '0.0'}</p>
         </div>
       </div>
 
@@ -59,7 +59,15 @@ export default function CustomersPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {filtered.map(customer => (
+              {filtered.length === 0 ? (
+                <tr>
+                  <td colSpan={5} className="px-5 py-16 text-center">
+                    <Users size={36} className="text-gray-200 mx-auto mb-3" />
+                    <p className="text-gray-400 font-medium">{customers.length === 0 ? 'No customers yet' : 'No customers match your search'}</p>
+                    <p className="text-gray-400 text-sm mt-1">{customers.length === 0 ? 'Customer records are created automatically when orders are placed.' : 'Try a different name or email.'}</p>
+                  </td>
+                </tr>
+              ) : filtered.map(customer => (
                 <tr key={customer.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">

@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CreditCard, Lock, ArrowLeft, Check, ChevronDown, Truck, Shield } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAdmin } from '../admin/AdminContext';
 
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
+  const { addOrder } = useAdmin();
   const [step, setStep] = useState(1); // 1=shipping, 2=payment, 3=confirmation
   const [shipping, setShipping] = useState({
     firstName: '', lastName: '', email: '', phone: '',
@@ -13,6 +15,7 @@ export default function CheckoutPage() {
   });
   const [shippingMethod, setShippingMethod] = useState('standard');
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [placedOrderId, setPlacedOrderId] = useState(null);
 
   const shippingCost = shippingMethod === 'express' ? 25 : shippingMethod === 'overnight' ? 50 : totalPrice >= 100 ? 0 : 15;
   const tax = Math.round(totalPrice * 0.0888 * 100) / 100;
@@ -26,6 +29,23 @@ export default function CheckoutPage() {
 
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
+    // Create the real order in the store (visible in admin dashboard + order tracking)
+    const order = addOrder({
+      customer: `${shipping.firstName} ${shipping.lastName}`.trim(),
+      email: shipping.email,
+      phone: shipping.phone,
+      address: [shipping.address, shipping.apartment, `${shipping.city}, ${shipping.state} ${shipping.zip}`, shipping.country]
+        .filter(Boolean).join(', '),
+      items: items.map(item => ({
+        productId: item.id,
+        name: item.weight ? `${item.name} (${item.weight}${item.unit})` : item.name,
+        qty: item.quantity,
+        price: item.price,
+      })),
+      total: grandTotal,
+      notes: shippingMethod !== 'standard' ? `${shippingMethod} shipping requested` : '',
+    });
+    setPlacedOrderId(order.id);
     setStep(3);
     setOrderPlaced(true);
     clearCart();
@@ -55,7 +75,7 @@ export default function CheckoutPage() {
           </div>
           <h2 className="font-playfair text-3xl text-charcoal mb-3">Order Confirmed</h2>
           <p className="text-gray-500 mb-2">Thank you for your purchase.</p>
-          <p className="text-sm text-gray-400 mb-8">Order #ORD-{Math.floor(1000 + Math.random() * 9000)} · Confirmation sent to {shipping.email || 'your email'}</p>
+          <p className="text-sm text-gray-400 mb-8">Order #{placedOrderId} · Confirmation sent to {shipping.email || 'your email'}</p>
           <div className="flex gap-3">
             <Link to="/shop" className="flex-1 bg-charcoal hover:bg-charcoal/90 text-white px-6 py-3 rounded-lg font-medium tracking-wide text-sm transition-colors text-center">
               CONTINUE SHOPPING

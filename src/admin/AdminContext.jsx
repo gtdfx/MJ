@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useCallback } from 'react';
-import { products as seedProducts } from '../data/products';
-import { seedReviews } from '../data/reviews';
+import { products as defaultProducts } from '../data/products';
 
 const AdminContext = createContext();
 
@@ -10,62 +9,61 @@ export const useAdmin = () => {
   return ctx;
 };
 
-const seedOrders = [
-  { id: 'ORD-001', customer: 'Victoria Sterling', email: 'victoria@example.com', phone: '+1 212-555-0101', items: [{ productId: 1, name: 'Rough Opal (5g)', qty: 1, price: 125 }], total: 125, status: 'delivered', date: '2026-08-28', address: '142 Park Ave, New York, NY 10016', trackingNumber: '1Z999AA10123456784', carrier: 'UPS', estimatedDelivery: '2026-08-31', notes: 'Gift wrapped per request', statusHistory: [
-    { status: 'pending', date: '2026-08-28T09:00:00', note: 'Order placed' },
-    { status: 'processing', date: '2026-08-28T14:30:00', note: 'Payment confirmed, preparing order' },
-    { status: 'shipped', date: '2026-08-29T10:00:00', note: 'Shipped via UPS' },
-    { status: 'delivered', date: '2026-08-31T15:22:00', note: 'Delivered to front door' },
-  ]},
-  { id: 'ORD-002', customer: 'Alexander Chen', email: 'alex@example.com', phone: '+1 415-555-0202', items: [{ productId: 2, name: 'Crystal Opal (3ct)', qty: 1, price: 135 }], total: 135, status: 'shipped', date: '2026-08-29', address: '88 Mission St, San Francisco, CA 94105', trackingNumber: '9400111899223100001', carrier: 'USPS', estimatedDelivery: '2026-09-02', notes: '', statusHistory: [
-    { status: 'pending', date: '2026-08-29T11:00:00', note: 'Order placed' },
-    { status: 'processing', date: '2026-08-29T15:00:00', note: 'Quality check completed' },
-    { status: 'shipped', date: '2026-08-30T09:15:00', note: 'Shipped via USPS Priority' },
-  ]},
-  { id: 'ORD-003', customer: 'Isabella Romano', email: 'isabella@example.com', phone: '+39 02-555-0303', items: [{ productId: 3, name: 'Polished Opal (5ct)', qty: 1, price: 175 }, { productId: 1, name: 'Rough Opal (2g)', qty: 1, price: 50 }], total: 225, status: 'processing', date: '2026-08-30', address: '55 Via Montenapoleone, Milan 20121', trackingNumber: '', carrier: 'DHL', estimatedDelivery: '2026-09-05', notes: 'International shipment — customs docs attached', statusHistory: [
-    { status: 'pending', date: '2026-08-30T08:30:00', note: 'Order placed' },
-    { status: 'processing', date: '2026-08-30T16:00:00', note: 'Items being prepared for international shipment' },
-  ]},
-  { id: 'ORD-004', customer: 'James Wright', email: 'james@example.com', phone: '+44 20-555-0404', items: [{ productId: 1, name: 'Rough Opal (10g)', qty: 1, price: 250 }], total: 250, status: 'pending', date: '2026-08-30', address: '10 Downing St, London SW1A 2AA', trackingNumber: '', carrier: '', estimatedDelivery: '', notes: 'Rush order requested', statusHistory: [
-    { status: 'pending', date: '2026-08-30T20:15:00', note: 'Order placed — awaiting payment confirmation' },
-  ]},
-  { id: 'ORD-005', customer: 'Sophie Laurent', email: 'sophie@example.com', phone: '+33 1-555-0505', items: [{ productId: 2, name: 'Crystal Opal (2ct)', qty: 1, price: 90 }], total: 90, status: 'delivered', date: '2026-08-25', address: '15 Rue du Faubourg Saint-Honoré, Paris 75008', trackingNumber: 'RR123456789FR', carrier: 'La Poste', estimatedDelivery: '2026-08-28', notes: '', statusHistory: [
-    { status: 'pending', date: '2026-08-25T10:00:00', note: 'Order placed' },
-    { status: 'processing', date: '2026-08-25T14:00:00', note: 'Payment verified' },
-    { status: 'shipped', date: '2026-08-26T09:00:00', note: 'Shipped via La Poste' },
-    { status: 'delivered', date: '2026-08-28T11:30:00', note: 'Delivered — signed by recipient' },
-  ]},
-  { id: 'ORD-006', customer: 'Marcus Lee', email: 'marcus@example.com', phone: '+65 555-0606', items: [{ productId: 3, name: 'Polished Opal (3ct)', qty: 1, price: 105 }], total: 105, status: 'shipped', date: '2026-08-27', address: '200 Marina Bay, Singapore 018956', trackingNumber: 'SG1234567890', carrier: 'FedEx', estimatedDelivery: '2026-09-01', notes: 'Insured shipment — high value', statusHistory: [
-    { status: 'pending', date: '2026-08-27T12:00:00', note: 'Order placed' },
-    { status: 'processing', date: '2026-08-27T16:30:00', note: 'Secure packaging prepared' },
-    { status: 'shipped', date: '2026-08-28T08:00:00', note: 'Shipped via FedEx International' },
-  ]},
-  { id: 'ORD-007', customer: 'Elena Volkov', email: 'elena@example.com', phone: '+7 495-555-0707', items: [{ productId: 1, name: 'Rough Opal (2g)', qty: 2, price: 50 }], total: 100, status: 'processing', date: '2026-08-31', address: '42 Tverskaya St, Moscow 125009', trackingNumber: '', carrier: 'DHL', estimatedDelivery: '2026-09-08', notes: '2 units — verify matching finish', statusHistory: [
-    { status: 'pending', date: '2026-08-31T07:00:00', note: 'Order placed' },
-    { status: 'processing', date: '2026-08-31T13:00:00', note: 'Items being verified for matching finish' },
-  ]},
-  { id: 'ORD-008', customer: 'David Nakamura', email: 'david@example.com', phone: '+81 3-555-0808', items: [{ productId: 2, name: 'Crystal Opal (5ct)', qty: 1, price: 225 }], total: 225, status: 'pending', date: '2026-08-31', address: '3-1-2 Ginza, Chuo-ku, Tokyo 104-0061', trackingNumber: '', carrier: '', estimatedDelivery: '', notes: '', statusHistory: [
-    { status: 'pending', date: '2026-08-31T22:00:00', note: 'Order placed — pending stock confirmation' },
-  ]},
-];
+// Load persisted admin data from localStorage (falls back to defaults)
+const load = (key, fallback) => {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : fallback;
+  } catch {
+    return fallback;
+  }
+};
 
-const seedCustomers = [
-  { id: 1, name: 'Victoria Sterling', email: 'victoria@example.com', phone: '+1 212-555-0101', orders: 3, totalSpent: 425, joined: '2024-03-15' },
-  { id: 2, name: 'Alexander Chen', email: 'alex@example.com', phone: '+1 415-555-0202', orders: 2, totalSpent: 285, joined: '2024-06-22' },
-  { id: 3, name: 'Isabella Romano', email: 'isabella@example.com', phone: '+39 02-555-0303', orders: 5, totalSpent: 610, joined: '2023-11-08' },
-  { id: 4, name: 'James Wright', email: 'james@example.com', phone: '+44 20-555-0404', orders: 1, totalSpent: 250, joined: '2026-08-30' },
-  { id: 5, name: 'Sophie Laurent', email: 'sophie@example.com', phone: '+33 1-555-0505', orders: 4, totalSpent: 530, joined: '2024-01-12' },
-  { id: 6, name: 'Marcus Lee', email: 'marcus@example.com', phone: '+65 555-0606', orders: 2, totalSpent: 240, joined: '2025-04-18' },
-];
+const save = (key, value) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch {
+    // storage full or unavailable — ignore
+  }
+};
 
 export function AdminProvider({ children }) {
-  const [products, setProducts] = useState(seedProducts);
-  const [orders, setOrders] = useState(seedOrders);
-  const [customers] = useState(seedCustomers);
-  const [inventoryLog, setInventoryLog] = useState([]);
-  const [reviews, setReviews] = useState(seedReviews);
+  const [products, setProducts] = useState(() => load('mj-products', defaultProducts));
+  const [orders, setOrders] = useState(() => load('mj-orders', []));
+  const [customers, setCustomers] = useState(() => load('mj-customers', []));
+  const [inventoryLog, setInventoryLog] = useState(() => load('mj-inventory-log', []));
+  const [reviews, setReviews] = useState(() => load('mj-reviews', []));
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return sessionStorage.getItem('mj-admin-auth') === 'true';
+  });
+
+  // Persist on every change
+  const persist = (key, value) => save(key, value);
+
+  const setProductsP = (updater) => setProducts(prev => {
+    const next = typeof updater === 'function' ? updater(prev) : updater;
+    persist('mj-products', next);
+    return next;
+  });
+  const setOrdersP = (updater) => setOrders(prev => {
+    const next = typeof updater === 'function' ? updater(prev) : updater;
+    persist('mj-orders', next);
+    return next;
+  });
+  const setCustomersP = (updater) => setCustomers(prev => {
+    const next = typeof updater === 'function' ? updater(prev) : updater;
+    persist('mj-customers', next);
+    return next;
+  });
+  const setInventoryLogP = (updater) => setInventoryLog(prev => {
+    const next = typeof updater === 'function' ? updater(prev) : updater;
+    persist('mj-inventory-log', next);
+    return next;
+  });
+  const setReviewsP = (updater) => setReviews(prev => {
+    const next = typeof updater === 'function' ? updater(prev) : updater;
+    persist('mj-reviews', next);
+    return next;
   });
 
   // Authentication
@@ -85,23 +83,23 @@ export function AdminProvider({ children }) {
 
   // Product CRUD
   const addProduct = useCallback((product) => {
-    setProducts(prev => [...prev, { ...product, id: Date.now(), stock: product.stock || 0, lowStockThreshold: product.lowStockThreshold || 3, sku: product.sku || `MJ-${Date.now()}` }]);
+    setProductsP(prev => [...prev, { ...product, id: Date.now(), stock: product.stock || 0, lowStockThreshold: product.lowStockThreshold || 3, sku: product.sku || `MJ-${Date.now()}` }]);
   }, []);
 
   const updateProduct = useCallback((id, updates) => {
-    setProducts(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
+    setProductsP(prev => prev.map(p => p.id === id ? { ...p, ...updates } : p));
   }, []);
 
   const deleteProduct = useCallback((id) => {
-    setProducts(prev => prev.filter(p => p.id !== id));
+    setProductsP(prev => prev.filter(p => p.id !== id));
   }, []);
 
   // Inventory management
   const updateStock = useCallback((productId, quantity, reason) => {
-    setProducts(prev => prev.map(p => {
+    setProductsP(prev => prev.map(p => {
       if (p.id === productId) {
         const newStock = p.stock + quantity;
-        setInventoryLog(log => [...log, {
+        setInventoryLogP(log => [...log, {
           id: Date.now(),
           productId,
           productName: p.name,
@@ -117,9 +115,66 @@ export function AdminProvider({ children }) {
     }));
   }, []);
 
+  // Order creation — called by checkout when a customer places an order
+  const addOrder = useCallback((order) => {
+    const id = `ORD-${String(Date.now()).slice(-6)}`;
+    const now = new Date();
+    const newOrder = {
+      id,
+      customer: order.customer,
+      email: order.email,
+      phone: order.phone || '',
+      items: order.items,
+      total: order.total,
+      status: 'pending',
+      date: now.toISOString().split('T')[0],
+      address: order.address,
+      trackingNumber: '',
+      carrier: '',
+      estimatedDelivery: '',
+      notes: order.notes || '',
+      statusHistory: [
+        { status: 'pending', date: now.toISOString(), note: 'Order placed' },
+      ],
+    };
+    setOrdersP(prev => [newOrder, ...prev]);
+
+    // Decrement stock for each item
+    order.items.forEach(item => {
+      if (item.productId) {
+        setProductsP(prev => prev.map(p =>
+          p.id === item.productId ? { ...p, stock: Math.max(0, p.stock - item.qty) } : p
+        ));
+      }
+    });
+
+    // Upsert customer record
+    setCustomersP(prev => {
+      const existing = prev.find(c => c.email.toLowerCase() === order.email.toLowerCase());
+      if (existing) {
+        return prev.map(c =>
+          c.email.toLowerCase() === order.email.toLowerCase()
+            ? { ...c, orders: c.orders + 1, totalSpent: c.totalSpent + order.total }
+            : c
+        );
+      }
+      return [...prev, {
+        id: Date.now(),
+        name: order.customer,
+        email: order.email,
+        phone: order.phone || '',
+        orders: 1,
+        totalSpent: order.total,
+        joined: now.toISOString().split('T')[0],
+      }];
+    });
+
+    return newOrder;
+  }, []);
+
   // Order management
   const updateOrderStatus = useCallback((orderId, status, note = '') => {
-    setOrders(prev => prev.map(o => {
+    setOrdersP(prev => prev.map(o => {
       if (o.id === orderId) {
         const newEntry = { status, date: new Date().toISOString(), note: note || `Status updated to ${status}` };
         return { ...o, status, statusHistory: [...(o.statusHistory || []), newEntry] };
@@ -129,24 +184,24 @@ export function AdminProvider({ children }) {
   }, []);
 
   const updateOrderTracking = useCallback((orderId, trackingNumber, carrier, estimatedDelivery) => {
-    setOrders(prev => prev.map(o => o.id === orderId ? { ...o, trackingNumber, carrier, estimatedDelivery } : o));
+    setOrdersP(prev => prev.map(o => o.id === orderId ? { ...o, trackingNumber, carrier, estimatedDelivery } : o));
   }, []);
 
   const updateOrderNotes = useCallback((orderId, notes) => {
-    setOrders(prev => prev.map(o => o.id === orderId ? { ...o, notes } : o));
+    setOrdersP(prev => prev.map(o => o.id === orderId ? { ...o, notes } : o));
   }, []);
 
   // Review management
   const addReview = useCallback((review) => {
-    setReviews(prev => [{ ...review, id: Date.now(), date: new Date().toISOString().split('T')[0], helpful: 0 }, ...prev]);
+    setReviewsP(prev => [{ ...review, id: Date.now(), date: new Date().toISOString().split('T')[0], helpful: 0 }, ...prev]);
   }, []);
 
   const deleteReview = useCallback((reviewId) => {
-    setReviews(prev => prev.filter(r => r.id !== reviewId));
+    setReviewsP(prev => prev.filter(r => r.id !== reviewId));
   }, []);
 
   const toggleHelpful = useCallback((reviewId) => {
-    setReviews(prev => prev.map(r => r.id === reviewId ? { ...r, helpful: r.helpful + 1 } : r));
+    setReviewsP(prev => prev.map(r => r.id === reviewId ? { ...r, helpful: r.helpful + 1 } : r));
   }, []);
 
   const getProductReviews = useCallback((productId) => {
@@ -181,7 +236,7 @@ export function AdminProvider({ children }) {
     <AdminContext.Provider value={{
       isAuthenticated, login, logout,
       products, addProduct, updateProduct, deleteProduct,
-      orders, updateOrderStatus, updateOrderTracking, updateOrderNotes,
+      orders, addOrder, updateOrderStatus, updateOrderTracking, updateOrderNotes,
       customers,
       reviews, addReview, deleteReview, toggleHelpful, getProductReviews, getReviewStats,
       inventoryLog, updateStock,

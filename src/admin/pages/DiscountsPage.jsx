@@ -3,15 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Copy, Trash2, Edit2, X, Tag, Percent, DollarSign, Calendar, Check, Truck } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 
-const seedCoupons = [
-  { id: 1, code: 'WELCOME10', type: 'percentage', value: 10, minOrder: 500, maxUses: 100, usedCount: 23, active: true, expiresAt: '2026-12-31', description: 'Welcome discount for new customers' },
-  { id: 2, code: 'LUXURY500', type: 'fixed', value: 500, minOrder: 3000, maxUses: 50, usedCount: 12, active: true, expiresAt: '2026-09-30', description: '$500 off orders over $3,000' },
-  { id: 3, code: 'SUMMER20', type: 'percentage', value: 20, minOrder: 100, maxUses: 200, usedCount: 89, active: false, expiresAt: '2026-08-31', description: 'Summer sale — 20% off' },
-  { id: 4, code: 'FREESHIP', type: 'shipping', value: 0, minOrder: 0, maxUses: 999, usedCount: 156, active: true, expiresAt: '2026-12-31', description: 'Free shipping on all orders' },
-];
+const emptyCoupons = [];
 
 export default function DiscountsPage() {
-  const [coupons, setCoupons] = useState(seedCoupons);
+  const [coupons, setCoupons] = useState(emptyCoupons);
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [copied, setCopied] = useState(null);
@@ -104,7 +99,15 @@ export default function DiscountsPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-50">
-              {coupons.map(coupon => (
+              {coupons.length === 0 ? (
+                <tr>
+                  <td colSpan={8} className="px-5 py-16 text-center">
+                    <Tag size={36} className="text-gray-200 mx-auto mb-3" />
+                    <p className="text-gray-400 font-medium">No coupons yet</p>
+                    <p className="text-gray-400 text-sm mt-1">Click “Create Coupon” to offer discounts to your customers.</p>
+                  </td>
+                </tr>
+              ) : coupons.map(coupon => (
                 <tr key={coupon.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-2">
