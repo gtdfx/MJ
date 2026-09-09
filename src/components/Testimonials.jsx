@@ -5,23 +5,23 @@ import { ChevronLeft, ChevronRight, Star, Quote } from 'lucide-react';
 const testimonials = [
   {
     id: 1,
-    name: "Victoria Sterling",
-    title: "Gem Collector",
-    quote: "The fire in these Welo opals is unreal. I bought rough stones by the gram and cut three of the most stunning gems I've ever worked with.",
+    name: "Daniel W.",
+    title: "Jewelry Maker",
+    quote: "I ordered a few grams of the rough to test them before committing. Stones showed up clean, no cracks, and they cut nicely. Shipping took about a week. I've already placed a second order.",
     rating: 5
   },
   {
     id: 2,
-    name: "Alexander Chen",
-    title: "Jewelry Designer",
-    quote: "Their crystal opals are consistently top-grade. Transparent, fiery, and perfectly cut — my clients ask where I source them every single time.",
+    name: "Sara M.",
+    title: "First-Time Buyer",
+    quote: "I didn't know much about opals and asked a lot of questions before buying. They helped me pick the right polished stone for a gift, and it looked even better in person. My sister hasn't taken it off since.",
     rating: 5
   },
   {
     id: 3,
-    name: "Isabella Romano",
-    title: "Opal Enthusiast",
-    quote: "The polished cabochons I ordered were even more beautiful in person — the play of color is hypnotic. Shipped insured and arrived within days.",
+    name: "Peter K.",
+    title: "Collector, 2 Years",
+    quote: "Third order in two years. The crystal opals are bright and clear, always as described — the photos honestly undersell them. Pricing by the carat is clear, and what you see is what you get.",
     rating: 5
   }
 ];
