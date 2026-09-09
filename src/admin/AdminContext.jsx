@@ -322,10 +322,47 @@ export function AdminProvider({ children }) {
   }, [setCouponsP]);
 
   // Review management
+  // Reviews are restricted to real buyers: the reviewer must give the email
+  // used on a delivered/shipped/processing order that contains the product.
+  const REVIEW_ELIGIBLE_STATUSES = ['delivered', 'shipped', 'processing'];
+  const findVerifyingOrder = useCallback((productId, email) => {
+    const normalized = (email || '').trim().toLowerCase();
+    if (!normalized) return null;
+    return orders.find(o =>
+      REVIEW_ELIGIBLE_STATUSES.includes(o.status) &&
+      (o.email || '').toLowerCase() === normalized &&
+      (o.items || []).some(item => String(item.productId) === String(productId))
+    ) || null;
+  }, [orders]);
+
+  // Public storefront helper: 'eligible' | 'already-reviewed' | 'not-buyer'
+  const getPurchaseStatus = useCallback((productId, email) => {
+    const normalized = (email || '').trim().toLowerCase();
+    if (!normalized) return 'not-buyer';
+    const already = reviews.some(r =>
+      r.productId === productId &&
+      (r.reviewerEmail || '').toLowerCase() === normalized &&
+      r.status !== 'rejected'
+    );
+    if (already) return 'already-reviewed';
+    return findVerifyingOrder(productId, email) ? 'eligible' : 'not-buyer';
+  }, [reviews, findVerifyingOrder]);
+
   const addReview = useCallback((review) => {
-    setReviewsP(prev => [{ ...review, id: Date.now(), date: new Date().toISOString().split('T')[0], helpful: 0, status: 'pending' }, ...prev]);
-    pushNotification('review', 'New review submitted', `"${review.title}" — awaiting approval`);
-  }, [setReviewsP, pushNotification]);
+    // Server-side style guard: silently reject if not a verified purchase
+    const status = getPurchaseStatus(review.productId, review.reviewerEmail);
+    if (status !== 'eligible') return { success: false, reason: status };
+    setReviewsP(prev => [{
+      ...review,
+      id: Date.now(),
+      date: new Date().toISOString().split('T')[0],
+      helpful: 0,
+      status: 'pending',
+      verified: true, // real buyer — auto-tagged Verified Buyer
+    }, ...prev]);
+    pushNotification('review', 'New verified buyer review', `"${review.title}" — awaiting approval`);
+    return { success: true };
+  }, [setReviewsP, pushNotification, getPurchaseStatus]);
 
   const approveReview = useCallback((reviewId) => {
     setReviewsP(prev => prev.map(r => r.id === reviewId ? { ...r, status: 'approved' } : r));
@@ -405,7 +442,7 @@ export function AdminProvider({ children }) {
       orders, addOrder, updateOrderStatus, updateOrderTracking, updateOrderNotes, markOrderPaid, markOrderUnpaid,
       customers,
       coupons, addCoupon, updateCoupon, deleteCoupon, validateCoupon, recordCouponUse,
-      reviews, addReview, approveReview, rejectReview, deleteReview, toggleHelpful, getProductReviews, getReviewStats,
+      reviews, addReview, approveReview, rejectReview, deleteReview, toggleHelpful, getProductReviews, getReviewStats, getPurchaseStatus,
       inventoryLog, updateStock,
       notifications, markNotificationRead, markAllNotificationsRead, deleteNotification, clearNotifications, unreadNotifications, pendingReviews,
       auditLog,

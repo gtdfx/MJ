@@ -119,6 +119,12 @@ export default function ReviewsPage() {
                 <p className="text-sm text-gray-600 mb-2">{review.body}</p>
                 <div className="flex items-center gap-3 text-xs text-gray-400">
                   <span>{review.author}</span>
+                  {review.reviewerEmail && (
+                    <>
+                      <span>·</span>
+                      <span className="text-gray-500">{review.reviewerEmail}</span>
+                    </>
+                  )}
                   <span>·</span>
                   <span>{productName(review.productId)}</span>
                   <span>·</span>
