@@ -11,8 +11,8 @@ export default function SettingsPage() {
     email: settings.email,
     phone: settings.phone,
     address: settings.address,
-    currency: settings.currency,
-    freeShippingThreshold: String(settings.freeShippingThreshold),
+    currency: settings.currency,      freeShippingThreshold: String(settings.freeShippingThreshold),
+    stripePublishableKey: settings.stripePublishableKey || '',
   });
 
   const [notifications, setNotifications] = useState({
@@ -139,12 +139,27 @@ export default function SettingsPage() {
           <CreditCard size={20} className="text-gold" />
           <h3 className="font-medium text-gray-900">Payment Methods</h3>
         </div>
-        <div className="p-5">
-          <div className="space-y-3">
-            {['Visa / Mastercard', 'American Express', 'PayPal', 'Apple Pay'].map(method => (
-              <div key={method} className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
+        <div className="p-5 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Stripe Publishable Key</label>
+            <input
+              type="text"
+              value={storeSettings.stripePublishableKey}
+              onChange={e => setStoreSettings({ ...storeSettings, stripePublishableKey: e.target.value })}
+              className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm font-mono focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold"
+              placeholder="pk_live_... or pk_test_..."
+            />
+            <p className="text-xs text-gray-400 mt-1.5">
+              Paste your publishable key from dashboard.stripe.com → API keys. The secret key stays in your Stripe dashboard — never put it here.
+            </p>
+          </div>
+          <div className="space-y-3 pt-2">
+            {['Visa / Mastercard', 'American Express', 'Apple Pay', 'Google Pay'].map(method => (
+              <div key={method} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
                 <span className="text-sm text-gray-700">{method}</span>
-                <span className="text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full">Active</span>
+                <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-1 rounded-full">
+                  {storeSettings.stripePublishableKey ? 'Via Stripe' : 'Connect Stripe to enable'}
+                </span>
               </div>
             ))}
           </div>

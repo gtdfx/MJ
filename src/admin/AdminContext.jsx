@@ -185,6 +185,12 @@ export function AdminProvider({ children }) {
       tax: order.tax || 0,
       total: order.total,
       status: 'pending',
+      // Payment lifecycle (Stripe-ready): checkout creates 'pending';
+      // markOrderPaid flips it once Stripe payment succeeds/webhook arrives.
+      paymentStatus: order.paymentStatus || 'pending',
+      paymentMethod: order.paymentMethod || 'card',
+      paymentId: order.paymentId || null,
+      paidAt: order.paidAt || null,
       date: now.toISOString().split('T')[0],
       address: order.address,
       trackingNumber: '',
@@ -230,6 +236,23 @@ export function AdminProvider({ children }) {
     pushAudit('create', 'order', id, `New order — $${order.total.toFixed(2)} from ${order.customer}`);
     return newOrder;
   }, [setOrdersP, setCustomersP, updateStock, pushNotification, pushAudit]);
+
+  // Payment management (Stripe-ready): call from a Stripe success page or webhook handler
+  const markOrderPaid = useCallback((orderId, paymentId = null) => {
+    setOrdersP(prev => prev.map(o => o.id === orderId
+      ? { ...o, paymentStatus: 'paid', paymentId: paymentId || o.paymentId, paidAt: new Date().toISOString() }
+      : o
+    ));
+    pushAudit('status', 'order', orderId, 'Payment marked as paid');
+  }, [setOrdersP, pushAudit]);
+
+  const markOrderUnpaid = useCallback((orderId) => {
+    setOrdersP(prev => prev.map(o => o.id === orderId
+      ? { ...o, paymentStatus: 'pending', paymentId: null, paidAt: null }
+      : o
+    ));
+    pushAudit('status', 'order', orderId, 'Payment marked as unpaid');
+  }, [setOrdersP, pushAudit]);
 
   // Order management
   const updateOrderStatus = useCallback((orderId, status, note = '') => {
@@ -379,7 +402,7 @@ export function AdminProvider({ children }) {
       isAuthenticated, login, logout,
       products, addProduct, updateProduct, deleteProduct,
       collections,
-      orders, addOrder, updateOrderStatus, updateOrderTracking, updateOrderNotes,
+      orders, addOrder, updateOrderStatus, updateOrderTracking, updateOrderNotes, markOrderPaid, markOrderUnpaid,
       customers,
       coupons, addCoupon, updateCoupon, deleteCoupon, validateCoupon, recordCouponUse,
       reviews, addReview, approveReview, rejectReview, deleteReview, toggleHelpful, getProductReviews, getReviewStats,

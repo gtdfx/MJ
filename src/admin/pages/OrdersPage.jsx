@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, ChevronDown, Truck, Package, Clock, CheckCircle, MapPin, Edit3, Save, X } from 'lucide-react';
+import { Search, ChevronDown, Truck, Package, Clock, CheckCircle, MapPin, Edit3, Save, X, CreditCard, DollarSign } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 
 const statusConfig = {
@@ -14,7 +14,7 @@ const statuses = ['pending', 'processing', 'shipped', 'delivered'];
 const carriers = ['UPS', 'USPS', 'FedEx', 'DHL', 'La Poste', 'Other'];
 
 export default function OrdersPage() {
-  const { orders, updateOrderStatus, updateOrderTracking, updateOrderNotes } = useAdmin();
+  const { orders, updateOrderStatus, updateOrderTracking, updateOrderNotes, markOrderPaid, markOrderUnpaid } = useAdmin();
   const [search, setSearch] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [expandedOrder, setExpandedOrder] = useState(null);
@@ -90,6 +90,18 @@ export default function OrdersPage() {
                   <div className="flex items-center gap-3 flex-wrap">
                     <p className="text-sm font-semibold text-gray-900">{order.id}</p>
                     <span className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${cfg.color}`}>{cfg.label}</span>
+                    {/* Payment badge (Stripe-ready) */}
+                    {order.paymentStatus === 'paid' ? (
+                      <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-700 flex items-center gap-1">
+                        <CheckCircle size={10} /> Paid
+                      </span>
+                    ) : order.paymentStatus === 'refunded' ? (
+                      <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-500">Refunded</span>
+                    ) : (
+                      <span className="text-xs font-medium px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-700 flex items-center gap-1">
+                        <Clock size={10} /> Payment Pending
+                      </span>
+                    )}
                     {order.trackingNumber && <span className="text-xs text-gray-400 font-mono hidden sm:inline">📦 {order.trackingNumber}</span>}
                   </div>
                   <p className="text-sm text-gray-500 mt-1">{order.customer} · {order.date} · {order.items.length} item(s)</p>
@@ -223,13 +235,36 @@ export default function OrdersPage() {
                       </div>
 
                       {/* Status Update Buttons */}
-                      <div className="flex items-center gap-2 pt-3 border-t border-gray-100">
+                      <div className="flex items-center flex-wrap gap-2 pt-3 border-t border-gray-100">
                         <p className="text-xs text-gray-500 uppercase tracking-wider mr-2">Update Status:</p>
                         {statuses.map(status => (
                           <button key={status} onClick={() => updateOrderStatus(order.id, status)} className={`text-xs font-medium px-3 py-1.5 rounded-lg capitalize transition-colors ${order.status === status ? 'bg-charcoal text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>
                             {statusConfig[status].label}
                           </button>
                         ))}
+                      </div>
+
+                      {/* Payment Actions (Stripe-ready) */}
+                      <div className="flex items-center flex-wrap gap-2 pt-3 border-t border-gray-100">
+                        <p className="text-xs text-gray-500 uppercase tracking-wider mr-2 flex items-center gap-1"><CreditCard size={12} /> Payment:</p>
+                        {order.paymentStatus === 'paid' ? (
+                          <>
+                            <span className="text-xs text-emerald-600 font-medium flex items-center gap-1">
+                              <DollarSign size={12} /> Paid {order.paidAt && `· ${new Date(order.paidAt).toLocaleDateString()}`}
+                            </span>
+                            {order.paymentId && <span className="text-xs text-gray-400 font-mono">{order.paymentId}</span>}
+                            <button onClick={() => markOrderUnpaid(order.id)} className="text-xs font-medium px-3 py-1.5 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 transition-colors">
+                              Mark Unpaid
+                            </button>
+                          </>
+                        ) : (
+                          <button onClick={() => {
+                            const pid = prompt('Stripe payment ID (optional, e.g. pi_3Px...):') || null;
+                            markOrderPaid(order.id, pid);
+                          }} className="text-xs font-medium px-3 py-1.5 rounded-lg bg-emerald-600 text-white hover:bg-emerald-700 transition-colors">
+                            Mark as Paid
+                          </button>
+                        )}
                       </div>
                     </div>
                   </motion.div>

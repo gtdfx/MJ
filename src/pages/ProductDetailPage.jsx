@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext';
 import { useAdmin } from '../admin/AdminContext';
 import ReviewSection from '../components/ReviewSection';
 import usePageMeta from '../hooks/usePageMeta';
+import { track } from '../analytics/tracker';
 
 export default function ProductDetailPage() {
   const { id } = useParams();
@@ -24,6 +25,13 @@ export default function ProductDetailPage() {
   useEffect(() => {
     setSelectedWeight(product?.availableWeights?.[0] ?? null);
     setQuantity(1);
+  }, [product?.id]);
+
+  // Track product view
+  useEffect(() => {
+    if (product) {
+      track('product_view', { productId: product.id, productName: product.name, value: product.pricePerUnit || product.price || 0 });
+    }
   }, [product?.id]);
 
   if (!product) {
@@ -55,6 +63,12 @@ export default function ProductDetailPage() {
     for (let i = 0; i < quantity; i++) {
       addToCart(product, options);
     }
+    track('add_to_cart', {
+      productId: product.id,
+      productName: product.name,
+      quantity,
+      value: totalPrice * quantity,
+    });
   };
 
   return (

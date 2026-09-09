@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { CreditCard, Lock, ArrowLeft, Check, ChevronDown, Truck, Shield, Tag, X } from 'lucide-react';
+import { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAdmin } from '../admin/AdminContext';
+import { track } from '../analytics/tracker';
 
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
@@ -28,6 +30,19 @@ export default function CheckoutPage() {
   const shippingCost = shippingMethod === 'express' ? 25 : shippingMethod === 'overnight' ? 50 : (appliedCoupon?.freeShipping || afterDiscount >= freeThreshold) ? 0 : 15;
   const tax = Math.round(afterDiscount * 0.0888 * 100) / 100;
   const grandTotal = afterDiscount + shippingCost + tax;
+
+  // Track checkout funnel progression
+  useEffect(() => {
+    if (step === 1 && items.length > 0) {
+      track('checkout_shipping', { value: grandTotal, items: items.length });
+    }
+  }, [step]);
+
+  useEffect(() => {
+    if (step === 2 && items.length > 0) {
+      track('checkout_payment', { value: grandTotal, items: items.length });
+    }
+  }, [step]);
 
   const handleApplyCoupon = () => {
     setCouponError('');
@@ -79,6 +94,15 @@ export default function CheckoutPage() {
     setPlacedOrderId(order.id);
     setStep(3);
     setOrderPlaced(true);
+    // Analytics: purchase conversion (mirrors the order in the funnel)
+    track('purchase', {
+      orderId: order.id,
+      value: grandTotal,
+      items: items.length,
+      couponCode: appliedCoupon?.code || null,
+      paymentMethod: 'stripe_pending',
+      itemsDetail: items.map(i => ({ productId: i.id, qty: i.quantity })),
+    });
     clearCart();
     window.scrollTo(0, 0);
   };

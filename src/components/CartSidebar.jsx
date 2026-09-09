@@ -1,7 +1,9 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Minus, Plus, ShoppingBag, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useCart } from '../context/CartContext';
+import { track } from '../analytics/tracker';
 
 const CartSidebar = () => {
   const { 
@@ -13,6 +15,13 @@ const CartSidebar = () => {
     totalPrice,
     clearCart 
   } = useCart();
+
+  // Track view_cart each time the cart opens
+  useEffect(() => {
+    if (isOpen && items.length > 0) {
+      track('view_cart', { value: totalPrice, items: items.length });
+    }
+  }, [isOpen]);
 
   return (
     <AnimatePresence>
@@ -155,7 +164,14 @@ const CartSidebar = () => {
                 <p className="text-xs text-medium-gray mb-4 font-light">
                   Shipping calculated at checkout
                 </p>
-                <Link to="/checkout" onClick={() => setIsOpen(false)} className="btn-luxury w-full mb-3 block text-center">
+                <Link
+                  to="/checkout"
+                  onClick={() => {
+                    setIsOpen(false);
+                    track('begin_checkout', { value: totalPrice, items: items.length });
+                  }}
+                  className="btn-luxury w-full mb-3 block text-center"
+                >
                   Proceed to Checkout
                 </Link>
                 <button

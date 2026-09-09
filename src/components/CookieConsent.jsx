@@ -14,11 +14,13 @@ const CookieConsent = () => {
   }, []);
 
   const accept = () => {
+    localStorage.setItem('ecg-cookie-consent', 'accepted');
     localStorage.setItem('mj-cookie-consent', 'accepted');
     setVisible(false);
   };
 
   const decline = () => {
+    localStorage.setItem('ecg-cookie-consent', 'declined');
     localStorage.setItem('mj-cookie-consent', 'declined');
     setVisible(false);
   };
