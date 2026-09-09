@@ -38,7 +38,7 @@ const sections = [
 ];
 
 export default function PrivacyPage() {
-  usePageMeta('Privacy Policy', 'How MJ collects, uses, and protects your personal information.');
+  usePageMeta('Privacy Policy', 'How Etho-Can Gemstones collects, uses, and protects your personal information.');
 
   return (
     <div className="bg-cream pt-28 md:pt-32 pb-16 md:pb-24">
@@ -62,7 +62,7 @@ export default function PrivacyPage() {
           className="bg-white border border-light-gray p-6 md:p-10 space-y-8"
         >
           <p className="text-medium-gray font-light leading-relaxed">
-            At MJ, we take your privacy seriously. This Privacy Policy explains how we collect, use,
+            At Etho-Can Gemstones, we take your privacy seriously. This Privacy Policy explains how we collect, use,
             and protect your personal information when you visit our website or make a purchase.
             By using our site, you consent to the practices described below.
           </p>

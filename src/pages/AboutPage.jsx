@@ -35,7 +35,7 @@ const timeline = [
 ];
 
 export default function AboutPage() {
-  usePageMeta('About Us', 'The story of MJ — a legacy of extraordinary craftsmanship, ethical sourcing, and timeless design since 1874.');
+  usePageMeta('About Us', 'The story of Etho-Can Gemstones — ethical sourcing of Ethiopian Welo opals, from the mines to collectors worldwide.');
 
   return (
     <div className="bg-cream">

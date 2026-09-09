@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, ShoppingBag, Diamond } from 'lucide-react';
+import { Menu, X, Search, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const Navbar = () => {
@@ -88,16 +88,15 @@ const Navbar = () => {
 
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 md:gap-3 group shrink-0">
-              <Diamond
-                size={22}
-                className={`transition-all duration-500 group-hover:rotate-12 ${
-                  navScrolled ? 'text-gold' : 'text-gold-light'
-                }`}
+              <img
+                src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
+                alt="Etho-Can Gemstones logo"
+                className="w-9 h-9 md:w-11 md:h-11 object-contain transition-all duration-500 group-hover:scale-105"
               />
-              <span className={`font-playfair text-lg md:text-2xl lg:text-3xl tracking-[3px] md:tracking-[4px] uppercase transition-colors duration-500 ${
+              <span className={`font-playfair text-base md:text-xl lg:text-2xl tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
                 navScrolled ? 'text-charcoal' : 'text-white'
               }`}>
-                MJ
+                Etho-Can <span className="hidden sm:inline">Gemstones</span>
               </span>
             </Link>
 
@@ -156,9 +155,9 @@ const Navbar = () => {
         }`}>
           <div className="pt-24 px-8">
             <div className="flex items-center gap-3 mb-12">
-              <Diamond size={24} className="text-gold" />
-              <span className="font-playfair text-2xl tracking-[3px] uppercase text-charcoal">
-                MJ
+              <img src="/images/logo-black.png" alt="Etho-Can Gemstones logo" className="w-11 h-11 object-contain" />
+              <span className="font-playfair text-xl tracking-[2px] uppercase text-charcoal">
+                Etho-Can Gemstones
               </span>
             </div>
             {[...leftLinks, ...rightLinks].map((link) => (

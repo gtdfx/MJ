@@ -3,7 +3,7 @@ import { Save, Store, Bell, CreditCard, Truck } from 'lucide-react';
 
 export default function SettingsPage() {
   const [storeSettings, setStoreSettings] = useState({
-    storeName: 'MJ',
+    storeName: 'Etho-Can Gemstones',
     tagline: 'Ethiopian Welo Opals — Sold by Gram & Carat',
     email: 'mesfinkibret@yahoo.com',
     phone: '+1 647-719-3169',

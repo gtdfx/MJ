@@ -1,5 +1,5 @@
 import { NavLink, Outlet, useLocation, Navigate, Link } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, Diamond, LogOut, Bell, Search, Warehouse, BarChart3, Tag, Star, BellRing, ClipboardList, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingCart, Users, Settings, ChevronLeft, LogOut, Bell, Search, Warehouse, BarChart3, Tag, Star, BellRing, ClipboardList, ExternalLink } from 'lucide-react';
 import { useState } from 'react';
 import { useAdmin } from '../AdminContext';
 
@@ -33,9 +33,9 @@ export default function AdminLayout() {
       <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-charcoal text-white transition-all duration-300 flex flex-col shrink-0`}>
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 h-16 border-b border-white/10">
-          <Diamond size={24} className="text-gold shrink-0" />
+          <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-8 h-8 object-contain shrink-0" />
           {sidebarOpen && (
-            <span className="font-playfair text-lg tracking-[2px] uppercase whitespace-nowrap">Admin</span>
+            <span className="font-playfair text-base tracking-[2px] uppercase whitespace-nowrap">Etho-Can <span className="text-gold">Admin</span></span>
           )}
           <button onClick={() => setSidebarOpen(!sidebarOpen)} className="ml-auto text-white/50 hover:text-white transition-colors">
             <ChevronLeft size={18} className={`transition-transform duration-300 ${!sidebarOpen ? 'rotate-180' : ''}`} />

@@ -5,7 +5,7 @@ import Newsletter from '../components/Newsletter';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function ContactPage() {
-  usePageMeta('Contact Us', 'Get in touch with MJ — our concierge team responds within 24 hours.');
+  usePageMeta('Contact Us', 'Get in touch with Etho-Can Gemstones — our team responds within 24 hours.');
 
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '', website: '' });
   const [submitted, setSubmitted] = useState(false);

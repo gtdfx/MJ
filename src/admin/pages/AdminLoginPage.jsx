@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
-import { Diamond, Mail, Lock, Eye, EyeOff, ArrowLeft, ShieldCheck } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, ShieldCheck } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 
 export default function AdminLoginPage() {
@@ -50,8 +50,8 @@ export default function AdminLoginPage() {
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <Diamond size={36} className="text-gold mx-auto mb-4" />
-          <h1 className="font-playfair text-3xl text-white tracking-[4px] uppercase mb-2">MJ</h1>
+          <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-16 h-16 object-contain mx-auto mb-4" />
+          <h1 className="font-playfair text-2xl text-white tracking-[3px] uppercase mb-2">Etho-Can Gemstones</h1>
           <p className="text-white/50 text-xs tracking-[3px] uppercase">Admin Dashboard</p>
         </div>
 

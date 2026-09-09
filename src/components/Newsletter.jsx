@@ -51,7 +51,7 @@ const Newsletter = () => {
           {subscribed ? (
             <div className="max-w-lg mx-auto bg-white border border-gold/30 p-6 flex items-center justify-center gap-3">
               <CheckCircle size={24} className="text-gold shrink-0" />
-              <p className="text-charcoal font-light">Welcome to the MJ inner circle — check your inbox!</p>
+              <p className="text-charcoal font-light">Welcome to the Etho-Can Gemstones inner circle — check your inbox!</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 md:gap-4 max-w-lg mx-auto">

@@ -28,13 +28,13 @@ const save = (key, value) => {
 };
 
 export function AdminProvider({ children }) {
-  const [products, setProducts] = useState(() => load('mj-products', defaultProducts));
-  const [orders, setOrders] = useState(() => load('mj-orders', []));
-  const [customers, setCustomers] = useState(() => load('mj-customers', []));
-  const [inventoryLog, setInventoryLog] = useState(() => load('mj-inventory-log', []));
-  const [reviews, setReviews] = useState(() => load('mj-reviews', []));
+  const [products, setProducts] = useState(() => load('ecg-products', defaultProducts));
+  const [orders, setOrders] = useState(() => load('ecg-orders', []));
+  const [customers, setCustomers] = useState(() => load('ecg-customers', []));
+  const [inventoryLog, setInventoryLog] = useState(() => load('ecg-inventory-log', []));
+  const [reviews, setReviews] = useState(() => load('ecg-reviews', []));
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    return sessionStorage.getItem('mj-admin-auth') === 'true';
+    return sessionStorage.getItem('ecg-admin-auth') === 'true';
   });
 
   // Persist on every change
@@ -42,34 +42,34 @@ export function AdminProvider({ children }) {
 
   const setProductsP = (updater) => setProducts(prev => {
     const next = typeof updater === 'function' ? updater(prev) : updater;
-    persist('mj-products', next);
+    persist('ecg-products', next);
     return next;
   });
   const setOrdersP = (updater) => setOrders(prev => {
     const next = typeof updater === 'function' ? updater(prev) : updater;
-    persist('mj-orders', next);
+    persist('ecg-orders', next);
     return next;
   });
   const setCustomersP = (updater) => setCustomers(prev => {
     const next = typeof updater === 'function' ? updater(prev) : updater;
-    persist('mj-customers', next);
+    persist('ecg-customers', next);
     return next;
   });
   const setInventoryLogP = (updater) => setInventoryLog(prev => {
     const next = typeof updater === 'function' ? updater(prev) : updater;
-    persist('mj-inventory-log', next);
+    persist('ecg-inventory-log', next);
     return next;
   });
   const setReviewsP = (updater) => setReviews(prev => {
     const next = typeof updater === 'function' ? updater(prev) : updater;
-    persist('mj-reviews', next);
+    persist('ecg-reviews', next);
     return next;
   });
 
   // Authentication
   const login = useCallback((email, password) => {
     if (email.trim().toLowerCase() === 'mesfin@mj.com' && password === 'Mesfin@1080') {
-      sessionStorage.setItem('mj-admin-auth', 'true');
+      sessionStorage.setItem('ecg-admin-auth', 'true');
       setIsAuthenticated(true);
       return { success: true };
     }
@@ -77,13 +77,13 @@ export function AdminProvider({ children }) {
   }, []);
 
   const logout = useCallback(() => {
-    sessionStorage.removeItem('mj-admin-auth');
+    sessionStorage.removeItem('ecg-admin-auth');
     setIsAuthenticated(false);
   }, []);
 
   // Product CRUD
   const addProduct = useCallback((product) => {
-    setProductsP(prev => [...prev, { ...product, id: Date.now(), stock: product.stock || 0, lowStockThreshold: product.lowStockThreshold || 3, sku: product.sku || `MJ-${Date.now()}` }]);
+    setProductsP(prev => [...prev, { ...product, id: Date.now(), stock: product.stock || 0, lowStockThreshold: product.lowStockThreshold || 3, sku: product.sku || `ECG-${Date.now()}` }]);
   }, []);
 
   const updateProduct = useCallback((id, updates) => {

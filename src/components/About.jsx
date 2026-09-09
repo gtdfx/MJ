@@ -65,7 +65,7 @@ const About = () => {
             <div className="w-16 h-[1px] bg-gold mb-6 md:mb-8" />
 
             <p className="text-white/70 font-light leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
-              For over a century, MJ has been synonymous with exceptional artistry
+              Etho-Can Gemstones is synonymous with exceptional opals
               and uncompromising quality. Each piece in our collection is a testament
               to the dedication of our master jewelers, who combine time-honored
               techniques with contemporary design.
