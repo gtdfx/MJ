@@ -53,3 +53,14 @@ and replace `ADMIN_PASSWORD_HASH`.
 ## Deployment
 
 Configured for Vercel (SPA rewrites + security headers in `vercel.json`).
+
+## PWA
+
+The store is installable on phones (Add to Home Screen / Install) and works
+offline via a service worker (`public/sw.js`) with a `public/manifest.webmanifest`.
+App icons in `public/icons/` are regenerated from `public/images/logo-white.png`
+with:
+
+```bash
+powershell -ExecutionPolicy Bypass -File scripts/generate-icons.ps1
+```

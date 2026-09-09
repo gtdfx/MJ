@@ -29,6 +29,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import NotFoundPage from './pages/NotFoundPage';
 import CookieConsent from './components/CookieConsent';
+import InstallPrompt from './components/InstallPrompt';
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
                 <Footer />
                 <CartSidebar />
                 <CookieConsent />
+                <InstallPrompt />
               </div>
             } />
           </Routes>
