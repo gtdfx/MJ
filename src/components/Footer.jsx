@@ -1,5 +1,27 @@
 import { Link } from 'react-router-dom';
-import { Globe, Heart, Share2, Phone, Mail, MapPin } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
+
+/* Brand glyphs — lucide removed brand icons, so draw them in the same stroke style */
+const InstagramIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+  </svg>
+);
+
+const FacebookIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+
+const TelegramIcon = (props) => (
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <line x1="22" y1="2" x2="11" y2="13" />
+    <polygon points="22 2 15 22 11 13 2 9 22 2" />
+  </svg>
+);
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -13,7 +35,7 @@ const Footer = () => {
             <Link to="/" aria-label="Etho-Can Gemstones — Home" className="inline-flex items-center gap-3 mb-4 md:mb-6">
               <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-11 h-11 object-contain" />
               <span className="flex flex-col leading-none">
-                <span className="font-playfair text-xl md:text-2xl tracking-[2px] uppercase">Etho-Can</span>
+                <span className="font-brand text-xl md:text-2xl tracking-[2px] uppercase">Etho-Can</span>
                 <span aria-hidden="true" className="flex justify-between uppercase text-[9px] md:text-[10px] text-gold mt-1">
                   {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
                 </span>
@@ -24,14 +46,14 @@ const Footer = () => {
               and polished. Every stone hand-selected and sold by gram & carat.
             </p>
             <div className="flex gap-3">
-              <a href="#" aria-label="Instagram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
-                <Heart size={16} />
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
+                <InstagramIcon />
               </a>
-              <a href="#" aria-label="Facebook" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
-                <Globe size={16} />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
+                <FacebookIcon />
               </a>
-              <a href="#" aria-label="Twitter" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
-                <Share2 size={16} />
+              <a href="https://t.me" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
+                <TelegramIcon />
               </a>
             </div>
           </div>
@@ -42,16 +64,20 @@ const Footer = () => {
               Shop
             </h4>
             <ul className="space-y-2 md:space-y-3">
-              {['Rough Opal', 'Crystal Opal', 'Polished Opal'].map((item) => (
-                <li key={item}>
-                  <Link to="/shop" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
-                    {item}
+              {[
+                { name: 'Rough Opal', category: 'Rough Opal' },
+                { name: 'Crystal Opal', category: 'Crystal Opal' },
+                { name: 'Polished Opal', category: 'Polished Opal' },
+              ].map(({ name, category }) => (
+                <li key={name}>
+                  <Link to={`/shop?category=${encodeURIComponent(category)}`} className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
+                    {name}
                   </Link>
                 </li>
               ))}
               <li>
                 <Link to="/shop" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
-                  Sold by Gram & Carat
+                  All Products
                 </Link>
               </li>
             </ul>
@@ -68,13 +94,16 @@ const Footer = () => {
                   Our Story
                 </Link>
               </li>
-              {['Craftsmanship', 'Sustainability', 'Press'].map((item) => (
-                <li key={item}>
-                  <Link to="/about" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
-                    {item}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/track-order" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
+                  Track Your Order
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-white/50 text-xs md:text-sm font-light hover:text-gold transition-colors duration-300">
+                  Contact Us
+                </Link>
+              </li>
             </ul>
           </div>
 

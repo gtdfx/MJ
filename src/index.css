@@ -2,6 +2,7 @@
 
 @theme {
   --spacing: 0.25rem;
+  --font-brand: 'Cinzel', serif;
   --font-playfair: 'Playfair Display', serif;
   --font-cormorant: 'Cormorant Garamond', serif;
   --font-inter: 'Inter', sans-serif;
@@ -17,6 +18,12 @@
   --color-light-gray: #E8E4DE;
   --color-rose-gold: #B76E79;
   --color-champagne: #F7E7CE;
+}
+
+/* Brand wordmark — Roman-inscription capitals, carved like stone */
+.font-brand {
+  font-family: var(--font-brand);
+  font-weight: 600;
 }
 
 html {

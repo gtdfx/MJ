@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Diamond } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useAdmin } from '../admin/AdminContext';
 import usePageMeta from '../hooks/usePageMeta';
 
@@ -9,7 +9,16 @@ export default function ShopPage() {
   usePageMeta('Shop', 'Shop Ethiopian Welo opals — rough opal by the gram, crystal and polished opal by the carat. Certified origin.');
 
   const { products } = useAdmin();
-  const [activeCategory, setActiveCategory] = useState('All');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeCategory = searchParams.get('category') || 'All';
+
+  // Keep the URL in sync so footer/deep links and in-page filters share one state
+  const setActiveCategory = useCallback(
+    (category) => {
+      setSearchParams(category === 'All' ? {} : { category }, { replace: true });
+    },
+    [setSearchParams]
+  );
 
   // Live categories — new admin-added product types appear automatically
   const categories = ['All', ...new Set(products.map(p => p.type).filter(Boolean))];

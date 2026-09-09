@@ -94,7 +94,7 @@ const Navbar = () => {
                 className="w-9 h-9 md:w-11 md:h-11 object-contain transition-all duration-500 group-hover:scale-105"
               />
               <span className="flex flex-col leading-none">
-                <span className={`font-playfair text-xl md:text-2xl lg:text-3xl tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
+                <span className={`font-brand text-xl md:text-2xl lg:text-3xl tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
                   navScrolled ? 'text-charcoal' : 'text-white'
                 }`}>
                   Etho-Can
@@ -164,7 +164,7 @@ const Navbar = () => {
             <div className="flex items-center gap-3 mb-12">
               <img src="/images/logo-black.png" alt="Etho-Can Gemstones logo" className="w-11 h-11 object-contain" />
               <span className="flex flex-col leading-none">
-                <span className="font-playfair text-2xl tracking-[2px] uppercase text-charcoal">Etho-Can</span>
+                <span className="font-brand text-2xl tracking-[2px] uppercase text-charcoal">Etho-Can</span>
                 <span aria-hidden="true" className="flex justify-between uppercase text-[9px] text-gold mt-1">
                   {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
                 </span>
