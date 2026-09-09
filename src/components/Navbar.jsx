@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Search, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import SearchOverlay from './SearchOverlay';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { totalItems, setIsOpen } = useCart();
   const location = useLocation();
   const isHome = location.pathname === '/';
@@ -13,7 +15,6 @@ const Navbar = () => {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -126,6 +127,8 @@ const Navbar = () => {
             {/* Icons */}
             <div className="flex items-center gap-3 md:gap-5">
               <button
+                onClick={() => setIsSearchOpen(true)}
+                aria-label="Search products"
                 className={`hidden md:block p-2 transition-colors duration-300 hover:text-gold ${
                   navScrolled ? 'text-charcoal' : 'text-white'
                 }`}
@@ -161,6 +164,16 @@ const Navbar = () => {
           isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
         }`}>
           <div className="pt-24 px-8">
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                setIsSearchOpen(true);
+              }}
+              className="w-full flex items-center gap-3 py-4 mb-6 border border-light-gray px-4 text-charcoal/60 hover:border-gold hover:text-charcoal transition-colors"
+            >
+              <Search size={18} className="text-gold" />
+              <span className="text-sm tracking-[1px]">Search opals…</span>
+            </button>
             <div className="flex items-center gap-3 mb-12">
               <img src="/images/logo-black.png" alt="Ethio-Can Gemstones logo" className="w-11 h-11 object-contain" />
               <span className="flex flex-col leading-none">
@@ -183,6 +196,8 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      <SearchOverlay open={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </>
   );
 };
