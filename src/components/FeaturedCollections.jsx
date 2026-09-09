@@ -1,9 +1,18 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Diamond } from 'lucide-react';
-import { collections } from '../data/products';
+import { useAdmin } from '../admin/AdminContext';
 
 const FeaturedCollections = () => {
+  const { products, collections } = useAdmin();
+  // Live collections: prefer context; fall back to deriving from active products
+  const visibleCollections = (collections && collections.length > 0)
+    ? collections
+    : [...new Set(products.filter(p => p.active !== false).map(p => p.type))].map((type, i) => {
+        const sample = products.find(p => p.type === type);
+        return { id: `t-${i}`, name: type, description: sample?.description?.slice(0, 60) || '', image: sample?.image };
+      });
+
   return (
     <section id="collections" className="py-16 md:py-24 lg:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 md:px-6">
@@ -28,7 +37,7 @@ const FeaturedCollections = () => {
 
         {/* Collections Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
-          {collections.map((collection, index) => (
+          {visibleCollections.map((collection, index) => (
             <motion.div
               key={collection.id}
               initial={{ opacity: 0, y: 40 }}

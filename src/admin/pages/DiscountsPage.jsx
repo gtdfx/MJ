@@ -6,7 +6,7 @@ import { useAdmin } from '../AdminContext';
 const emptyCoupons = [];
 
 export default function DiscountsPage() {
-  const [coupons, setCoupons] = useState(emptyCoupons);
+  const { coupons, addCoupon, updateCoupon, deleteCoupon } = useAdmin();
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing] = useState(null);
   const [copied, setCopied] = useState(null);
@@ -28,19 +28,20 @@ export default function DiscountsPage() {
     e.preventDefault();
     const data = { ...form, value: parseFloat(form.value) || 0, minOrder: parseFloat(form.minOrder) || 0, maxUses: parseInt(form.maxUses) || 999 };
     if (editing) {
-      setCoupons(prev => prev.map(c => c.id === editing.id ? { ...c, ...data } : c));
+      updateCoupon(editing.id, data);
     } else {
-      setCoupons(prev => [...prev, { ...data, id: Date.now(), usedCount: 0, active: true }]);
+      addCoupon(data);
     }
     setShowModal(false);
   };
 
   const toggleActive = (id) => {
-    setCoupons(prev => prev.map(c => c.id === id ? { ...c, active: !c.active } : c));
+    const coupon = coupons.find(c => c.id === id);
+    updateCoupon(id, { active: !coupon.active });
   };
 
-  const deleteCoupon = (id) => {
-    if (confirm('Delete this coupon?')) setCoupons(prev => prev.filter(c => c.id !== id));
+  const handleDelete = (id) => {
+    if (confirm('Delete this coupon?')) deleteCoupon(id);
   };
 
   const copyCode = (code) => {
@@ -142,7 +143,7 @@ export default function DiscountsPage() {
                   <td className="px-5 py-3">
                     <div className="flex items-center justify-end gap-1">
                       <button onClick={() => openEdit(coupon)} className="p-1.5 hover:bg-blue-50 rounded-lg text-gray-400 hover:text-blue-600"><Edit2 size={14} /></button>
-                      <button onClick={() => deleteCoupon(coupon.id)} className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600"><Trash2 size={14} /></button>
+                      <button onClick={() => handleDelete(coupon.id)} className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600"><Trash2 size={14} /></button>
                     </div>
                   </td>
                 </tr>

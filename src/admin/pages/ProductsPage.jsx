@@ -16,6 +16,9 @@ const emptyForm = {
   image: '',
   badge: '',
   description: '',
+  stock: '',
+  lowStockThreshold: '',
+  active: true,
 };
 
 export default function ProductsPage() {
@@ -54,6 +57,9 @@ export default function ProductsPage() {
       image: product.image || '',
       badge: product.badge || '',
       description: product.description || '',
+      stock: product.stock != null ? product.stock.toString() : '',
+      lowStockThreshold: product.lowStockThreshold != null ? product.lowStockThreshold.toString() : '',
+      active: product.active !== false,
     });
     setShowModal(true);
   };
@@ -64,6 +70,9 @@ export default function ProductsPage() {
       ...formData,
       pricePerUnit: parseFloat(formData.pricePerUnit) || 0,
       availableWeights: formData.availableWeights.split(',').map(w => parseInt(w.trim())).filter(w => !isNaN(w) && w > 0),
+      stock: parseInt(formData.stock) || 0,
+      lowStockThreshold: parseInt(formData.lowStockThreshold) || 3,
+      active: formData.active,
     };
     if (editingProduct) {
       updateProduct(editingProduct.id, data);
@@ -137,7 +146,10 @@ export default function ProductsPage() {
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-3">
                       <img src={product.image} alt={product.name} className="w-10 h-10 rounded-lg object-cover" />
-                      <span className="text-sm font-medium text-gray-900">{product.name}</span>
+                      <div>
+                        <span className="text-sm font-medium text-gray-900">{product.name}</span>
+                        {product.active === false && <span className="ml-2 text-[10px] font-medium text-gray-400 bg-gray-100 px-2 py-0.5 rounded-full uppercase">Hidden</span>}
+                      </div>
                     </div>
                   </td>
                   <td className="px-5 py-3 text-sm text-gray-600">{product.type}</td>
@@ -240,9 +252,38 @@ export default function ProductsPage() {
                     <input type="text" value={formData.category} onChange={e => setFormData({ ...formData, category: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="Opal Stones" />
                   </div>
                 </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Stock Quantity *</label>
+                    <input type="number" min="0" required value={formData.stock} onChange={e => setFormData({ ...formData, stock: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="500" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Low Stock Alert At</label>
+                    <input type="number" min="0" value={formData.lowStockThreshold} onChange={e => setFormData({ ...formData, lowStockThreshold: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="3" />
+                  </div>
+                </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                  <input type="url" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="https://..." />
+                  <input type="text" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="/images/opal-rough.jpg or https://..." />
+                  {formData.image && (
+                    <div className="mt-2 flex items-center gap-3">
+                      <img src={formData.image} alt="Preview" className="w-14 h-14 rounded-lg object-cover border border-gray-200" onError={e => { e.target.style.opacity = 0.3; }} />
+                      <span className="text-xs text-gray-400">Image preview</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <div>
+                    <p className="text-sm font-medium text-gray-900">Visible on storefront</p>
+                    <p className="text-xs text-gray-500">Hidden products don't appear in the shop</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setFormData({ ...formData, active: !formData.active })}
+                    className={`relative w-11 h-6 rounded-full transition-colors ${formData.active ? 'bg-emerald-500' : 'bg-gray-200'}`}
+                  >
+                    <span className={`absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${formData.active ? 'translate-x-5' : ''}`} />
+                  </button>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>

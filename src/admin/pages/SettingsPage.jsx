@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { Save, Store, Bell, CreditCard, Truck } from 'lucide-react';
+import { useAdmin } from '../AdminContext';
 
 export default function SettingsPage() {
+  const { settings, updateSettings } = useAdmin();
+
   const [storeSettings, setStoreSettings] = useState({
-    storeName: 'Etho-Can Gemstones',
-    tagline: 'Ethiopian Welo Opals — Sold by Gram & Carat',
-    email: 'mesfinkibret@yahoo.com',
-    phone: '+1 647-719-3169',
-    address: 'Online store — worldwide shipping',
-    currency: 'USD',
-    freeShippingThreshold: '100',
+    storeName: settings.storeName,
+    tagline: settings.tagline,
+    email: settings.email,
+    phone: settings.phone,
+    address: settings.address,
+    currency: settings.currency,
+    freeShippingThreshold: String(settings.freeShippingThreshold),
   });
 
   const [notifications, setNotifications] = useState({
@@ -22,6 +25,10 @@ export default function SettingsPage() {
   const [saved, setSaved] = useState(false);
 
   const handleSave = () => {
+    updateSettings({
+      ...storeSettings,
+      freeShippingThreshold: parseFloat(storeSettings.freeShippingThreshold) || 0,
+    });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };

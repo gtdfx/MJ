@@ -1,8 +1,7 @@
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Heart, Truck, Shield, Gift, Star, Gem } from 'lucide-react';
-import { useState } from 'react';
-import { products } from '../data/products';
+import { useState, useEffect } from 'react';
 import { useCart } from '../context/CartContext';
 import { useAdmin } from '../admin/AdminContext';
 import ReviewSection from '../components/ReviewSection';
@@ -12,7 +11,7 @@ export default function ProductDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { addToCart } = useCart();
-  const { getReviewStats } = useAdmin();
+  const { products, getReviewStats } = useAdmin();
 
   const product = products.find(p => p.id === parseInt(id));
 
@@ -20,6 +19,12 @@ export default function ProductDetailPage() {
 
   const [quantity, setQuantity] = useState(1);
   const [selectedWeight, setSelectedWeight] = useState(product?.availableWeights?.[0] ?? null);
+
+  // Reset weight selection when navigating between products
+  useEffect(() => {
+    setSelectedWeight(product?.availableWeights?.[0] ?? null);
+    setQuantity(1);
+  }, [product?.id]);
 
   if (!product) {
     return (
@@ -41,6 +46,7 @@ export default function ProductDetailPage() {
   const unitPrice = isSoldByWeight ? product.pricePerUnit : product.price;
   const totalPrice = isSoldByWeight ? unitPrice * (selectedWeight || 0) : unitPrice;
   const unitLabel = product.soldBy === 'carat' ? 'ct' : 'g';
+  const inStock = product.stock > 0;
 
   const handleAddToCart = () => {
     const options = isSoldByWeight
@@ -77,12 +83,17 @@ export default function ProductDetailPage() {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-[3/4] overflow-hidden bg-ivory">
+            <div className="aspect-[3/4] overflow-hidden bg-ivory relative">
               <img
                 src={product.image}
                 alt={product.name}
-                className="w-full h-full object-cover"
+                className={`w-full h-full object-cover ${!inStock ? 'opacity-60 grayscale' : ''}`}
               />
+              {!inStock && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                  <span className="text-white text-xs tracking-[2px] uppercase font-medium bg-charcoal/90 px-4 py-2">Out of Stock</span>
+                </div>
+              )}
             </div>
             {product.badge && (
               <div className="absolute top-4 left-4 badge-gold">
@@ -124,9 +135,12 @@ export default function ProductDetailPage() {
               );
             })()}
 
-            {/* Price */}
+            {/* Price + Stock */}
             <p className="font-cormorant text-3xl md:text-4xl text-charcoal mb-2">
               ${totalPrice.toLocaleString()}
+            </p>
+            <p className={`text-xs uppercase tracking-[2px] mb-4 ${inStock ? 'text-green-600' : 'text-red-500'}`}>
+              {inStock ? `In Stock — ${product.stock} ${product.soldBy === 'carat' ? 'carats' : 'grams'} available` : 'Out of Stock'}
             </p>
             {isSoldByWeight && (
               <p className="text-medium-gray text-sm font-light mb-6">
@@ -203,8 +217,12 @@ export default function ProductDetailPage() {
 
             {/* Actions */}
             <div className="flex gap-3 mb-8">
-              <button onClick={handleAddToCart} className="btn-luxury flex-1">
-                Add to Cart
+              <button
+                onClick={handleAddToCart}
+                disabled={!inStock}
+                className="btn-luxury flex-1 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {inStock ? 'Add to Cart' : 'Out of Stock'}
               </button>
               <button className="p-4 border border-light-gray hover:border-gold hover:text-gold transition-all duration-300">
                 <Heart size={20} strokeWidth={1.5} />
@@ -257,6 +275,7 @@ export default function ProductDetailPage() {
                     <p className="font-cormorant text-lg text-charcoal mt-1">
                       ${rp.pricePerUnit} / {rp.soldBy}
                     </p>
+                    {rp.stock === 0 && <p className="text-[10px] uppercase tracking-wider text-red-400 mt-1">Out of stock</p>}
                   </div>
                 </Link>
               ))}

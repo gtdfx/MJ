@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { CreditCard, Lock, ArrowLeft, Check, ChevronDown, Truck, Shield } from 'lucide-react';
+import { CreditCard, Lock, ArrowLeft, Check, ChevronDown, Truck, Shield, Tag, X } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 import { useAdmin } from '../admin/AdminContext';
 
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
-  const { addOrder } = useAdmin();
+  const { addOrder, validateCoupon, recordCouponUse, settings } = useAdmin();
   const [step, setStep] = useState(1); // 1=shipping, 2=payment, 3=confirmation
   const [shipping, setShipping] = useState({
     firstName: '', lastName: '', email: '', phone: '',
@@ -17,9 +17,34 @@ export default function CheckoutPage() {
   const [orderPlaced, setOrderPlaced] = useState(false);
   const [placedOrderId, setPlacedOrderId] = useState(null);
 
-  const shippingCost = shippingMethod === 'express' ? 25 : shippingMethod === 'overnight' ? 50 : totalPrice >= 100 ? 0 : 15;
-  const tax = Math.round(totalPrice * 0.0888 * 100) / 100;
-  const grandTotal = totalPrice + shippingCost + tax;
+  // Coupon state
+  const [couponInput, setCouponInput] = useState('');
+  const [appliedCoupon, setAppliedCoupon] = useState(null); // { code, discount, freeShipping }
+  const [couponError, setCouponError] = useState('');
+
+  const freeThreshold = Number(settings.freeShippingThreshold) || 100;
+  const discount = appliedCoupon?.discount || 0;
+  const afterDiscount = Math.max(0, totalPrice - discount);
+  const shippingCost = shippingMethod === 'express' ? 25 : shippingMethod === 'overnight' ? 50 : (appliedCoupon?.freeShipping || afterDiscount >= freeThreshold) ? 0 : 15;
+  const tax = Math.round(afterDiscount * 0.0888 * 100) / 100;
+  const grandTotal = afterDiscount + shippingCost + tax;
+
+  const handleApplyCoupon = () => {
+    setCouponError('');
+    if (!couponInput.trim()) return;
+    const result = validateCoupon(couponInput, totalPrice);
+    if (result.valid) {
+      setAppliedCoupon({ code: result.coupon.code, discount: result.discount, freeShipping: result.freeShipping, id: result.coupon.id });
+      setCouponInput('');
+    } else {
+      setCouponError(result.error);
+    }
+  };
+
+  const removeCoupon = () => {
+    setAppliedCoupon(null);
+    setCouponError('');
+  };
 
   const handleShippingSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +54,7 @@ export default function CheckoutPage() {
 
   const handlePaymentSubmit = (e) => {
     e.preventDefault();
+    if (appliedCoupon?.id) recordCouponUse(appliedCoupon.id);
     // Create the real order in the store (visible in admin dashboard + order tracking)
     const order = addOrder({
       customer: `${shipping.firstName} ${shipping.lastName}`.trim(),
@@ -38,10 +64,15 @@ export default function CheckoutPage() {
         .filter(Boolean).join(', '),
       items: items.map(item => ({
         productId: item.id,
-        name: item.weight ? `${item.name} (${item.weight}${item.unit})` : item.name,
+        name: item.weight ? `${item.name} (${item.weight} ${item.unit === 'carat' ? 'ct' : 'g'})` : item.name,
         qty: item.quantity,
         price: item.price,
       })),
+      subtotal: totalPrice,
+      discount,
+      couponCode: appliedCoupon?.code || null,
+      shipping: shippingCost,
+      tax,
       total: grandTotal,
       notes: shippingMethod !== 'standard' ? `${shippingMethod} shipping requested` : '',
     });
@@ -307,11 +338,50 @@ export default function CheckoutPage() {
                 ))}
               </div>
 
+              {/* Coupon Code */}
+              <div className="mb-6">
+                {appliedCoupon ? (
+                  <div className="flex items-center justify-between bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2.5">
+                    <div className="flex items-center gap-2 text-sm">
+                      <Tag size={14} className="text-emerald-600" />
+                      <span className="font-mono font-medium text-emerald-700">{appliedCoupon.code}</span>
+                      <span className="text-emerald-600">
+                        {appliedCoupon.freeShipping ? '· Free shipping' : `· −$${appliedCoupon.discount.toFixed(2)}`}
+                      </span>
+                    </div>
+                    <button onClick={removeCoupon} className="p-1 hover:bg-emerald-100 rounded text-emerald-600"><X size={14} /></button>
+                  </div>
+                ) : (
+                  <>
+                    <div className="flex gap-2">
+                      <div className="relative flex-1">
+                        <Tag size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                        <input
+                          type="text"
+                          value={couponInput}
+                          onChange={e => setCouponInput(e.target.value.toUpperCase())}
+                          placeholder="Coupon code"
+                          className="w-full pl-9 pr-3 py-2.5 border border-gray-200 rounded-lg text-sm uppercase focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold"
+                        />
+                      </div>
+                      <button type="button" onClick={handleApplyCoupon} className="px-4 py-2.5 bg-charcoal hover:bg-charcoal/90 text-white rounded-lg text-sm font-medium transition-colors">Apply</button>
+                    </div>
+                    {couponError && <p className="text-red-500 text-xs mt-2">{couponError}</p>}
+                  </>
+                )}
+              </div>
+
               <div className="border-t border-gray-100 pt-4 space-y-3">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Subtotal</span>
                   <span className="text-gray-900">${totalPrice.toLocaleString()}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between text-sm text-emerald-600">
+                    <span>Discount ({appliedCoupon?.code})</span>
+                    <span>−${discount.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-500">Shipping</span>
                   <span className="text-gray-900">{shippingCost === 0 ? 'Free' : `$${shippingCost}`}</span>
@@ -330,7 +400,7 @@ export default function CheckoutPage() {
               <div className="mt-6 pt-4 border-t border-gray-100 space-y-3">
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <Truck size={14} className="text-gold shrink-0" />
-                  <span>Free shipping on orders over $100</span>
+                  <span>Free shipping on orders over ${freeThreshold}</span>
                 </div>
                 <div className="flex items-center gap-2 text-xs text-gray-500">
                   <Shield size={14} className="text-gold shrink-0" />

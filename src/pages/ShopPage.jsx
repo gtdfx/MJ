@@ -2,17 +2,22 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Diamond } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { products, categories } from '../data/products';
+import { useAdmin } from '../admin/AdminContext';
 import usePageMeta from '../hooks/usePageMeta';
 
 export default function ShopPage() {
   usePageMeta('Shop', 'Shop Ethiopian Welo opals — rough opal by the gram, crystal and polished opal by the carat. Certified origin.');
 
+  const { products } = useAdmin();
   const [activeCategory, setActiveCategory] = useState('All');
 
+  // Live categories — new admin-added product types appear automatically
+  const categories = ['All', ...new Set(products.map(p => p.type).filter(Boolean))];
+  const visibleProducts = products.filter(p => p.active !== false);
+
   const filteredProducts = activeCategory === 'All'
-    ? products
-    : products.filter(p => p.category === activeCategory);
+    ? visibleProducts
+    : visibleProducts.filter(p => p.type === activeCategory);
 
   return (
     <section className="pt-28 pb-16 md:pt-32 md:pb-24 bg-cream min-h-screen">
@@ -75,9 +80,14 @@ export default function ShopPage() {
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className={`w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 ${product.stock === 0 ? 'opacity-60 grayscale' : ''}`}
                     loading="lazy"
                   />
+                  {product.stock === 0 && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                      <span className="text-white text-xs tracking-[2px] uppercase font-medium bg-charcoal/90 px-4 py-2">Out of Stock</span>
+                    </div>
+                  )}
                   {product.badge && (
                     <div className="absolute top-3 left-3 badge-gold">
                       {product.badge}

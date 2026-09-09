@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Search, Filter, Package, ShoppingCart, Users, Settings, Tag, Warehouse, UserPlus, Edit2, Trash2, Plus, ArrowUpDown } from 'lucide-react';
+import { useState } from 'react';
+import { Search, Package, ShoppingCart, Users, Settings, Tag, Warehouse, UserPlus, LogIn } from 'lucide-react';
+import { useAdmin } from '../AdminContext';
 
 const actionIcons = {
   product: Package, order: ShoppingCart, customer: Users, settings: Settings,
-  discount: Tag, inventory: Warehouse, auth: UserPlus,
+  discount: Tag, inventory: Warehouse, auth: UserPlus, review: Tag,
 };
 const actionColors = {
   create: 'text-emerald-600 bg-emerald-50', update: 'text-blue-600 bg-blue-50',
@@ -16,9 +16,11 @@ const actionLabels = { create: 'Created', update: 'Updated', delete: 'Deleted', 
 const seedLog = [];
 
 export default function AuditLogPage() {
-  const [log] = useState(seedLog);
+  const { auditLog } = useAdmin();
   const [search, setSearch] = useState('');
   const [filterEntity, setFilterEntity] = useState('all');
+
+  const log = auditLog;
 
   const filtered = log.filter(entry => {
     const matchSearch = entry.description.toLowerCase().includes(search.toLowerCase()) || entry.entityId.toLowerCase().includes(search.toLowerCase());

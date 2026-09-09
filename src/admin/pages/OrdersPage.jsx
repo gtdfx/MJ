@@ -151,15 +151,35 @@ export default function OrdersPage() {
                         </div>
                       </div>
 
-                      {/* Items */}
-                      <div>
-                        <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Items</p>
-                        {order.items.map((item, i) => (
-                          <div key={i} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
-                            <div><p className="text-sm text-gray-900">{item.name}</p><p className="text-xs text-gray-500">Qty: {item.qty}</p></div>
-                            <p className="text-sm font-medium text-gray-900">${(item.price * item.qty).toLocaleString()}</p>
+                      {/* Items + Totals */}
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Items</p>
+                          {order.items.map((item, i) => (
+                            <div key={i} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
+                              <div><p className="text-sm text-gray-900">{item.name}</p><p className="text-xs text-gray-500">Qty: {item.qty}</p></div>
+                              <p className="text-sm font-medium text-gray-900">${(item.price * item.qty).toLocaleString()}</p>
+                            </div>
+                          ))}
+                        </div>
+                        <div>
+                          <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Totals</p>
+                          <div className="p-3 bg-gray-50 rounded-lg space-y-1.5 text-sm">
+                            {order.subtotal != null ? (
+                              <>
+                                <div className="flex justify-between"><span className="text-gray-500">Subtotal</span><span className="text-gray-900">${order.subtotal.toFixed(2)}</span></div>
+                                {order.discount > 0 && (
+                                  <div className="flex justify-between text-emerald-600"><span>Discount {order.couponCode && `(${order.couponCode})`}</span><span>−${order.discount.toFixed(2)}</span></div>
+                                )}
+                                <div className="flex justify-between"><span className="text-gray-500">Shipping</span><span className="text-gray-900">{order.shipping === 0 ? 'Free' : `$${(order.shipping || 0).toFixed(2)}`}</span></div>
+                                <div className="flex justify-between"><span className="text-gray-500">Tax</span><span className="text-gray-900">${(order.tax || 0).toFixed(2)}</span></div>
+                                <div className="flex justify-between pt-1.5 border-t border-gray-200 font-medium"><span className="text-gray-900">Total</span><span className="text-gray-900">${order.total.toFixed(2)}</span></div>
+                              </>
+                            ) : (
+                              <div className="flex justify-between font-medium"><span className="text-gray-900">Total</span><span className="text-gray-900">${order.total.toFixed(2)}</span></div>
+                            )}
                           </div>
-                        ))}
+                        </div>
                       </div>
 
                       {/* Status Timeline */}

@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Star, Search, Trash2, MessageSquare } from 'lucide-react';
+import { Star, Search, Trash2, MessageSquare, CheckCircle, XCircle } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 
 export default function ReviewsPage() {
-  const { reviews, deleteReview, products } = useAdmin();
+  const { reviews, approveReview, rejectReview, deleteReview, products } = useAdmin();
   const [search, setSearch] = useState('');
   const [filterRating, setFilterRating] = useState(0);
+  const [filterStatus, setFilterStatus] = useState('all');
 
   const productName = (productId) => {
     const p = products.find(p => p.id === productId);
@@ -19,7 +20,9 @@ export default function ReviewsPage() {
       r.author.toLowerCase().includes(search.toLowerCase()) ||
       r.title.toLowerCase().includes(search.toLowerCase());
     const matchRating = filterRating === 0 || r.rating === filterRating;
-    return matchSearch && matchRating;
+    const status = r.status || 'approved';
+    const matchStatus = filterStatus === 'all' || status === filterStatus;
+    return matchSearch && matchRating && matchStatus;
   });
 
   const avgRating = reviews.length > 0 ? (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1) : '0.0';
@@ -79,6 +82,16 @@ export default function ReviewsPage() {
         </div>
       </div>
 
+      {/* Status Filters */}
+      <div className="flex gap-2">
+        {[{ k: 'all', l: 'All' }, { k: 'pending', l: 'Pending' }, { k: 'approved', l: 'Approved' }, { k: 'rejected', l: 'Rejected' }].map(f => (
+          <button key={f.k} onClick={() => setFilterStatus(f.k)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${filterStatus === f.k ? 'bg-gold text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'}`}>
+            {f.l}
+            {f.k !== 'all' && ` (${reviews.filter(r => (r.status || 'approved') === f.k).length})`}
+          </button>
+        ))}
+      </div>
+
       {/* Reviews List */}
       <div className="space-y-3">
         {filtered.map(review => (
@@ -89,6 +102,15 @@ export default function ReviewsPage() {
                   <div className="flex gap-0.5">
                     {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} className={`${i <= review.rating ? 'text-gold fill-gold' : 'text-gray-200'}`} />)}
                   </div>
+                  {(() => {
+                    const status = review.status || 'approved';
+                    const styles = {
+                      approved: 'bg-emerald-100 text-emerald-700',
+                      pending: 'bg-amber-100 text-amber-700',
+                      rejected: 'bg-red-100 text-red-600',
+                    };
+                    return <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full uppercase tracking-wider ${styles[status]}`}>{status}</span>;
+                  })()}
                   {review.verified && (
                     <span className="text-[10px] font-medium text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Verified</span>
                   )}
@@ -106,6 +128,16 @@ export default function ReviewsPage() {
                 </div>
               </div>
               <div className="flex items-center gap-1 shrink-0">
+                {(review.status || 'approved') !== 'approved' && (
+                  <button onClick={() => approveReview(review.id)} className="p-1.5 hover:bg-emerald-50 rounded-lg text-gray-400 hover:text-emerald-600" title="Approve (show on storefront)">
+                    <CheckCircle size={16} />
+                  </button>
+                )}
+                {(review.status || 'approved') !== 'rejected' && (
+                  <button onClick={() => rejectReview(review.id)} className="p-1.5 hover:bg-amber-50 rounded-lg text-gray-400 hover:text-amber-600" title="Reject (hide from storefront)">
+                    <XCircle size={16} />
+                  </button>
+                )}
                 <button onClick={() => { if (confirm('Delete this review?')) deleteReview(review.id); }} className="p-1.5 hover:bg-red-50 rounded-lg text-gray-400 hover:text-red-600" title="Delete">
                   <Trash2 size={16} />
                 </button>
