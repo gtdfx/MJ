@@ -1,6 +1,6 @@
-# Etho-Can Gemstones — Online Store
+# Ethio-Can Gemstones — Online Store
 
-E-commerce storefront and admin dashboard for Etho-Can Gemstones, an Ethiopian
+E-commerce storefront and admin dashboard for Ethio-Can Gemstones, an Ethiopian
 Welo opal wholesaler based in Toronto (est. 2012). Products are sold by gram
 and carat: rough opal, crystal opal, and polished opal.
 

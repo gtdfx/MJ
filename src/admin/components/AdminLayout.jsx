@@ -55,9 +55,9 @@ export default function AdminLayout() {
       >
         {/* Logo */}
         <div className="flex items-center gap-3 px-5 h-16 border-b border-white/10">
-          <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-8 h-8 object-contain shrink-0" />
-          <span className="font-playfair text-base tracking-[2px] uppercase whitespace-nowrap hidden lg:inline">Etho-Can <span className="text-gold">Admin</span></span>
-          <span className="font-playfair text-base tracking-[2px] uppercase whitespace-nowrap lg:hidden">Etho-Can <span className="text-gold">Admin</span></span>
+          <img src="/images/logo-white.png" alt="Ethio-Can Gemstones logo" className="w-8 h-8 object-contain shrink-0" />
+          <span className="font-playfair text-base tracking-[2px] uppercase whitespace-nowrap hidden lg:inline">Ethio-Can <span className="text-gold">Admin</span></span>
+          <span className="font-playfair text-base tracking-[2px] uppercase whitespace-nowrap lg:hidden">Ethio-Can <span className="text-gold">Admin</span></span>
           {/* Mobile close */}
           <button onClick={() => setMobileOpen(false)} className="ml-auto text-white/50 hover:text-white transition-colors lg:hidden" aria-label="Close menu">
             <X size={20} />

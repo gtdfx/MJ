@@ -46,9 +46,9 @@ export default function AdminLoginPage() {
       >
         {/* Logo */}
         <div className="text-center mb-8">
-          <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-16 h-16 object-contain mx-auto mb-4" />
+          <img src="/images/logo-white.png" alt="Ethio-Can Gemstones logo" className="w-16 h-16 object-contain mx-auto mb-4" />
           <div className="inline-flex flex-col mx-auto">
-            <h1 className="font-brand text-3xl text-white tracking-[3px] uppercase">Etho-Can</h1>
+            <h1 className="font-brand text-3xl text-white tracking-[3px] uppercase">Ethio-Can</h1>
             <span aria-hidden="true" className="flex justify-between uppercase text-[10px] text-gold-light mt-1.5">
               {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
             </span>

@@ -73,7 +73,7 @@ const InstallPrompt = () => {
       <div className="bg-charcoal text-white border border-gold/40 shadow-2xl p-4 flex items-start gap-3">
         <img src="/icons/icon-192.png" alt="" className="w-11 h-11 shrink-0 mt-0.5" />
         <div className="flex-1 min-w-0">
-          <p className="font-brand text-sm tracking-[2px] uppercase text-white">Etho-Can</p>
+          <p className="font-brand text-sm tracking-[2px] uppercase text-white">Ethio-Can</p>
           {deferredPrompt ? (
             <>
               <p className="text-white/60 text-xs font-light mt-1 leading-relaxed">

@@ -28,7 +28,7 @@ const save = (key, value) => {
 };
 
 const DEFAULT_SETTINGS = {
-  storeName: 'Etho-Can Gemstones',
+  storeName: 'Ethio-Can Gemstones',
   tagline: 'Ethiopian Welo Opals — Sold by Gram & Carat',
   email: 'ethiocan_gemstone@yahoo.com',
   phone: '+1 647-719-3169',

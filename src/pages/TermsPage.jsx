@@ -5,7 +5,7 @@ import usePageMeta from '../hooks/usePageMeta';
 const sections = [
   {
     title: '1. Acceptance of Terms',
-    body: 'By accessing or using the Etho-Can Gemstones website, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, you should not use our website or services.',
+    body: 'By accessing or using the Ethio-Can Gemstones website, you agree to be bound by these Terms & Conditions. If you do not agree with any part of these terms, you should not use our website or services.',
   },
   {
     title: '2. Products & Pricing',
@@ -25,11 +25,11 @@ const sections = [
   },
   {
     title: '6. Intellectual Property',
-    body: 'All content on this website — including text, graphics, logos, images, and designs — is the property of Etho-Can Gemstones and protected by copyright and trademark laws. You may not reproduce, distribute, or use our content without written permission.',
+    body: 'All content on this website — including text, graphics, logos, images, and designs — is the property of Ethio-Can Gemstones and protected by copyright and trademark laws. You may not reproduce, distribute, or use our content without written permission.',
   },
   {
     title: '7. Limitation of Liability',
-    body: 'To the maximum extent permitted by law, Etho-Can Gemstones shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our website or products.',
+    body: 'To the maximum extent permitted by law, Ethio-Can Gemstones shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising from your use of our website or products.',
   },
   {
     title: '8. Governing Law',
@@ -42,7 +42,7 @@ const sections = [
 ];
 
 export default function TermsPage() {
-  usePageMeta('Terms & Conditions', 'The terms governing use of the Etho-Can Gemstones website and purchase of our products.');
+  usePageMeta('Terms & Conditions', 'The terms governing use of the Ethio-Can Gemstones website and purchase of our products.');
 
   return (
     <div className="bg-cream pt-28 md:pt-32 pb-16 md:pb-24">
@@ -66,7 +66,7 @@ export default function TermsPage() {
           className="bg-white border border-light-gray p-6 md:p-10 space-y-8"
         >
           <p className="text-medium-gray font-light leading-relaxed">
-            These Terms & Conditions govern your use of the Etho-Can Gemstones website and the purchase of our products.
+            These Terms & Conditions govern your use of the Ethio-Can Gemstones website and the purchase of our products.
             Please read them carefully before placing an order.
           </p>
           {sections.map(section => (

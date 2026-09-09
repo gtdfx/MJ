@@ -32,10 +32,10 @@ const Footer = () => {
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
           {/* Brand */}
           <div className="col-span-2 md:col-span-2 lg:col-span-1">
-            <Link to="/" aria-label="Etho-Can Gemstones — Home" className="inline-flex items-center gap-3 mb-4 md:mb-6">
-              <img src="/images/logo-white.png" alt="Etho-Can Gemstones logo" className="w-11 h-11 object-contain" />
+            <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="inline-flex items-center gap-3 mb-4 md:mb-6">
+              <img src="/images/logo-white.png" alt="Ethio-Can Gemstones logo" className="w-11 h-11 object-contain" />
               <span className="flex flex-col leading-none">
-                <span className="font-brand text-xl md:text-2xl tracking-[2px] uppercase">Etho-Can</span>
+                <span className="font-brand text-xl md:text-2xl tracking-[2px] uppercase">Ethio-Can</span>
                 <span aria-hidden="true" className="flex justify-between uppercase text-[9px] md:text-[10px] text-gold mt-1">
                   {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
                 </span>
@@ -139,7 +139,7 @@ const Footer = () => {
         <div className="border-t border-white/10 pt-6 md:pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-3 md:gap-4">
             <p className="text-white/30 text-xs md:text-sm font-light">
-              © {currentYear} Etho-Can Gemstones. All rights reserved.
+              © {currentYear} Ethio-Can Gemstones. All rights reserved.
             </p>
             <div className="flex gap-4 md:gap-6">
               <Link to="/admin" className="text-white/30 text-xs md:text-sm hover:text-gold transition-colors duration-300">

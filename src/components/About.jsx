@@ -65,7 +65,7 @@ const About = () => {
             <div className="w-16 h-[1px] bg-gold mb-6 md:mb-8" />
 
             <p className="text-white/70 font-light leading-relaxed mb-4 md:mb-6 text-sm md:text-base">
-              Since 2012, Etho-Can Gemstones has sourced authentic Ethiopian Welo
+              Since 2012, Ethio-Can Gemstones has sourced authentic Ethiopian Welo
               opals directly from the mines — rough, crystal, and polished —
               bringing uncompromising quality to jewelers, lapidaries, and
               collectors.

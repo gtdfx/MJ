@@ -28,14 +28,14 @@ const values = [
 
 const timeline = [
   { year: '2008', title: 'The Discovery', description: 'Major opal deposits found in the Welo district of Ethiopia, revealing fire rivaling Australian opals.' },
-  { year: '2012', title: 'Etho-Can Is Born', description: 'We begin sourcing directly from Welo miners — authentic rough, crystal, and polished opal, with no middlemen.' },
+  { year: '2012', title: 'Ethio-Can Is Born', description: 'We begin sourcing directly from Welo miners — authentic rough, crystal, and polished opal, with no middlemen.' },
   { year: '2016', title: 'Trusted Wholesale', description: 'Our hand-selected opals become a trusted supply for jewelers, lapidaries, and gem collectors.' },
   { year: '2020', title: 'Crystal Opal Focus', description: 'Rare transparent crystal opal parcels become our signature — the most prized of Ethiopian stones.' },
   { year: '2026', title: 'Online Boutique', description: 'Launching our digital storefront from Toronto — every stone now available worldwide, sold by gram and carat.' },
 ];
 
 export default function AboutPage() {
-  usePageMeta('About Us', 'The story of Etho-Can Gemstones — ethical sourcing of Ethiopian Welo opals, from the mines to collectors worldwide.');
+  usePageMeta('About Us', 'The story of Ethio-Can Gemstones — ethical sourcing of Ethiopian Welo opals, from the mines to collectors worldwide.');
 
   return (
     <div className="bg-cream">
@@ -98,7 +98,7 @@ export default function AboutPage() {
               </h2>
               <div className="w-16 h-[1px] bg-gold mb-6" />
               <p className="text-medium-gray font-light leading-relaxed mb-6">
-                Etho-Can Gemstones began in 2012 with a simple mission: bring authentic
+                Ethio-Can Gemstones began in 2012 with a simple mission: bring authentic
                 Ethiopian opal — in its raw, crystal, and polished forms — straight from
                 the source to the people who love it. No inflated retail markups, no
                 mystery about where your stone came from.

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
  */
 export default function usePageMeta(title, description) {
   useEffect(() => {
-    document.title = title ? `${title} — Etho-Can Gemstones` : 'Etho-Can Gemstones — Ethiopian Opals';
+    document.title = title ? `${title} — Ethio-Can Gemstones` : 'Ethio-Can Gemstones — Ethiopian Opals';
 
     if (description) {
       let meta = document.querySelector('meta[name="description"]');
