@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Search, Edit2, Trash2, X, Eye } from 'lucide-react';
 import { useAdmin } from '../AdminContext';
 import { Link } from 'react-router-dom';
+import ImageUpload from '../components/ImageUpload';
 
 const emptyForm = {
   name: '',
@@ -262,16 +263,11 @@ export default function ProductsPage() {
                     <input type="number" min="0" value={formData.lowStockThreshold} onChange={e => setFormData({ ...formData, lowStockThreshold: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="3" />
                   </div>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
-                  <input type="text" value={formData.image} onChange={e => setFormData({ ...formData, image: e.target.value })} className="w-full px-3 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gold/20 focus:border-gold" placeholder="/images/opal-rough.jpg or https://..." />
-                  {formData.image && (
-                    <div className="mt-2 flex items-center gap-3">
-                      <img src={formData.image} alt="Preview" className="w-14 h-14 rounded-lg object-cover border border-gray-200" onError={e => { e.target.style.opacity = 0.3; }} />
-                      <span className="text-xs text-gray-400">Image preview</span>
-                    </div>
-                  )}
-                </div>
+                <ImageUpload
+                  label="Product Image"
+                  value={formData.image}
+                  onChange={img => setFormData({ ...formData, image: img })}
+                />
                 <div className="flex items-center justify-between py-2">
                   <div>
                     <p className="text-sm font-medium text-gray-900">Visible on storefront</p>
