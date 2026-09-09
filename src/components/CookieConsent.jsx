@@ -28,7 +28,7 @@ const CookieConsent = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 p-4 md:p-6">
+    <div className="fixed bottom-20 md:bottom-0 left-0 right-0 z-40 p-4 md:p-6">
       <div className="max-w-3xl mx-auto bg-charcoal text-white border border-gold/30 shadow-2xl p-5 md:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 md:gap-6">
         <div className="flex items-start gap-3 flex-1">
           <Cookie size={24} className="text-gold shrink-0 mt-0.5" />

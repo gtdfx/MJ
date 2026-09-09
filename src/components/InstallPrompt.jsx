@@ -69,7 +69,7 @@ const InstallPrompt = () => {
   if (!deferredPrompt && !showIosHint) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 z-40 md:left-auto md:right-6 md:bottom-6 md:max-w-sm">
+    <div className="fixed bottom-24 md:bottom-6 left-4 right-4 z-40 md:left-auto md:right-6 md:max-w-sm">
       <div className="bg-charcoal text-white border border-gold/40 shadow-2xl p-4 flex items-start gap-3">
         <img src="/icons/icon-192.png" alt="" className="w-11 h-11 shrink-0 mt-0.5" />
         <div className="flex-1 min-w-0">

@@ -1,9 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useState } from 'react';
 import { CartProvider } from './context/CartContext';
 import { AdminProvider } from './admin/AdminContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import BottomNav from './components/BottomNav';
 import CartSidebar from './components/CartSidebar';
+import SearchOverlay from './components/SearchOverlay';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ShopPage from './pages/ShopPage';
@@ -32,6 +35,9 @@ import CookieConsent from './components/CookieConsent';
 import InstallPrompt from './components/InstallPrompt';
 
 function App() {
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const openSearch = () => setIsSearchOpen(true);
+
   return (
     <BrowserRouter>
       <CartProvider>
@@ -57,7 +63,7 @@ function App() {
             {/* Store Routes — with navbar/footer */}
             <Route path="*" element={
               <div className="min-h-screen bg-cream flex flex-col">
-                <Navbar />
+                <Navbar onOpenSearch={openSearch} />
                 <main className="flex-1">
                   <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -73,6 +79,8 @@ function App() {
                   </Routes>
                 </main>
                 <Footer />
+                <BottomNav onSearch={openSearch} />
+                <SearchOverlay open={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
                 <CartSidebar />
                 <CookieConsent />
                 <InstallPrompt />

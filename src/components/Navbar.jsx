@@ -1,20 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Search, ShoppingBag } from 'lucide-react';
+import { Search, ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import SearchOverlay from './SearchOverlay';
 
-const Navbar = () => {
+const Navbar = ({ onOpenSearch }) => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { totalItems, setIsOpen } = useCart();
   const location = useLocation();
   const isHome = location.pathname === '/';
 
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-  }, [location.pathname]);
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -36,80 +30,70 @@ const Navbar = () => {
   const navScrolled = isScrolled || !isHome;
 
   return (
-    <>
-      <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          navScrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-black/5'
-            : 'bg-black/30 backdrop-blur-sm'
-        }`}
-      >
-        {/* Top Bar - hidden on mobile */}
-        <div className={`border-b transition-all duration-500 hidden md:block ${
-          navScrolled
-            ? 'border-light-gray/50 h-0 overflow-hidden opacity-0'
-            : 'border-gold/20 h-9 opacity-100'
-        }`}>
-          <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-center">
-            <p className={`text-xs tracking-[3px] uppercase transition-colors duration-500 ${
-              navScrolled ? 'text-charcoal' : 'text-white/80'
-            }`}>
-              Free shipping on orders over $100 · Insured worldwide delivery
-            </p>
-          </div>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        navScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg shadow-black/5'
+          : 'bg-black/30 backdrop-blur-sm'
+      }`}
+    >
+      {/* Top Bar - hidden on mobile */}
+      <div className={`border-b transition-all duration-500 hidden md:block ${
+        navScrolled
+          ? 'border-light-gray/50 h-0 overflow-hidden opacity-0'
+          : 'border-gold/20 h-9 opacity-100'
+      }`}>
+        <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-center">
+          <p className={`text-xs tracking-[3px] uppercase transition-colors duration-500 ${
+            navScrolled ? 'text-charcoal' : 'text-white/80'
+          }`}>
+            Free shipping on orders over $100 · Insured worldwide delivery
+          </p>
         </div>
+      </div>
 
-        <div className="max-w-7xl mx-auto px-4 md:px-6">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Mobile Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`lg:hidden p-2 -ml-2 transition-colors duration-300 ${
-                navScrolled ? 'text-charcoal' : 'text-white'
-              }`}
-            >
-              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            {/* Nav Links - Left (desktop only) */}
-            <div className="hidden lg:flex items-center gap-10 flex-1">
-              {leftLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className={`text-sm tracking-[1.5px] uppercase font-light transition-all duration-300 hover:text-gold relative group ${
-                    navScrolled ? 'text-charcoal' : 'text-white'
-                  }`}
-                >
-                  {link.name}
-                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
-                </Link>
-              ))}
-            </div>
-
-            {/* Logo */}
-            <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center gap-2 md:gap-3 group shrink-0">
-              <img
-                src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
-                alt="Ethio-Can Gemstones logo"
-                className="w-9 h-9 md:w-11 md:h-11 object-contain transition-all duration-500 group-hover:scale-105"
-              />
-              <span className="flex flex-col leading-none">
-                <span className={`font-brand text-xl md:text-2xl lg:text-3xl tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
+      <div className="max-w-7xl mx-auto px-4 md:px-6">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          {/* Nav Links - Left (desktop only) */}
+          <div className="hidden lg:flex items-center gap-10 flex-1">
+            {leftLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.href}
+                className={`text-sm tracking-[1.5px] uppercase font-light transition-all duration-300 hover:text-gold relative group ${
                   navScrolled ? 'text-charcoal' : 'text-white'
-                }`}>
-                  Ethio-Can
-                </span>
-                <span aria-hidden="true" className={`flex justify-between uppercase font-light text-[8px] md:text-[9px] lg:text-[10px] mt-1 transition-colors duration-500 ${
-                  navScrolled ? 'text-gold' : 'text-gold-light'
-                }`}>
-                  {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
-                </span>
-              </span>
-            </Link>
+                }`}
+              >
+                {link.name}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gold transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ))}
+          </div>
 
-            {/* Nav Links - Right (desktop only) */}
-            <div className="hidden lg:flex items-center gap-10 flex-1 justify-end">
+          {/* Logo */}
+          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center gap-2 md:gap-3 group shrink-0">
+            <img
+              src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
+              alt="Ethio-Can Gemstones logo"
+              className="w-9 h-9 md:w-11 md:h-11 object-contain transition-all duration-500 group-hover:scale-105"
+            />
+            <span className="flex flex-col leading-none">
+              <span className={`font-brand text-xl md:text-2xl lg:text-3xl tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
+                navScrolled ? 'text-charcoal' : 'text-white'
+              }`}>
+                Ethio-Can
+              </span>
+              <span aria-hidden="true" className={`flex justify-between uppercase font-light text-[8px] md:text-[9px] lg:text-[10px] mt-1 transition-colors duration-500 ${
+                navScrolled ? 'text-gold' : 'text-gold-light'
+              }`}>
+                {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+              </span>
+            </span>
+          </Link>
+
+          {/* Nav Links - Right (desktop) + Icons (all devices) */}
+          <div className="flex items-center gap-2 md:gap-5">
+            <div className="hidden lg:flex items-center gap-10 mr-4">
               {rightLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -124,81 +108,34 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Icons */}
-            <div className="flex items-center gap-3 md:gap-5">
-              <button
-                onClick={() => setIsSearchOpen(true)}
-                aria-label="Search products"
-                className={`hidden md:block p-2 transition-colors duration-300 hover:text-gold ${
-                  navScrolled ? 'text-charcoal' : 'text-white'
-                }`}
-              >
-                <Search size={20} strokeWidth={1.5} />
-              </button>
-              <button
-                onClick={() => setIsOpen(true)}
-                className={`relative p-2 -mr-2 md:mr-0 transition-colors duration-300 hover:text-gold ${
-                  navScrolled ? 'text-charcoal' : 'text-white'
-                }`}
-              >
-                <ShoppingBag size={20} strokeWidth={1.5} />
-                {totalItems > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-gold text-white text-[10px] font-semibold w-5 h-5 rounded-full flex items-center justify-center">
-                    {totalItems}
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
-          isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      >
-        <div className="absolute inset-0 bg-black/50" onClick={() => setIsMobileMenuOpen(false)} />
-        <div className={`absolute top-0 left-0 h-full w-80 bg-white transform transition-transform duration-500 ${
-          isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        }`}>
-          <div className="pt-24 px-8">
+            {/* Desktop search — mobile uses the bottom-nav search button */}
             <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                setIsSearchOpen(true);
-              }}
-              className="w-full flex items-center gap-3 py-4 mb-6 border border-light-gray px-4 text-charcoal/60 hover:border-gold hover:text-charcoal transition-colors"
+              onClick={onOpenSearch}
+              aria-label="Search products"
+              className={`hidden md:block p-2 transition-colors duration-300 hover:text-gold ${
+                navScrolled ? 'text-charcoal' : 'text-white'
+              }`}
             >
-              <Search size={18} className="text-gold" />
-              <span className="text-sm tracking-[1px]">Search opals…</span>
+              <Search size={20} strokeWidth={1.5} />
             </button>
-            <div className="flex items-center gap-3 mb-12">
-              <img src="/images/logo-black.png" alt="Ethio-Can Gemstones logo" className="w-11 h-11 object-contain" />
-              <span className="flex flex-col leading-none">
-                <span className="font-brand text-2xl tracking-[2px] uppercase text-charcoal">Ethio-Can</span>
-                <span aria-hidden="true" className="flex justify-between uppercase text-[9px] text-gold mt-1">
-                  {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+            <button
+              onClick={() => setIsOpen(true)}
+              aria-label={`Cart, ${totalItems} items`}
+              className={`relative p-2 -mr-2 md:mr-0 transition-colors duration-300 hover:text-gold ${
+                navScrolled ? 'text-charcoal' : 'text-white'
+              }`}
+            >
+              <ShoppingBag size={20} strokeWidth={1.5} />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-gold text-white text-[10px] font-semibold w-5 h-5 rounded-full flex items-center justify-center">
+                  {totalItems}
                 </span>
-              </span>
-            </div>
-            {[...leftLinks, ...rightLinks].map((link) => (
-              <Link
-                key={link.name}
-                to={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-4 text-sm tracking-[2px] uppercase text-charcoal hover:text-gold transition-colors duration-300 border-b border-light-gray/50"
-              >
-                {link.name}
-              </Link>
-            ))}
+              )}
+            </button>
           </div>
         </div>
       </div>
-
-      <SearchOverlay open={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-    </>
+    </nav>
   );
 };
 
