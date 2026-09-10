@@ -16,13 +16,6 @@ const FacebookIcon = (props) => (
   </svg>
 );
 
-const TelegramIcon = (props) => (
-  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <line x1="22" y1="2" x2="11" y2="13" />
-    <polygon points="22 2 15 22 11 13 2 9 22 2" />
-  </svg>
-);
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -51,9 +44,6 @@ const Footer = () => {
               </a>
               <a href="https://www.facebook.com/profile.php?id=61581699849852" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
                 <FacebookIcon />
-              </a>
-              <a href="https://t.me" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
-                <TelegramIcon />
               </a>
             </div>
           </div>
