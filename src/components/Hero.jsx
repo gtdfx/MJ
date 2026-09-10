@@ -53,10 +53,10 @@ const Hero = () => {
         </div>
       ))}
 
-      {/* Decorative Elements — positioned outside the text area */}
+      {/* Decorative Elements — hidden on mobile to avoid overlapping text */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-20 -left-8 w-20 h-20 border border-white/10 rotate-45" />
-        <div className="absolute bottom-32 right-20 w-24 h-24 border border-white/5 rotate-12" />
+        <div className="hidden md:block absolute top-20 -left-8 w-20 h-20 border border-white/10 rotate-45" />
+        <div className="hidden md:block absolute bottom-32 right-20 w-24 h-24 border border-white/5 rotate-12" />
       </div>
 
       {/* Content */}

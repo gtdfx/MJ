@@ -70,8 +70,8 @@ const Navbar = ({ onOpenSearch }) => {
             ))}
           </div>
 
-          {/* Logo — centered but nudged left for visual balance */}
-          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center pl-4 gap-2 md:gap-3 group">
+          {/* Logo — centered on mobile, nudged left on desktop */}
+          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center md:pl-4 gap-2 md:gap-3 group">
             <img
               src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
               alt="Ethio-Can Gemstones logo"
