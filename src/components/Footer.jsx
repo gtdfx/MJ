@@ -46,10 +46,10 @@ const Footer = () => {
               and polished. Sorted by hand, sold by gram & carat since 2012.
             </p>
             <div className="flex gap-3">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
+              <a href="https://www.instagram.com/ethiocan_gemstone" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
                 <InstagramIcon />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
+              <a href="https://www.facebook.com/profile.php?id=61581699849852" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
                 <FacebookIcon />
               </a>
               <a href="https://t.me" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="p-2.5 border border-white/20 hover:border-gold hover:text-gold transition-all duration-300">
