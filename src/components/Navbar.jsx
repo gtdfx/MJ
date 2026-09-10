@@ -93,7 +93,7 @@ const Navbar = ({ onOpenSearch }) => {
 
           {/* Nav Links - Right (desktop) + Icons (all devices) */}
           <div className="flex items-center gap-2 md:gap-5">
-            <div className="hidden lg:flex items-center gap-10 mr-4">
+            <div className="hidden lg:flex items-center gap-10 ml-10">
               {rightLinks.map((link) => (
                 <Link
                   key={link.name}
