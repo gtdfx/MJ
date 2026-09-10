@@ -53,9 +53,47 @@ const Navbar = ({ onOpenSearch }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-20">
-          {/* Nav Links - Left (desktop only) */}
-          <div className="hidden lg:flex items-center gap-8">
+        {/* Mobile: centered logo + cart pinned to far right */}
+        <div className="flex items-center justify-center h-16 relative lg:hidden">
+          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center gap-2 group">
+            <img
+              src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
+              alt="Ethio-Can Gemstones logo"
+              className="w-9 h-9 object-contain transition-all duration-500 group-hover:scale-105"
+            />
+            <span className="flex flex-col leading-none">
+              <span className={`font-brand text-xl tracking-[2px] uppercase whitespace-nowrap transition-colors duration-500 ${
+                navScrolled ? 'text-charcoal' : 'text-white'
+              }`}>
+                Ethio-Can
+              </span>
+              <span aria-hidden="true" className={`flex justify-between uppercase font-light text-[8px] mt-1 transition-colors duration-500 ${
+                navScrolled ? 'text-gold' : 'text-gold-light'
+              }`}>
+                {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
+              </span>
+            </span>
+          </Link>
+          <button
+            onClick={() => setIsOpen(true)}
+            aria-label={`Cart, ${totalItems} items`}
+            className={`absolute right-4 p-2 transition-colors duration-300 hover:text-gold ${
+              navScrolled ? 'text-charcoal' : 'text-white'
+            }`}
+          >
+            <ShoppingBag size={20} strokeWidth={1.5} />
+            {totalItems > 0 && (
+              <span className="absolute -top-1 -right-1 bg-gold text-white text-[10px] font-semibold w-5 h-5 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
+          </button>
+        </div>
+
+        {/* Desktop: 3-column grid with links */}
+        <div className="hidden lg:grid grid-cols-[1fr_auto_1fr] items-center h-20">
+          {/* Left links */}
+          <div className="flex items-center gap-8">
             {leftLinks.map((link) => (
               <Link
                 key={link.name}
@@ -70,20 +108,20 @@ const Navbar = ({ onOpenSearch }) => {
             ))}
           </div>
 
-          {/* Logo — centered on mobile, nudged left on desktop */}
-          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center md:pl-4 gap-2 md:gap-3 group">
+          {/* Logo — centered with slight left nudge */}
+          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center pl-4 gap-3 group">
             <img
               src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
               alt="Ethio-Can Gemstones logo"
-              className="w-9 h-9 md:w-11 md:h-11 object-contain transition-all duration-500 group-hover:scale-105"
+              className="w-11 h-11 object-contain transition-all duration-500 group-hover:scale-105"
             />
             <span className="flex flex-col leading-none">
-              <span className={`font-brand text-xl md:text-2xl lg:text-[1.5rem] tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
+              <span className={`font-brand text-[1.5rem] tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
                 navScrolled ? 'text-charcoal' : 'text-white'
               }`}>
                 Ethio-Can
               </span>
-              <span aria-hidden="true" className={`flex justify-between uppercase font-light text-[8px] md:text-[9px] lg:text-[10px] mt-1 transition-colors duration-500 ${
+              <span aria-hidden="true" className={`flex justify-between uppercase font-light text-[10px] mt-1 transition-colors duration-500 ${
                 navScrolled ? 'text-gold' : 'text-gold-light'
               }`}>
                 {'Gemstones'.split('').map((ch, i) => <span key={i}>{ch}</span>)}
@@ -91,9 +129,9 @@ const Navbar = ({ onOpenSearch }) => {
             </span>
           </Link>
 
-          {/* Nav Links - Right (desktop) + Icons (all devices) */}
-          <div className="flex items-center justify-end gap-2 md:gap-5">
-            <div className="hidden lg:flex items-center gap-6">
+          {/* Right links + Icons */}
+          <div className="flex items-center justify-end gap-5">
+            <div className="flex items-center gap-6">
               {rightLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -107,12 +145,10 @@ const Navbar = ({ onOpenSearch }) => {
                 </Link>
               ))}
             </div>
-
-            {/* Desktop search — mobile uses the bottom-nav search button */}
             <button
               onClick={onOpenSearch}
               aria-label="Search products"
-              className={`hidden md:block p-2 transition-colors duration-300 hover:text-gold ${
+              className={`p-2 transition-colors duration-300 hover:text-gold ${
                 navScrolled ? 'text-charcoal' : 'text-white'
               }`}
             >
@@ -121,7 +157,7 @@ const Navbar = ({ onOpenSearch }) => {
             <button
               onClick={() => setIsOpen(true)}
               aria-label={`Cart, ${totalItems} items`}
-              className={`relative p-2 -mr-2 md:mr-0 transition-colors duration-300 hover:text-gold ${
+              className={`relative p-2 transition-colors duration-300 hover:text-gold ${
                 navScrolled ? 'text-charcoal' : 'text-white'
               }`}
             >
