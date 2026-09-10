@@ -53,9 +53,9 @@ const Navbar = ({ onOpenSearch }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="flex items-center justify-between h-16 md:h-20">
+        <div className="grid grid-cols-3 items-center h-16 md:h-20">
           {/* Nav Links - Left (desktop only) */}
-          <div className="hidden lg:flex items-center gap-10 flex-1">
+          <div className="hidden lg:flex items-center gap-8">
             {leftLinks.map((link) => (
               <Link
                 key={link.name}
@@ -70,15 +70,15 @@ const Navbar = ({ onOpenSearch }) => {
             ))}
           </div>
 
-          {/* Logo */}
-          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center gap-2 md:gap-3 group shrink-0">
+          {/* Logo — always centered in its grid cell */}
+          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center gap-2 md:gap-3 group">
             <img
               src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
               alt="Ethio-Can Gemstones logo"
               className="w-9 h-9 md:w-11 md:h-11 object-contain transition-all duration-500 group-hover:scale-105"
             />
             <span className="flex flex-col leading-none">
-              <span className={`font-brand text-xl md:text-2xl lg:text-3xl tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
+              <span className={`font-brand text-xl md:text-2xl lg:text-[1.5rem] tracking-[2px] md:tracking-[3px] uppercase whitespace-nowrap transition-colors duration-500 ${
                 navScrolled ? 'text-charcoal' : 'text-white'
               }`}>
                 Ethio-Can
@@ -92,8 +92,8 @@ const Navbar = ({ onOpenSearch }) => {
           </Link>
 
           {/* Nav Links - Right (desktop) + Icons (all devices) */}
-          <div className="flex items-center gap-2 md:gap-5">
-            <div className="hidden lg:flex items-center gap-10 ml-10">
+          <div className="flex items-center justify-end gap-2 md:gap-5">
+            <div className="hidden lg:flex items-center gap-8">
               {rightLinks.map((link) => (
                 <Link
                   key={link.name}
