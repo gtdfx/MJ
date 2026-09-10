@@ -70,8 +70,8 @@ const Navbar = ({ onOpenSearch }) => {
             ))}
           </div>
 
-          {/* Logo — always centered in its grid cell */}
-          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center gap-2 md:gap-3 group">
+          {/* Logo — centered but nudged left for visual balance */}
+          <Link to="/" aria-label="Ethio-Can Gemstones — Home" className="flex items-center justify-center pl-4 gap-2 md:gap-3 group">
             <img
               src={navScrolled ? '/images/logo-black.png' : '/images/logo-white.png'}
               alt="Ethio-Can Gemstones logo"
@@ -93,12 +93,12 @@ const Navbar = ({ onOpenSearch }) => {
 
           {/* Nav Links - Right (desktop) + Icons (all devices) */}
           <div className="flex items-center justify-end gap-2 md:gap-5">
-            <div className="hidden lg:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-6">
               {rightLinks.map((link) => (
                 <Link
                   key={link.name}
                   to={link.href}
-                  className={`text-sm tracking-[1.5px] uppercase font-light transition-all duration-300 hover:text-gold relative group ${
+                  className={`text-sm tracking-[1.5px] uppercase font-light whitespace-nowrap transition-all duration-300 hover:text-gold relative group ${
                     navScrolled ? 'text-charcoal' : 'text-white'
                   }`}
                 >
