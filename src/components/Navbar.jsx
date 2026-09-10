@@ -53,7 +53,7 @@ const Navbar = ({ onOpenSearch }) => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-3 items-center h-16 md:h-20">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center h-16 md:h-20">
           {/* Nav Links - Left (desktop only) */}
           <div className="hidden lg:flex items-center gap-8">
             {leftLinks.map((link) => (

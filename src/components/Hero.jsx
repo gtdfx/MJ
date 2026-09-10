@@ -87,13 +87,13 @@ const Hero = () => {
               </motion.h1>
             </div>
 
-            <div className="overflow-hidden mb-6 md:mb-8">
+            <div className="mb-6 md:mb-8">
               <motion.h1
                 key={`subtitle-${currentSlide}`}
                 initial={{ y: 80, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.5 }}
-className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-gold font-light italic leading-[0.85]"
+                className="font-playfair text-5xl sm:text-6xl md:text-8xl lg:text-[7rem] text-gold font-light italic leading-[1] pb-2"
               >
                 {slides[currentSlide].subtitle}
               </motion.h1>
